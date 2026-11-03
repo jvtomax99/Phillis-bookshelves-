@@ -69,6 +69,7 @@ def word_times(x, text):
 SCRIPT = [
     ('open',  [], 3.0),
     ('coat',  [('reign', 563.077, 'Ebony')], .35),
+    ('wine',  [('reign', 681.972, 'Ebony')], .3),
     ('dare',  [('reign', 812.684, 'Ebony'), ('reign', 814.263, 'Ebony')], .35),
     ('reign', [], 2.5),
     ('calls', [('club', 179.103, ''), ('club', 190.05, '')], .3),
@@ -77,6 +78,10 @@ SCRIPT = [
     ('want',  [('club', 737.086, 'Ebony')], .45),
     ('end',   [], 5.2),
 ]
+# The Red Wine beat is in the original heartbeat edit and cut from the faster ones (RED_WINE=1/0 overrides)
+RED_WINE = os.environ.get('RED_WINE', '1' if MUSIC == 'pulse' else '0') == '1'
+if not RED_WINE:
+    SCRIPT = [s for s in SCRIPT if s[0] != 'wine']
 LEAD = .28   # silence at the start of a narrated scene
 GAP = .18    # between two lines in one scene
 
