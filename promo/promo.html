@@ -140,7 +140,7 @@ html,body{margin:0;background:#000;width:1080px;height:1920px;overflow:hidden}
     <div id="end-t1">Two stories.</div><div id="end-t2">One woman</div>
     <div id="end-t3" class="rgb" style="font-style:normal;font-weight:800;text-transform:uppercase;color:var(--hot);letter-spacing:-.01em">you can&rsquo;t trust.</div></div>
   <div class="abs" id="end-list" style="left:0;right:0;top:1500px;text-align:center;font:600 30px/1.7 var(--body);letter-spacing:.2em;text-transform:uppercase;color:#fffc">
-    <div>Reign Is Mine &middot; <span style="color:var(--hot)">Out now</span></div><div>Ebony: The Club &middot; <span style="color:var(--hot)">Coming soon</span></div></div>
+    <div>Reign Is Mine &middot; <span style="color:var(--hot)">Out now</span></div><div>Ebony: The Club &middot; <span style="color:var(--hot)">Out now</span></div></div>
   <div class="abs" id="end-cta" style="left:0;right:0;top:1640px;text-align:center"><span class="pill">Read or listen &middot; Link in bio</span>
     <div style="margin-top:22px;font:600 22px/1 var(--body);letter-spacing:.2em;color:#fff8">ADULTS 18+</div></div>
 </section>
@@ -161,6 +161,7 @@ const eBack = x => { const c1 = 1.9, c3 = c1 + 1; return 1 + c3 * Math.pow(x - 1
 const mix = (a, b, x) => a + (b - a) * x;
 const rnd = s => { const x = Math.sin(s * 127.1 + 311.7) * 43758.5453; return x - Math.floor(x); };
 const SRCW = 1024, SRCH = 1536;
+const PI = (id, t) => (TL.punchins && TL.punchins[id] !== undefined && t >= TL.punchins[id]) ? 1.17 : 1;
 
 // put source point (fx,fy) of a cover at frame point (px,py), at zoom z (cover px -> frame px)
 function place(img, z, fx, fy, px, py) {
@@ -220,9 +221,9 @@ function kinetic(el, v, t, opts = {}) {
 
 const R = {
   open(lt, d, t) {
-    const B = 1.55;
+    const B = TL.open ? TL.open.B : 1.55, L1 = TL.open ? TL.open.l1 : .35;
     const l1 = $('o-l1');
-    const q1 = P(lt, .35, .45);
+    const q1 = P(lt, L1, .45);
     const mv = eExpo(P(lt, B, .4));
     l1.style.opacity = q1;
     l1.style.top = mix(800, 1330, mv) + 'px';
@@ -242,13 +243,13 @@ const R = {
     $('o-l2').style.fontSize = '104px';
     $('o-kick').style.opacity = P(lt, .1, .4);
   },
-  coat(lt, d) {
+  coat(lt, d, t) {
     const z = mix(2.35, 1.95, eExpo(P(lt, 0, .5))) + .18 * P(lt, .5, d);
-    place($('coat-img'), z, 505, 720, 540, 760 - 30 * P(lt, 0, d));
+    place($('coat-img'), z * PI('coat', t), 505, 720, 540, 760 - 30 * P(lt, 0, d));
   },
-  wine(lt, d) {
+  wine(lt, d, t) {
     const z = mix(2.9, 2.45, eExpo(P(lt, 0, .5))) + .12 * P(lt, .5, d);
-    place($('wine-img'), z, 395, 690, mix(520, 560, P(lt, 0, d)), 900);
+    place($('wine-img'), z * PI('wine', t), 395, 690, mix(520, 560, P(lt, 0, d)), 900);
     const k = P(lt, .15, .4);
     $('wine-t').style.opacity = k; $('wine-t').style.transform = `translateX(${(1 - eExpo(k)) * -80}px)`;
     $('wine-t').style.letterSpacing = mix(.08, -.01, eExpo(k)) + 'em';
@@ -279,7 +280,7 @@ const R = {
   },
   calls(lt, d, t) {
     const z = mix(2.5, 1.95, eOut(P(lt, 0, d)));
-    place($('calls-img'), z, 420, 600, 560, 1000);
+    place($('calls-img'), z * PI('calls', t), 420, 600, 560, 1000);
     const [v1, v2] = TL.vo.filter(v => v.scene === 'calls');
     const pq = P(t, v1.at - .1, .25);
     const pill = $('callpill');
@@ -291,8 +292,8 @@ const R = {
     $('clock').style.opacity = cq; $('clock').style.transform = `scale(${mix(1.25, 1, eExpo(cq))})`; $('clock').style.transformOrigin = '0 50%';
     $('clock').style.filter = `blur(${(1 - eExpo(cq)) * 12}px)`;
   },
-  woman(lt, d) {
-    place($('woman-img'), mix(1.75, 1.6, P(lt, 0, d)), 525, 780, 540, 1100);
+  woman(lt, d, t) {
+    place($('woman-img'), mix(1.75, 1.6, P(lt, 0, d)) * PI('woman', t), 525, 780, 540, 1100);
     [...$('woman-big').children].forEach((el, i) => {
       const q = P(lt, .02 + i * .13, .2);
       el.style.opacity = q > 0 ? 1 : 0;
@@ -310,7 +311,7 @@ const R = {
     $('slam-txt').style.opacity = tq; $('slam-txt').style.transform = `scale(${mix(1.25, 1, eExpo(tq))})`;
   },
   want(lt, d, t) {
-    place($('want-img'), mix(1.28, 1.42, P(lt, 0, d)), 525, 760, 540, 980);
+    place($('want-img'), mix(1.28, 1.42, P(lt, 0, d)) * PI('want', t), 525, 760, 540, 980);
     kinetic($('want-k'), TL.vo.find(v => v.scene === 'want'), t, { red: w => /him!/i.test(w) });
   },
   end(lt, d) {
@@ -353,7 +354,22 @@ window.render = function (t) {
     const f = fa * Math.exp(-(t - h.t) / .09); if (f > fl) { fl = f; fc = col; }
     punch = Math.max(punch, (h.k === 'tick' ? .025 : .04) * e);
   }
-  $('cam').style.transform = `translate(${sx}px,${sy}px) scale(${1 + punch})`;
+  if (TL.kicks) for (const k of TL.kicks) {
+    if (t < k || t - k > .4) continue;
+    punch += .018 * Math.exp(-(t - k) / .11);
+  }
+  if (TL.punchins) for (const id in TL.punchins) {
+    const pt = TL.punchins[id];
+    if (t >= pt && t - pt < .3) { punch += .05 * Math.exp(-(t - pt) / .08); const f = .22 * Math.exp(-(t - pt) / .06); if (f > fl) { fl = f; fc = '#fff'; } }
+  }
+  let wx = 0, blur = 0;
+  if (TL.music === 'groove') TL.scenes.forEach((s, i) => {
+    if (i === 0 || t < s.a || t - s.a > .22) return;
+    const q = eExpo(P(t, s.a, .2)), dir = i % 2 ? 1 : -1;
+    wx += dir * (1 - q) * 260; blur = Math.max(blur, (1 - q) * 22);
+  });
+  $('cam').style.transform = `translate(${sx + wx}px,${sy}px) scale(${1 + punch})`;
+  $('cam').style.filter = blur > .5 ? `blur(${blur}px)` : 'none';
   const F = $('flash'); F.style.opacity = fl; F.style.background = fc;
   const fr = Math.floor(t * 10);
   $('grain').style.transform = `translate(${Math.floor(rnd(fr) * 200 - 100)}px,${Math.floor(rnd(fr + .5) * 200 - 100)}px)`;
