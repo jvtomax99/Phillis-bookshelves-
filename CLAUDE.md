@@ -10,6 +10,7 @@ All books are for adult readers (18+).
 - `read/<book>/index.html`: one self-contained read-along reader per book, with its narration `.mp3` and `cover.jpg` next to it. Readers save listening position and view in `localStorage`, always inside try/catch.
 - `covers/`: full size and `-sm` shelf versions of each cover.
 - `img/`: author portrait and face crop.
+- `video/`: the promo trailer for the site (`trailer.mp4`, a 720x1280 web copy, about 3.7 MB, plus `trailer-poster.jpg`). It plays in the player opened by "Watch the trailer" on the shelf and "Trailer" on each book page. Its source lives in `promo/` on the `promo-video` branch; rebuild there with `promo/make.sh`, then re-encode the web copy at 720x1280 (crf 25, max 2.5 Mbps, faststart).
 - `icons/` and `manifest.webmanifest`: the PB monogram app icon. `icons/source.png` is the master art. Home-screen icons are full squares (the phone rounds them), tab favicons keep the rounded shape with transparent corners, and `icon-maskable-512.png` has the art shrunk to about 78% for Android's circle crop. If the art changes, regenerate every size from the new source the same way.
 - `.nojekyll`: keeps GitHub Pages from running Jekyll. Do not delete.
 

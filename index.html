@@ -416,6 +416,36 @@ button{font:inherit;color:inherit}
 }
 .cap-open:hover{background:var(--ink);color:var(--wall)}
 .cap-open:focus-visible{outline:2px solid var(--crimson);outline-offset:3px}
+/* Trailer: pill on the shelf, button on the book pages, full-screen player */
+.tr-pill{
+  margin-top:10px;display:inline-flex;align-items:center;gap:9px;
+  border:0;border-radius:99px;padding:10px 18px 10px 14px;cursor:pointer;
+  background:var(--crimson);color:#fff;font:600 12px/1 var(--body);letter-spacing:.14em;text-transform:uppercase;
+}
+.tr-pill svg{width:12px;height:12px}
+.tr-pill small{font:500 11px/1 var(--body);letter-spacing:.08em;opacity:.8;text-transform:none}
+.tr-pill:hover{filter:brightness(1.12)}
+.tr-pill:focus-visible{outline:2px solid var(--ink);outline-offset:3px}
+@media (max-height:560px){.tr-pill{display:none}} /* phone landscape: no room on the shelf, the book pages still have it */
+.trailer{position:fixed;inset:0;z-index:100;display:grid;place-items:center;padding:16px;background:rgba(10,6,7,.94)}
+.trailer[hidden]{display:none}
+.trailer .tr-box{position:relative;height:min(86vh,calc((100vw - 32px) * 16 / 9));aspect-ratio:9/16}
+.trailer video{width:100%;height:100%;display:block;border-radius:14px;background:#000;object-fit:cover}
+.trailer .tr-x{
+  position:absolute;top:-6px;right:-6px;transform:translateY(-100%);width:40px;height:40px;border-radius:50%;
+  border:1px solid rgba(255,255,255,.35);background:transparent;color:#fff;cursor:pointer;display:grid;place-items:center;
+}
+.trailer .tr-x svg{width:18px;height:18px}
+.trailer .tr-x:focus-visible{outline:2px solid #fff;outline-offset:3px}
+.trailer .tr-cap{position:absolute;left:0;right:0;bottom:-28px;margin:0;text-align:center;color:rgba(255,255,255,.72);font:500 11px/1 var(--body);letter-spacing:.2em;text-transform:uppercase}
+@media (max-width:760px){
+  .trailer .tr-box{height:min(80vh,calc((100vw - 32px) * 16 / 9))}
+  .trailer .tr-x{top:auto;bottom:-10px;right:50%;transform:translate(50%,100%)}
+  .trailer .tr-cap{display:none}
+}
+@media (max-height:560px){.trailer .tr-box{height:calc(100vh - 32px)}.trailer .tr-x{top:0;right:-14px;bottom:auto;transform:translateX(100%)}}
+@media (prefers-reduced-motion:no-preference){.trailer:not([hidden]){animation:trIn .25s ease-out}}
+@keyframes trIn{from{opacity:0}}
 
 /* Footer */
 .foot{
@@ -488,6 +518,13 @@ button{font:inherit;color:inherit}
 .buy:focus-visible{outline:2px solid var(--dink);outline-offset:3px}
 .buy.is-soon{background:transparent;color:var(--dacc);box-shadow:inset 0 0 0 1px var(--dacc)}
 span.buy.is-soon{box-shadow:none;padding-inline:0;font-style:italic;text-transform:none;letter-spacing:.02em;font-size:14px}
+button.buy.tr-book{border:0;cursor:pointer;padding:15px 22px}
+.buy.tr-book svg{width:11px;height:11px}
+@media (max-width:760px){
+  button.buy.tr-book{flex:none;width:50px;height:50px;padding:0;justify-content:center}
+  .buy.tr-book span{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+  .buy.tr-book svg{width:14px;height:14px;margin-left:2px}
+}
 /* Single-column layout (phones and narrow windows): keep "Read or listen" on screen while the blurb scrolls */
 @media (max-width:760px){
   .d-cta{position:sticky;bottom:0;z-index:3;margin:30px -16px 0;padding:22px 16px calc(16px + env(safe-area-inset-bottom,0px));
@@ -565,6 +602,7 @@ span.buy.is-soon{box-shadow:none;padding-inline:0;font-style:italic;text-transfo
       <p class="cap-eyebrow" aria-hidden="true">Select a story</p>
       <p class="cap-title" id="capTitle">Pick a book</p>
       <p class="cap-meta" id="capMeta">Phillis Brown</p>
+      <button class="tr-pill" type="button" data-trailer><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M2 1l9 5-9 5z" fill="currentColor"/></svg>Watch the trailer <small>38s</small></button>
       <button class="cap-open" id="capOpen" type="button" hidden>Open the book</button>
       <div class="dots" id="dots" role="group" aria-label="Choose a book"></div>
     </div>
@@ -583,6 +621,14 @@ span.buy.is-soon{box-shadow:none;padding-inline:0;font-style:italic;text-transfo
     <span class="label c"><span class="hint-mouse">Drag or scroll the shelf · Click a spine</span><span class="hint-touch">Swipe the shelf · Tap a spine</span></span>
     <span class="label r" id="counter">01 / 02</span>
   </footer>
+</div>
+
+<div class="trailer" id="trailer" role="dialog" aria-modal="true" aria-label="Trailer: Reign Is Mine and Ebony: The Club" hidden>
+  <div class="tr-box">
+    <video id="trVideo" poster="video/trailer-poster.jpg" controls playsinline preload="none"></video>
+    <button class="tr-x" id="trClose" type="button" aria-label="Close the trailer"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+    <p class="tr-cap">Adults 18+ · Sound on</p>
+  </div>
 </div>
 
 <section class="detail" id="detail" role="dialog" aria-modal="true" aria-labelledby="dTitle" hidden>
@@ -941,6 +987,39 @@ track.addEventListener("mouseover", e => {
 track.addEventListener("mouseleave", () => { if (!sel) setCaption(null) });
 capOpen.addEventListener("click", () => sel && openBook(sel));
 
+/* Trailer player: opened from the shelf pill or a book page, Escape or the backdrop closes it */
+const trailer = $("#trailer"), trVideo = $("#trVideo");
+let trFrom = null;
+function openTrailer(from){
+  trFrom = from || null;
+  if (!trVideo.getAttribute("src")) trVideo.src = "video/trailer.mp4";
+  trailer.hidden = false;
+  $("#trClose").focus({preventScroll:true});
+  try { trVideo.currentTime = 0; } catch(_) {}
+  const p = trVideo.play(); if (p && p.catch) p.catch(() => {});
+}
+function closeTrailer(){
+  trVideo.pause();
+  trailer.hidden = true;
+  if (trFrom && trFrom.isConnected) trFrom.focus({preventScroll:true});
+}
+document.addEventListener("click", e => {
+  const t = e.target.closest("[data-trailer]");
+  if (t){ e.preventDefault(); openTrailer(t); }
+});
+$("#trClose").addEventListener("click", closeTrailer);
+trailer.addEventListener("click", e => { if (e.target === trailer) closeTrailer(); });
+addEventListener("keydown", e => {
+  if (trailer.hidden) return;
+  if (e.key === "Escape"){ e.preventDefault(); closeTrailer(); }
+  else if (e.key === "Tab"){ // keep focus inside the player
+    const f = [trVideo, $("#trClose")];
+    const i = f.indexOf(document.activeElement);
+    e.preventDefault(); f[(i + (e.shiftKey ? f.length - 1 : 1)) % f.length].focus();
+  }
+  e.stopImmediatePropagation();
+}, true);
+
 addEventListener("keydown", e => {
   if (!detail.hidden){ if (e.key === "Escape") closePage(); return; }
   if (e.key === "ArrowRight"){ e.preventDefault(); step(1); }
@@ -990,7 +1069,8 @@ function fillBook(b){
   const readBtn = b.read
     ? `<a class="buy read" href="${esc(b.read)}"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M3 5.5c3-1.3 6-1.3 9 .8 3-2.1 6-2.1 9-.8V19c-3-1.3-6-1.3-9 .8-3-2.1-6-2.1-9-.8z"/><path d="M12 6.3V19.8"/></svg>${pos ? `Continue · ${mins(pos)} of ${mins(b.duration)} min` : "Read or listen"}</a>`
     : "";
-  const cta = readBtn + (b.amazon
+  const trailerBtn = `<button type="button" class="buy is-soon tr-book" data-trailer><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M2 1l9 5-9 5z" fill="currentColor"/></svg><span>Trailer</span></button>`;
+  const cta = readBtn + trailerBtn + (b.amazon
     ? `<a class="buy${b.read ? " is-soon" : ""}" href="${esc(b.amazon)}" target="_blank" rel="noopener">Buy on Amazon</a>`
     : (b.soon ? `<span class="buy is-soon" role="note">${esc(b.soon)}</span>` : ""));
   dText.innerHTML =
