@@ -23,6 +23,7 @@ All books are for adult readers (18+).
 ## Working with the owner
 
 - **Clickable choices, always.** Whenever there are options, a suggestion or a next step, show them as clickable buttons, recommended pick first and marked "(Recommended)", with one line on why it's the pick.
+- **Show a mock of every suggestion.** Before asking the owner to choose, show what each option would look like. For anything visual, render a draft in Playwright and send the screenshot (phone width and desktop when layout differs), one per option, side by side when there are several. For text or code changes, show a short before and after in the button's preview. Build the real change only after the owner picks.
 - **Pushing is the owner's call.** Never commit or push without asking. When a change is ready, ask with buttons (for example "Push to main", "Branch + PR", "Hold off"). Pushing to `main` makes it live right away.
 - **Notify when action is needed.** Send a phone notification every time the owner has to do something: approve a push, answer a question, check something on their phone, change a setting. Name the change and what they need to do, even if they seem to be in the chat.
 - **Be honest.** Say plainly what was checked and what wasn't, what failed and what's a guess. Don't call something done without verifying it. If an idea is weak, say so and say why.
