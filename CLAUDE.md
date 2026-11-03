@@ -20,6 +20,17 @@ All books are for adult readers (18+).
 - Audio files are large (11 to 15 MB). Don't re-encode, rename or duplicate them without asking.
 - After a change, serve the repo from a parent folder so the URL includes `/phillis-bookshelves-/`, and check the page in Playwright before calling it done.
 
+- Mockups: both `index.html` and the readers put their main `<style>` in the body, after `</head>`. When injecting draft CSS for a mock, insert it before `</body>`, or the page's own rules override it and the mock lies.
+
+## Open ideas (mocked, not built)
+
+- Reader on phones: left-aligned text instead of justified (narrow columns leave big word gaps), plus a slim crimson progress bar instead of the browser's default slider. Adds about one page per book.
+- Reader auto-open: when arriving from "Read or listen", open the cover by itself instead of asking for a second tap. Trade-off: loses the open-it-yourself moment.
+- Tablet shelf: raise the 440px book-height cap in `sizeShelf()` to about 640px on screens taller than 1000px.
+- Phone landscape shelf: a compact header helps but "Open the book" is still partly cut off at 390px tall; a real fix puts the caption beside the books.
+- Unverified: arrow keys may not move between books on the desktop shelf.
+- Ebony needs its full description and a content note (it is 18+).
+
 ## Working with the owner
 
 - **Clickable choices, always.** Whenever there are options, a suggestion or a next step, show them as clickable buttons, recommended pick first and marked "(Recommended)", with one line on why it's the pick.
