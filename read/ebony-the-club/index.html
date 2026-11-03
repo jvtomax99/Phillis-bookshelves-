@@ -1,0 +1,600 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<a class="pb-shelf" href="../../index.html#ebony-the-club" onclick="if(document.referrer&&history.length>1){history.back();return false}">&larr; Phillis Brown Books</a>
+<style>.pb-shelf{position:fixed;z-index:9999;top:calc(env(safe-area-inset-top,0px) + 10px);left:max(12px,env(safe-area-inset-left,0px));padding:8px 14px;border-radius:99px;background:rgba(255,255,255,.92);color:#1F1613;font:600 11px/1 "Jost","Helvetica Neue",Arial,sans-serif;letter-spacing:.14em;text-transform:uppercase;text-decoration:none;box-shadow:0 2px 10px rgba(0,0,0,.15)}.pb-shelf:focus-visible{outline:2px solid #B0142F;outline-offset:2px}</style>
+
+<title>Ebony: The Club</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,500;0,6..96,600;1,6..96,400;1,6..96,500&family=Jost:wght@400;500&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,600;1,6..72,400&display=swap">
+<style>
+[hidden] { display: none !important; }
+/* Layout: a black satin hardcover on a dark vanity-lit surface. Opens to a two-page spread on wide screens, one page on phones.
+   Fashion-magazine type: Bodoni Moda for display, Jost for labels, Newsreader for reading.
+   Champagne marks his voice, blush rose marks hers. The cover keeps one look in both themes. */
+:root {
+  --desk: #0c090b; --desk-hi: #2b1420; --desk-ink: #f4eaed; --desk-muted: #a8939b;
+  --paper: #fffcfc; --paper-back: #f5eef0; --paper-edge: #e8dde0; --ink: #1c1518; --ink-muted: #8e7d84;
+  --gold: #9c7638; --rose: #b03d66;
+  --champagne: #dcbd8e; --champ-dark: #a7834d; --champ-light: #f6e6c9; --blush: #eeaabd;
+  --satin: #0a0809; --silk: #3b1a28;
+  --his-wash: rgba(201, 160, 98, 0.24); --her-wash: rgba(214, 104, 142, 0.16);
+  --display: "Bodoni Moda", "Didot", "Bodoni 72", "Times New Roman", serif;
+  --label: "Jost", "Futura", "Avenir Next", "Helvetica Neue", sans-serif;
+  --body: "Newsreader", "Georgia", "Times New Roman", serif;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --paper: #151013; --paper-back: #110d0f; --paper-edge: #2b2227; --ink: #f2e7ea; --ink-muted: #a3919a;
+  --gold: #dcbd8e; --rose: #ef97b0;
+  --his-wash: rgba(220, 189, 142, 0.20); --her-wash: rgba(239, 151, 176, 0.20); color-scheme: dark } }
+:root[data-theme="dark"] {
+  --paper: #151013; --paper-back: #110d0f; --paper-edge: #2b2227; --ink: #f2e7ea; --ink-muted: #a3919a;
+  --gold: #dcbd8e; --rose: #ef97b0;
+  --his-wash: rgba(220, 189, 142, 0.20); --her-wash: rgba(239, 151, 176, 0.20); color-scheme: dark }
+
+html, body { height: 100%; }
+body {
+  background: radial-gradient(ellipse 80% 60% at 50% 30%, var(--desk-hi), var(--desk) 72%) var(--desk);
+  color: var(--desk-ink); font-family: var(--body); overflow: hidden;
+  display: flex; flex-direction: column;
+  padding-left: max(12px, env(safe-area-inset-left, 0px)); padding-right: max(12px, env(safe-area-inset-right, 0px));
+  -webkit-tap-highlight-color: transparent;
+}
+.stage { flex: 1; min-height: 0; display: grid; place-items: center; padding-block: 16px 6px; }
+.book { position: relative; perspective: 2400px; touch-action: pan-y; color: var(--ink); }
+.bookshadow { position: absolute; inset: 2% 1% 0; border-radius: 6px; box-shadow: 0 30px 60px rgba(0, 0, 0, 0.6), 0 0 80px rgba(176, 61, 102, 0.12); }
+
+/* ---------- pages ---------- */
+.pg { position: absolute; top: 0; height: 100%; overflow: hidden; color: var(--ink); background: var(--paper); }
+.pg.l { left: 0; border-radius: 4px 1px 1px 4px; }
+.pg.r { right: 0; border-radius: 1px 4px 4px 1px; }
+.book > .pg.l { box-shadow: -1px 1px 0 var(--paper-edge), -3px 2px 0 var(--paper), -4px 3px 0 var(--paper-edge); }
+.book > .pg.r { box-shadow: 1px 1px 0 var(--paper-edge), 3px 2px 0 var(--paper), 4px 3px 0 var(--paper-edge); }
+.pg.l::after, .pg.r::before { content: ""; position: absolute; top: 0; bottom: 0; width: 12%; pointer-events: none; z-index: 2; }
+.pg.l::after { right: 0; background: linear-gradient(to left, rgba(20, 8, 14, 0.16), rgba(20, 8, 14, 0.04) 35%, transparent); }
+.pg.r::before { left: 0; background: linear-gradient(to right, rgba(20, 8, 14, 0.16), rgba(20, 8, 14, 0.04) 35%, transparent); }
+.single .pg.r { border-radius: 2px 5px 5px 2px; }
+.single .pg.r::before { width: 6%; }
+.pg.blank { background: var(--paper-back); }
+
+.head, .folio { position: absolute; left: 0; right: 0; text-align: center; color: var(--ink-muted); font-family: var(--label); z-index: 1; text-transform: uppercase; }
+.head { font-size: 0.6em; letter-spacing: 0.28em; text-indent: 0.28em; }
+.folio { font-size: 0.66em; letter-spacing: 0.12em; font-variant-numeric: lining-nums; }
+
+.viewport { position: absolute; overflow: hidden; color: var(--ink); }
+.flow {
+  height: 100%; column-fill: auto; font-size: var(--fs, 17px); line-height: 1.55;
+  hyphens: auto; -webkit-hyphens: auto; text-align: justify; text-rendering: optimizeLegibility;
+  font-kerning: normal; font-optical-sizing: auto;
+}
+.flow p { margin: 0; text-indent: 1.3em; orphans: 2; widows: 2; }
+.flow p.first { text-indent: 0; }
+.flow p.first::first-letter {
+  font-family: var(--display); font-weight: 500; color: var(--rose);
+  float: left; font-size: 3.2em; line-height: 0.84; padding: 0.05em 0.08em 0 0;
+}
+.flow p.first + p { clear: left; }
+.who { font-family: var(--label); text-transform: uppercase; font-size: 0.66em; letter-spacing: 0.16em; font-weight: 500; }
+.who.M { color: var(--gold); } .who.F { color: var(--rose); }
+.s { cursor: pointer; border-radius: 2px; transition: background-color 0.35s; -webkit-box-decoration-break: clone; box-decoration-break: clone; }
+.s.on.M { background: var(--his-wash); } .s.on.F { background: var(--her-wash); }
+@media (hover: hover) { .s:hover { background: rgba(176, 61, 102, 0.07); } }
+
+.line { display: block; width: 2.6em; height: 1px; background: var(--rose); margin: 0 auto; opacity: 0.8; }
+.kicker { font-family: var(--label); font-size: 0.64em; letter-spacing: 0.42em; text-indent: 0.42em; text-transform: uppercase; color: var(--ink-muted); }
+.titlepage { break-after: column; -webkit-column-break-after: always; height: 100%; box-sizing: border-box; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; gap: 1.1em; padding-bottom: 6%; }
+.titlepage h1 { font-family: var(--display); font-weight: 400; margin: 0; line-height: 0.92; font-size: 3.9em; letter-spacing: -0.01em; }
+.titlepage h1 .r { color: var(--gold); display: block; }
+.titlepage h1 .and { display: block; font-style: italic; font-size: 0.4em; color: var(--ink-muted); margin: 0.3em 0 0.14em; }
+.titlepage h1 .sc { color: var(--rose); display: block; }
+.titlepage h1 .st { display: block; font-size: 0.5em; font-style: italic; margin-top: 0.25em; }
+.titlepage .voices { display: grid; gap: 0.5em; font-family: var(--label); font-size: 0.66em; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-muted); text-align: left; }
+.titlepage .voices span { display: flex; align-items: center; gap: 0.9em; }
+.titlepage .voices i { width: 1.6em; height: 1px; flex: none; }
+.titlepage .hint { font-style: italic; font-size: 0.86em; color: var(--ink-muted); }
+
+.contents { break-after: column; -webkit-column-break-after: always; padding-top: 2.4em; }
+.contents h2 { font-family: var(--display); font-weight: 400; font-style: italic; font-size: 2.1em; text-align: center; margin: 0 0 0.45em; }
+.contents ol { list-style: none; padding: 0; margin: 1.7em 0 0; display: grid; gap: 0.7em; }
+.contents button {
+  font: inherit; color: var(--ink); background: none; border: 0; padding: 0.15em 0; width: 100%; text-align: left;
+  display: flex; align-items: baseline; gap: 0.9em; cursor: pointer; border-radius: 2px;
+}
+.contents button:hover .ct { color: var(--rose); font-style: italic; }
+.contents button:focus-visible { outline: 1px solid var(--rose); outline-offset: 4px; }
+.contents .no { flex: none; width: 1.7em; font-family: var(--label); font-size: 0.66em; letter-spacing: 0.1em; color: var(--rose); }
+.contents .ct { font-family: var(--display); font-size: 1.12em; transition: color 0.2s; }
+.contents .dots { flex: 1; min-width: 1em; }
+.contents .pn { flex: none; min-width: 1.4em; text-align: right; font-family: var(--label); font-size: 0.72em; color: var(--ink-muted); }
+
+.ch { break-before: column; -webkit-column-break-before: always; break-after: avoid; text-align: center; padding-top: 2.8em; margin-bottom: 1.7em; text-indent: 0; }
+.ch .part { font-family: var(--display); font-style: italic; font-size: 1.05em; color: var(--ink-muted); margin-bottom: 0.9em; }
+.ch .chno { font-family: var(--label); font-size: 0.62em; letter-spacing: 0.42em; text-indent: 0.42em; text-transform: uppercase; color: var(--rose); }
+.ch h2 { font-family: var(--display); font-weight: 400; font-style: italic; font-size: 2.3em; line-height: 1.02; margin: 0.35em 0 0.55em; text-wrap: balance; letter-spacing: -0.01em; }
+.endmark { text-indent: 0 !important; text-align: center; font-family: var(--display); font-size: 1.7em; font-style: italic; margin-top: 1.4em !important; }
+.endmark .line { margin-top: 0.6em; }
+.coda { text-indent: 0 !important; text-align: center; font-style: italic; color: var(--ink-muted); font-size: 0.9em; margin-top: 1.2em !important; break-inside: avoid; }
+
+/* ---------- turning leaf ---------- */
+.clone { pointer-events: none; }
+.leaf { position: absolute; top: 0; z-index: 6; transform-style: preserve-3d; pointer-events: none; }
+.face { position: absolute; inset: 0; backface-visibility: hidden; -webkit-backface-visibility: hidden; }
+.face.back { transform: rotateY(180deg); }
+.face .pg { width: 100%; }
+.lit { position: absolute; inset: 0; pointer-events: none; z-index: 5; opacity: 0; }
+.lit.fromL { background: linear-gradient(to right, rgba(16, 6, 12, 0.5), rgba(16, 6, 12, 0.1) 60%, rgba(255, 240, 245, 0.1)); }
+.lit.fromR { background: linear-gradient(to left, rgba(16, 6, 12, 0.5), rgba(16, 6, 12, 0.1) 60%, rgba(255, 240, 245, 0.1)); }
+.cast { position: absolute; top: 0; height: 100%; z-index: 5; pointer-events: none; opacity: 0; }
+
+/* ---------- black satin cover ---------- */
+.cover { position: absolute; z-index: 8; transform-style: preserve-3d; transform-origin: left center; cursor: pointer; }
+.cover .face { border-radius: 2px 6px 6px 2px; }
+.cover .front {
+  background-color: var(--satin);
+  background-image:
+    linear-gradient(to right, rgba(255, 255, 255, 0.06), transparent 2.5%, rgba(0, 0, 0, 0.7) 3.6%, rgba(255, 255, 255, 0.05) 4.6%, transparent 7%),
+    linear-gradient(118deg, transparent 18%, rgba(255, 255, 255, 0.07) 30%, transparent 41%, rgba(255, 255, 255, 0.035) 57%, transparent 68%),
+    radial-gradient(ellipse 75% 45% at 72% 18%, rgba(238, 170, 189, 0.14), transparent 70%),
+    radial-gradient(ellipse 60% 40% at 20% 92%, rgba(220, 189, 142, 0.08), transparent 70%),
+    linear-gradient(160deg, #1b1417, #070506 58%, #140f12);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.05), 0 2px 0 #000, 2px 3px 0 #000;
+  overflow: hidden;
+}
+.cover .front::after {
+  content: ""; position: absolute; inset: 0; pointer-events: none;
+  background: linear-gradient(105deg, transparent 42%, rgba(255, 235, 242, 0.09) 50%, transparent 58%);
+  background-size: 260% 100%; background-position: 130% 0; animation: sheen 9s ease-in-out infinite;
+}
+@keyframes sheen { 0%, 25% { background-position: 130% 0; } 75%, 100% { background-position: -30% 0; } }
+.cover .art { position: absolute; inset: 9% 9% 8% 12%; display: flex; flex-direction: column; align-items: center; justify-content: space-between; text-align: center; }
+.cover .lbl { font-family: var(--label); font-size: 0.6em; letter-spacing: 0.5em; text-indent: 0.5em; text-transform: uppercase; color: var(--blush); opacity: 0.85; }
+.cover .mid { display: flex; flex-direction: column; align-items: center; gap: 1.1em; }
+.cover .ttl { font-family: var(--display); font-weight: 400; line-height: 0.9; font-size: 4.8em; letter-spacing: -0.015em; }
+.cover .ttl span { display: block; }
+.cover .ttl .and { font-style: italic; font-size: 0.38em; margin: 0.35em 0 0.18em; }
+.cover .ttl .st { font-style: italic; font-size: 0.46em; margin-top: 0.3em; letter-spacing: 0.01em; }
+.sheen-text {
+  background: linear-gradient(172deg, var(--champ-light) 0%, var(--blush) 42%, var(--champagne) 70%, var(--champ-light) 100%);
+  -webkit-background-clip: text; background-clip: text; color: transparent;
+}
+.cover .line { background: var(--blush); width: 3em; }
+.cover .foot { display: flex; flex-direction: column; align-items: center; gap: 1.2em; }
+.cover .tap { font-family: var(--body); font-style: italic; font-size: 0.82em; color: var(--champagne); opacity: 0.7; animation: breathe 2.8s ease-in-out infinite; }
+@keyframes breathe { 50% { opacity: 0.3; } }
+.cover .back {
+  background: linear-gradient(115deg, #2e1420 0%, #4d2234 38%, #36182a 55%, #5a2a3e 78%, #2e1420 100%);
+  border-radius: 6px 2px 2px 6px;
+}
+.cover .back::after { content: ""; position: absolute; inset: 0; background: linear-gradient(to left, rgba(0, 0, 0, 0.45), transparent 9%); border-radius: inherit; }
+.cover:focus-visible { outline: 1px solid var(--blush); outline-offset: 6px; }
+.closed > .pg, .closed > .viewport { visibility: hidden; }
+.closed .bookshadow { inset: var(--ct, 2%) 1% var(--ct, 0px) var(--shadow-left, 50%); }
+
+#follow {
+  position: absolute; left: 50%; bottom: 14px; transform: translateX(-50%); z-index: 9;
+  font: 500 0.7rem var(--label); letter-spacing: 0.16em; text-transform: uppercase; color: #1c1015; background: var(--blush);
+  border: 0; border-radius: 999px; padding: 0.75em 1.3em; box-shadow: 0 6px 18px rgba(0, 0, 0, 0.35); cursor: pointer;
+}
+
+/* ---------- player ---------- */
+.deck { flex: none; width: 100%; max-width: 640px; margin: 0 auto; display: grid; gap: 0.4rem; padding-top: 0.5rem; padding-bottom: calc(0.7rem + env(safe-area-inset-bottom, 0px)); }
+.meta { display: flex; align-items: center; gap: 0.8rem; font-family: var(--label); font-size: 0.66rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--desk-muted); min-width: 0; }
+.meta .grow { flex: 1; }
+#pagelabel { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; min-width: 0; color: var(--desk-ink); }
+#voice { display: inline-flex; align-items: center; gap: 0.6em; white-space: nowrap; }
+#voice i { width: 1.4em; height: 1px; background: var(--champagne); }
+.prog { display: flex; align-items: center; gap: 0.7rem; }
+.time { font-family: var(--label); font-size: 0.72rem; letter-spacing: 0.06em; color: var(--desk-muted); font-variant-numeric: tabular-nums; min-width: 2.9em; }
+.time.r { text-align: right; }
+#seek { flex: 1; min-width: 0; accent-color: var(--blush); height: 20px; }
+.btns { display: flex; align-items: center; justify-content: center; gap: clamp(0.4rem, 3vw, 1.4rem); }
+.deck button { font: inherit; color: var(--desk-ink); background: none; border: 0; cursor: pointer; border-radius: 999px; display: grid; place-items: center; }
+.deck button:focus-visible { outline: 1px solid var(--blush); outline-offset: 3px; }
+.ico { width: 44px; height: 44px; }
+.ico svg { width: 24px; height: 24px; }
+.skip { position: relative; font-family: var(--label); font-size: 0.62rem; font-weight: 500; }
+.skip svg { position: absolute; inset: 9px; width: 26px; height: 26px; }
+.deck #play { width: 58px; height: 58px; color: #1a0f14; background: linear-gradient(140deg, var(--champ-light), var(--blush) 55%, #d98aa2); box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.15) inset, 0 8px 22px rgba(176, 61, 102, 0.35); }
+#play svg { width: 24px; height: 24px; }
+.deck #speed { font-family: var(--label); font-size: 0.66rem; letter-spacing: 0.1em; padding: 0.4em 0.8em; border: 1px solid rgba(238, 170, 189, 0.4); }
+@media (prefers-reduced-motion: reduce) { .s, .contents .ct { transition: none; } .cover .tap, .cover .front::after { animation: none; } }
+/* ---------- cover art: Phillis's illustrated cover ---------- */
+.cover .front { background: #fdf8f3; }
+.cover .front::after { display: none; }
+.cover .back { background: linear-gradient(115deg, #7d0b22 0%, #a8102f 45%, #860c25 70%, #a8102f 100%); }
+.cover-img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; object-position: center; display: block; }
+.cover .hinge { position: absolute; inset: 0; pointer-events: none; border-radius: inherit; background: linear-gradient(to right, rgba(40, 10, 18, 0.20), rgba(40, 10, 18, 0.04) 3%, rgba(255, 255, 255, 0.5) 4%, rgba(255, 255, 255, 0) 6.5%); box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.06); }
+
+</style>
+
+<div class="stage" id="stage">
+  <div class="book closed" id="book" aria-label="Book">
+    <div class="bookshadow"></div>
+    <div class="pg l" id="pgL"><div class="head" id="headL"></div><div class="folio" id="folL"></div></div>
+    <div class="pg r" id="pgR"><div class="head" id="headR"></div><div class="folio" id="folR"></div></div>
+    <div class="viewport" id="viewport"><div class="flow" id="flow" lang="en"></div></div>
+    <div class="cover" id="cover" role="button" tabindex="0" aria-label="Open the book">
+      <div class="face front">
+        <img class="cover-img" src="cover.jpg" alt="Ebony: The Club by Phillis Brown. A woman in a red satin dress looks at her phone, a bouquet of white roses dropped at her feet.">
+        <span class="hinge" aria-hidden="true"></span>
+      </div>
+      <div class="face back"></div>
+    </div>
+    <button id="follow" hidden>Back to the narration</button>
+  </div>
+</div>
+
+<div class="deck" role="region" aria-label="Audio player">
+  <div class="meta">
+    <span id="pagelabel">Closed</span>
+    <span class="grow"></span>
+    <span id="voice"><i></i><span id="voicename">Her voice</span></span>
+    <button id="speed" aria-label="Playback speed">1&times;</button>
+  </div>
+  <div class="prog">
+    <span class="time" id="cur">0:00</span>
+    <input id="seek" type="range" min="0" max="1000" value="0" step="1" aria-label="Position in story">
+    <span class="time r" id="dur">0:00</span>
+  </div>
+  <div class="btns">
+    <button class="ico" id="prevp" aria-label="Previous page"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 6l-6 6 6 6"/></svg></button>
+    <button class="ico skip" id="back" aria-label="Back 15 seconds"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M4 12a8 8 0 1 0 2.4-5.7"/><path d="M4 4v4h4"/></svg>15</button>
+    <button id="play" aria-label="Play">
+      <svg id="ico-play" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5.5v13a.6.6 0 0 0 .9.5l10.2-6.5a.6.6 0 0 0 0-1L8.9 5a.6.6 0 0 0-.9.5z"/></svg>
+      <svg id="ico-pause" viewBox="0 0 24 24" fill="currentColor" hidden><rect x="6.5" y="5" width="4" height="14" rx="1"/><rect x="13.5" y="5" width="4" height="14" rx="1"/></svg>
+    </button>
+    <button class="ico skip" id="fwd" aria-label="Forward 15 seconds"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M20 12a8 8 0 1 1-2.4-5.7"/><path d="M20 4v4h-4"/></svg>15</button>
+    <button class="ico" id="nextp" aria-label="Next page"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9.5 6l6 6-6 6"/></svg></button>
+  </div>
+</div>
+
+<audio id="audio" src="club.mp3" preload="metadata"></audio>
+
+<script>
+document.documentElement.lang = 'en';
+const PARAS = [{"who": "", "sents": [{"text": "Ebony. The Club.", "v": "F", "t": 0.0, "e": 1.216}]}, {"who": "", "sents": [{"text": "Ebony’s sitting comfortably in her living room, lights off, feet up on the sofa watching television, enjoying her day off from work when her phone rings, it’s Raven.", "v": "F", "t": 1.866, "e": 11.594}]}, {"who": "Raven", "sents": [{"text": "Hey Ebony! ", "v": "F", "t": 12.244, "e": 13.183}, {"text": "What’s up?", "v": "F", "t": 13.333, "e": 14.165}]}, {"who": "Ebony", "sents": [{"text": "Nothing much, glad it’s Friday.", "v": "F", "t": 14.815, "e": 16.692}]}, {"who": "Raven", "sents": [{"text": "What are you doing tonight? ", "v": "F", "t": 17.342, "e": 18.643}, {"text": "I was talking to Scarlett and we were thinking about going to “Limelight” around 10p but meet up for some drinks first, maybe at my house or Scarlett’s. ", "v": "F", "t": 18.793, "e": 28.052}, {"text": "Charli and Micah will meet us there. ", "v": "F", "t": 28.202, "e": 30.314}, {"text": "Jericho and Reign can't make it. ", "v": "F", "t": 30.464, "e": 32.235}, {"text": "You want to roll?", "v": "F", "t": 32.385, "e": 33.409}]}, {"who": "Ebony", "sents": [{"text": "Sure! ", "v": "F", "t": 34.059, "e": 34.72}, {"text": "That sounds good, I haven't been to that club in awhile. ", "v": "F", "t": 34.87, "e": 37.771}, {"text": "Let’s meet at Scarlett's. ", "v": "F", "t": 37.921, "e": 39.265}, {"text": "She's closer and no offense she makes her drinks stronger than yours, she says laughing.", "v": "F", "t": 39.415, "e": 44.194}]}, {"who": "Raven", "sents": [{"text": "You're nothing but a lush because my drinks are the bomb! ", "v": "F", "t": 44.844, "e": 47.617}, {"text": "Raven says jokingly. ", "v": "F", "t": 47.767, "e": 49.239}, {"text": "Okay, so I’ll let Scarlett know we’ll meet at her place at 8:00p.", "v": "F", "t": 49.389, "e": 53.293}]}, {"who": "Ebony", "sents": [{"text": "Alright, see you then.", "v": "F", "t": 53.943, "e": 55.223}]}, {"who": "", "sents": [{"text": "They hung up, both with renewed energy. ", "v": "F", "t": 55.873, "e": 58.049}, {"text": "Ebony was trying to decide what to wear when her phone rang again. ", "v": "F", "t": 58.199, "e": 61.549}, {"text": "This time it’s Cree. ", "v": "F", "t": 61.699, "e": 62.893}, {"text": "She has been hooking up with him for a few weeks.", "v": "F", "t": 63.043, "e": 65.241}]}, {"who": "Ebony", "sents": [{"text": "Well hello there, she answers seductively, her voice a low whisper.", "v": "F", "t": 65.891, "e": 69.539}]}, {"who": "Cree", "sents": [{"text": "Hi beautiful. ", "v": "M", "t": 70.389, "e": 71.903}, {"text": "I’ve been thinking about you all day. ", "v": "M", "t": 72.053, "e": 74.507}, {"text": "Can I come over tonight?", "v": "M", "t": 74.657, "e": 76.555}]}, {"who": "Ebony", "sents": [{"text": "Ebony loves his deep timbre, it warms her lower region immediately. ", "v": "F", "t": 77.405, "e": 81.395}, {"text": "Just hearing this man talk turns her on! ", "v": "F", "t": 81.545, "e": 83.721}, {"text": "Her panties are already getting wet. ", "v": "F", "t": 83.871, "e": 85.876}, {"text": "Uhm…she says hesitantly.", "v": "F", "t": 86.026, "e": 87.711}]}, {"who": "Cree", "sents": [{"text": "What you have plans already?", "v": "M", "t": 88.561, "e": 90.631}]}, {"who": "Ebony", "sents": [{"text": "Nothing that can’t be broken. ", "v": "F", "t": 91.481, "e": 93.081}, {"text": "Sure, come through!", "v": "F", "t": 93.231, "e": 94.319}]}, {"who": "Cree", "sents": [{"text": "Okay, I’ll be there as soon as I get off work. ", "v": "M", "t": 95.169, "e": 98.198}, {"text": "Want pizza or something?", "v": "M", "t": 98.348, "e": 100.396}]}, {"who": "Ebony", "sents": [{"text": "Anything’s good. ", "v": "F", "t": 101.246, "e": 102.291}, {"text": "Call me when you are on your way.", "v": "F", "t": 102.441, "e": 104.041}]}, {"who": "Cree", "sents": [{"text": "Will do baby girl, see you soon.", "v": "M", "t": 104.891, "e": 107.238}]}, {"who": "", "sents": [{"text": "Ebony is dreading calling Raven back, she doesn't want to hear her lip talk, she could be so bossy and judgemental sometimes! ", "v": "F", "t": 108.088, "e": 115.384}, {"text": "But, I want to see Cree, I could use some lovin’ she laughs to herself. ", "v": "F", "t": 115.534, "e": 119.289}, {"text": "Picking up the phone she dials Raven.", "v": "F", "t": 119.439, "e": 121.465}]}, {"who": "Ebony", "sents": [{"text": "Raven, I’m bailing out on you girls. ", "v": "F", "t": 122.115, "e": 124.249}, {"text": "Cree is coming over and a sister needs some good loving! ", "v": "F", "t": 124.399, "e": 127.407}, {"text": "I’ll catch y’all on the rebound.", "v": "F", "t": 127.557, "e": 129.157}]}, {"who": "Raven", "sents": [{"text": "Alright, I understand, get it girl! ", "v": "F", "t": 129.807, "e": 131.812}, {"text": "We’ll talk tomorrow.", "v": "F", "t": 131.962, "e": 133.221}]}, {"who": "Ebony", "sents": [{"text": "That was unexpectedly easy, she thinks to herself. ", "v": "F", "t": 133.871, "e": 136.793}, {"text": "“Thanks, have fun!”", "v": "F", "t": 136.943, "e": 138.074}]}, {"who": "", "sents": [{"text": "Ebony hangs up with Raven and prepares for her evening with Cree. ", "v": "F", "t": 138.724, "e": 142.415}, {"text": "She takes her shower and throws on a sweatsuit. ", "v": "F", "t": 142.565, "e": 145.039}, {"text": "He doesn't care what she's wearing as long as he gets some. ", "v": "F", "t": 145.189, "e": 147.877}, {"text": "She makes note of the time, it’s 6:30p, he should be arriving soon. ", "v": "F", "t": 148.027, "e": 152.465}, {"text": "She put some beer in the refrigerator to chill and sat down to watch the news while waiting for him. ", "v": "F", "t": 152.615, "e": 157.969}, {"text": "Ebony stirred, awakening, she had dozed off, the room was now dark, 3 hours had passed. ", "v": "F", "t": 158.119, "e": 163.453}, {"text": "Wow! ", "v": "F", "t": 163.603, "e": 164.264}, {"text": "It’s 9:30p. ", "v": "F", "t": 164.414, "e": 165.865}, {"text": "She turned the television off and picked up her cell phone to see if there were any messages from Cree. ", "v": "F", "t": 166.015, "e": 171.497}, {"text": "There were no text or voice messages from him. ", "v": "F", "t": 171.647, "e": 174.207}, {"text": "That’s weird she thinks to herself, dialing his number, I hope he’s okay.", "v": "F", "t": 174.357, "e": 178.453}]}, {"who": "", "sents": [{"text": "Ebony has called Cree’s cell phone non-stop for hours. ", "v": "F", "t": 179.103, "e": 182.047}, {"text": "She’s so nervous and worried. ", "v": "F", "t": 182.197, "e": 183.776}, {"text": "It’s not like him to not call if he had changed his mind. ", "v": "F", "t": 183.926, "e": 187.147}, {"text": "Yet, she anxiously waited to hear from him all night. ", "v": "F", "t": 187.297, "e": 189.9}, {"text": "It was already 1:00am. ", "v": "F", "t": 190.05, "e": 191.543}, {"text": "She was going through all the emotions, first worried, then angry and back to worrying. ", "v": "F", "t": 191.693, "e": 196.621}, {"text": "She couldn't take it any longer and called Raven. ", "v": "F", "t": 196.771, "e": 199.289}, {"text": "When Raven answered, she couldn't hold back and started talking fast, crying “Raven, I’m so worried about Cree, he never showed up and that’s not like him, I think something has happened to him”.", "v": "F", "t": 199.439, "e": 209.892}]}, {"who": "Raven", "sents": [{"text": "Ebony! ", "v": "F", "t": 210.542, "e": 211.267}, {"text": "Ebony! ", "v": "F", "t": 211.417, "e": 212.143}, {"text": "Calm down, we were just getting ready to call you to get your butt down here because Mr. Cree is here with someone!", "v": "F", "t": 212.293, "e": 218.159}]}, {"who": "Ebony", "sents": [{"text": "Sniffling, what? ", "v": "F", "t": 218.809, "e": 219.855}, {"text": "What do you mean?", "v": "F", "t": 220.005, "e": 220.965}]}, {"who": "Raven", "sents": [{"text": "He’s here with a woman, so stop your crying!", "v": "F", "t": 221.615, "e": 223.983}]}, {"who": "", "sents": [{"text": "Ebony didn't answer, there was a long quietness until Raven said “Hello”.", "v": "F", "t": 224.633, "e": 228.707}]}, {"who": "Ebony", "sents": [{"text": "I’m here, I’m just having a million thoughts right now! ", "v": "F", "t": 229.357, "e": 232.195}, {"text": "I’m getting dressed, I’ll be there in half an hour.", "v": "F", "t": 232.345, "e": 234.777}]}, {"who": "Raven", "sents": [{"text": "No, nevermind don’t come because he knows we all saw him and it looks as though he’s leaving, he’ll be gone by the time you get here. ", "v": "F", "t": 235.427, "e": 242.616}, {"text": "I’ll call you later in the afternoon, but stop crying, he’s not worth it if he can disregard you like this, without thinking about your feelings.", "v": "F", "t": 242.766, "e": 250.723}]}, {"who": "Ebony", "sents": [{"text": "Yes, please call me she says still crying.", "v": "F", "t": 251.373, "e": 253.635}]}, {"who": "", "sents": [{"text": "Ebony hangs up and tries his phone again. ", "v": "F", "t": 254.285, "e": 256.61}, {"text": "Of course no answer, he knows by now the girls have called me. ", "v": "F", "t": 256.76, "e": 260.173}, {"text": "She leaves him a message calling him every curse word she can think of and hangs up! ", "v": "F", "t": 260.323, "e": 264.974}, {"text": "She walks to her chair and sits down, he will eventually call me and I can’t wait to hear his excuse. ", "v": "F", "t": 265.124, "e": 270.756}, {"text": "Ebony’s so angry, her heart is beating fast and she feels a headache approaching. ", "v": "F", "t": 270.906, "e": 275.258}, {"text": "Well, I might as well take something and go to bed. ", "v": "F", "t": 275.408, "e": 278.117}, {"text": "The buzzing of her phone alarm awakens her. ", "v": "F", "t": 278.267, "e": 280.507}, {"text": "Holy crap! ", "v": "F", "t": 280.657, "e": 281.553}, {"text": "It’s 8a, Saturday morning, she was supposed to open the Hair Salon that she owns at 7:30a. ", "v": "F", "t": 281.703, "e": 288.487}, {"text": "She knew she wouldn't be able to be at work crying and not giving her clients her all. ", "v": "F", "t": 288.637, "e": 293.053}, {"text": "So she called her assistant and told her she had an emergency and couldn't make it in to cancel her clients appointment or take whichever ones she thinks she can handle.", "v": "F", "t": 293.203, "e": 302.355}]}, {"who": "", "sents": [{"text": "Raven called right after. ", "v": "F", "t": 303.005, "e": 304.499}, {"text": "Personally, I don’t know how Raven always gets up so early after hanging out but she does. ", "v": "F", "t": 304.649, "e": 309.705}, {"text": "And right now, I’m so happy she’s dependable because I need to rant and rave.", "v": "F", "t": 309.855, "e": 314.441}]}, {"who": "Ebony", "sents": [{"text": "Hi Raven, she says sadly, sniffling. ", "v": "F", "t": 315.091, "e": 317.438}, {"text": "I hope you girls had a good time last night.", "v": "F", "t": 317.588, "e": 319.871}]}, {"who": "Raven", "sents": [{"text": "It was alright, too crowded but the music was good. ", "v": "F", "t": 320.521, "e": 323.315}, {"text": "We haven't been home yet. ", "v": "F", "t": 323.465, "e": 324.831}, {"text": "We stopped at a diner. ", "v": "F", "t": 324.981, "e": 326.303}, {"text": "But how are you this morning?", "v": "F", "t": 326.453, "e": 327.84}]}, {"who": "Ebony", "sents": [{"text": "You girls been up all night? ", "v": "F", "t": 328.49, "e": 330.005}, {"text": "I’m okay. ", "v": "F", "t": 330.155, "e": 331.029}, {"text": "I really thought he liked me and we had a good thing going, she says as her voice cracks.", "v": "F", "t": 331.179, "e": 336.001}]}, {"who": "Raven", "sents": [{"text": "He doesn't deserve you Ebony. ", "v": "F", "t": 336.651, "e": 338.208}, {"text": "Listen, Scarlett and I will be there soon, see you then, love you.", "v": "F", "t": 338.358, "e": 341.707}]}, {"who": "Ebony", "sents": [{"text": "Okay Raven, thank you, love you.", "v": "F", "t": 342.357, "e": 344.32}]}, {"who": "", "sents": [{"text": "Raven and Scarlett arrive at Ebony’s apartment. ", "v": "F", "t": 344.97, "e": 347.765}, {"text": "She answers the door looking like a hot mess! ", "v": "F", "t": 347.915, "e": 350.261}, {"text": "Two hair rollers in her hair, still with her robe on, eyes red and swollen. ", "v": "F", "t": 350.411, "e": 354.571}, {"text": "Poor thing, thinks Raven, I was so happy that she had been dating Cree.", "v": "F", "t": 354.721, "e": 358.625}]}, {"who": "Raven", "sents": [{"text": "Girl! ", "v": "F", "t": 359.275, "e": 360.001}, {"text": "Raven says as Ebony holds the door open wide for them to enter. ", "v": "F", "t": 360.151, "e": 364.033}, {"text": "Scarlett and Raven look at each other, not sure what to say. ", "v": "F", "t": 364.183, "e": 367.298}, {"text": "Ebony is Raven’s long time friend. ", "v": "F", "t": 367.448, "e": 369.539}, {"text": "Scarlett is fairly new to the friendship but they hug Ebony at the same time, then Ebony really lets out the tears!", "v": "F", "t": 369.689, "e": 376.494}]}, {"who": "", "sents": [{"text": "All of them are talking at once, “he’s not worth your tears, he’s a bum, he’s so stupid” and Ebony is hugging them back nodding her head.", "v": "F", "t": 377.144, "e": 384.696}]}, {"who": "", "sents": [{"text": "Scarlett holds up a bottle! ", "v": "F", "t": 385.346, "e": 386.925}, {"text": "Wine! ", "v": "F", "t": 387.075, "e": 387.757}, {"text": "It’s never too early, let’s sit down and talk. ", "v": "F", "t": 387.907, "e": 390.382}, {"text": "They pile into Ebony's bedroom and sit. ", "v": "F", "t": 390.532, "e": 392.751}, {"text": "Ebony goes to get glasses, she feels like drinking out of the bottle she thinks to herself. ", "v": "F", "t": 392.901, "e": 397.829}, {"text": "Walking back to the bedroom, she sits on the floor, crying again and reaching for the tissues she asks “so how did that heifer look”?", "v": "F", "t": 397.979, "e": 405.339}]}, {"who": "Scarlett", "sents": [{"text": "She had nothing on you! ", "v": "F", "t": 405.989, "e": 407.354}, {"text": "Nothing at all! ", "v": "F", "t": 407.504, "e": 408.549}, {"text": "He’s crazy!", "v": "F", "t": 408.699, "e": 409.681}]}, {"who": "Raven", "sents": [{"text": "She looked like a tall amazon woman with muscles, had the nerve to have two curly pom-poms in her hair!", "v": "F", "t": 410.331, "e": 416.112}]}, {"who": "Scarlett", "sents": [{"text": "You're beautiful, and not to bash another woman but she was not.", "v": "F", "t": 416.762, "e": 420.133}]}, {"who": "Ebony", "sents": [{"text": "Thanks ladies but I know you're only trying to make me feel better.", "v": "F", "t": 420.783, "e": 424.217}]}, {"who": "Raven", "sents": [{"text": "No, we are telling you the truth! ", "v": "F", "t": 424.867, "e": 426.659}, {"text": "She had big eyes, a big nose, she was just big!", "v": "F", "t": 426.809, "e": 429.54}]}, {"who": "", "sents": [{"text": "They start describing the scene they saw, Cree sitting close to the woman very intimately, comfortably like he really knew her for a while. ", "v": "F", "t": 430.19, "e": 437.699}, {"text": "Maybe they were sitting that close so they could hear each other over the music Scarlett says, always wanting everything to be smooth. ", "v": "F", "t": 437.849, "e": 444.953}, {"text": "And that before he saw them, they had seen him dancing with her, she was dancing suggestively. ", "v": "F", "t": 445.103, "e": 450.159}, {"text": "They didn't hold any details back although they knew it would hurt her, it was best she knew it all.", "v": "F", "t": 450.309, "e": 454.896}]}, {"who": "", "sents": [{"text": "They weren't there for an hour when her doorbell rang. ", "v": "F", "t": 455.546, "e": 458.042}, {"text": "She looked at them and went to the door looking through the peephole.", "v": "F", "t": 458.192, "e": 461.371}]}, {"who": "Ebony", "sents": [{"text": "“It’s Cree” she whispered looking back at them. ", "v": "F", "t": 462.021, "e": 464.239}, {"text": "“What should I do? ", "v": "F", "t": 464.389, "e": 465.435}, {"text": "I look like a mess!” ", "v": "F", "t": 465.585, "e": 466.822}, {"text": "She asked.", "v": "F", "t": 466.972, "e": 467.889}]}, {"who": "Raven", "sents": [{"text": "Open the door, let him in, the no good bastard.", "v": "F", "t": 468.539, "e": 471.291}]}, {"who": "Scarlett", "sents": [{"text": "I’m gonna curse him out!", "v": "F", "t": 471.941, "e": 473.307}]}, {"who": "Raven", "sents": [{"text": "No one is cursing him out but Ebony! ", "v": "F", "t": 473.957, "e": 475.983}, {"text": "As a matter of fact, I think we should leave and let them talk if Ebony doesn’t feel threatened by him, she said looking at Ebony for confirmation.", "v": "F", "t": 476.133, "e": 484.048}]}, {"who": "Ebony", "sents": [{"text": "He’s a liar not a woman beater or anything. ", "v": "F", "t": 484.698, "e": 487.322}, {"text": "Yeah, y’all can leave, I’ll call you as soon as I can. ", "v": "F", "t": 487.472, "e": 490.331}, {"text": "If you stay he’s not going to stay and I want to hear his excuses.", "v": "F", "t": 490.481, "e": 494.171}]}, {"who": "", "sents": [{"text": "Raven hesitated but begrudgingly agreed. ", "v": "F", "t": 494.821, "e": 497.445}, {"text": "Ebony opened the door and they both exited, pushing past him as he was saying hello to them, very low and shameful. ", "v": "F", "t": 497.595, "e": 504.529}, {"text": "They didn't acknowledge him. ", "v": "F", "t": 504.679, "e": 506.044}, {"text": "Ebony took a deep breath, straightened her back and told him to come in…", "v": "F", "t": 506.194, "e": 509.821}]}, {"who": "", "sents": [{"text": "Cree walked into Ebony’s apartment with his head down, guilt exuding from him, holding a bouquet of flowers. ", "v": "M", "t": 510.671, "e": 516.815}, {"text": "As soon as she closed the door he lifted his head and stared at her waiting for her to start yelling at him. ", "v": "M", "t": 516.965, "e": 522.703}, {"text": "She didn't though, she stood there quietly waiting for him to start talking. ", "v": "M", "t": 522.853, "e": 526.885}, {"text": "After an awkward silence of a minute, which to Cree seemed like a half hour, he decided to start talking.", "v": "M", "t": 527.035, "e": 533.094}]}, {"who": "Cree", "sents": [{"text": "Ebony, may we sit? ", "v": "M", "t": 533.744, "e": 535.493}, {"text": "She nodded her head yes.", "v": "M", "t": 535.643, "e": 537.585}]}, {"who": "Ebony", "sents": [{"text": "She was surprised at her calmness. ", "v": "F", "t": 538.435, "e": 540.227}, {"text": "I need to change into some clothes, be right back. ", "v": "F", "t": 540.377, "e": 543.15}, {"text": "Ebony knew having him wait would make him suffer, not knowing what she was thinking or how she would act towards him.", "v": "F", "t": 543.3, "e": 549.615}]}, {"who": "", "sents": [{"text": "She returned to the living room, once again, dressed in a sweatsuit. ", "v": "F", "t": 550.265, "e": 554.019}, {"text": "When she sat on the sofa, he tried handing her the flowers. ", "v": "F", "t": 554.169, "e": 557.263}, {"text": "They were beautiful white roses but she didn't reach for them, so he continued to hold them.", "v": "F", "t": 557.413, "e": 562.042}]}, {"who": "Cree", "sents": [{"text": "He put his hand on her knee, I’m so sorry I didn't call you to let you know my plans changed. ", "v": "M", "t": 562.892, "e": 568.076}, {"text": "An old friend of mine called me crying that she needed to talk to someone, she was going through some things with her boyfriend. ", "v": "M", "t": 568.226, "e": 574.775}, {"text": "She asked if I could meet her at Limelight. ", "v": "M", "t": 574.925, "e": 577.613}, {"text": "I agreed and the next thing you know, it was so late. ", "v": "M", "t": 577.763, "e": 581.049}, {"text": "We had a couple of drinks and danced and then I put her in a cab and here I am. ", "v": "M", "t": 581.199, "e": 585.721}, {"text": "I knew Raven and Scarlett were there watching my every move.", "v": "M", "t": 585.871, "e": 589.626}]}, {"who": "Ebony", "sents": [{"text": "So you didn't think to call me, knowing I would be worried something happened to you she shouted! ", "v": "F", "t": 590.476, "e": 595.063}, {"text": "Cree! ", "v": "F", "t": 595.213, "e": 595.874}, {"text": "I thought you were hurt! ", "v": "F", "t": 596.024, "e": 597.24}, {"text": "How dare you show up here claiming you weren't with her long! ", "v": "F", "t": 597.39, "e": 600.099}, {"text": "It’s been all night!", "v": "F", "t": 600.249, "e": 601.401}]}, {"who": "", "sents": [{"text": "Cree interrupted Ebony, claiming he went to a diner alone to gather his thoughts before going to her house because he knew he had some serious explaining to do.", "v": "M", "t": 602.251, "e": 610.955}]}, {"who": "Cree", "sents": [{"text": "Like I said, “I knew Raven and Scarlett saw me and would tell you I was there with someone, so I prolonged seeing you. ", "v": "M", "t": 611.605, "e": 617.941}, {"text": "Please believe me, I know I messed up terribly, and I’m sorry for scaring you. ", "v": "M", "t": 618.091, "e": 622.721}, {"text": "Ebony, I really like you but sometimes you can be too intense, too expectant. ", "v": "M", "t": 622.871, "e": 627.607}, {"text": "I’ll be honest, it felt a little freeing to talk to Sharon last night. ", "v": "M", "t": 627.757, "e": 631.725}, {"text": "There were no expectations, I was there to listen only as a friend and it felt good.", "v": "M", "t": 631.875, "e": 636.781}]}, {"who": "", "sents": [{"text": "Again, I’m so sorry and I hope you can forgive me.", "v": "M", "t": 637.431, "e": 640.823}]}, {"who": "Ebony", "sents": [{"text": "And I’m sorry you feel like I’m smothering you Cree, that was never my intention but you should have talked to me about that.", "v": "F", "t": 641.673, "e": 648.009}]}, {"who": "Cree", "sents": [{"text": "I hope we can get past this and try to move forward with our relationship. ", "v": "M", "t": 648.859, "e": 653.083}, {"text": "I want to be with you, we just need to slow things down.", "v": "M", "t": 653.233, "e": 656.668}]}, {"who": "", "sents": [{"text": "Ebony thought about what he was saying. ", "v": "F", "t": 657.518, "e": 659.417}, {"text": "She was getting ready to say yes, I can do that, but all of a sudden she got angry, remembering how worried she was all night. ", "v": "F", "t": 659.567, "e": 666.671}, {"text": "She shook her head as if clearing her mind! ", "v": "F", "t": 666.821, "e": 669.018}, {"text": "She knew she couldn't trust him anymore and things would only get worse with her questioning his every move.", "v": "F", "t": 669.168, "e": 674.864}]}, {"who": "Ebony", "sents": [{"text": "Shouting at the top of her lungs, she said “you know what Cree, I don’t need you, I definitely don’t need anyone telling me to take it slow when I’m only showing them affection! ", "v": "F", "t": 675.514, "e": 684.837}, {"text": "You had no regard for my feelings, there was no excuse not to call me. ", "v": "F", "t": 684.987, "e": 688.933}, {"text": "I don’t accept your apology, don’t call me anymore, take your cheesy flowers and get the hell out of my house!”", "v": "F", "t": 689.083, "e": 694.822}]}, {"who": "", "sents": [{"text": "Cree tried to interrupt her, he thought his sad excuse would justify his actions. ", "v": "M", "t": 695.672, "e": 700.451}, {"text": "He was saying “Ebony, please don’t do this, we can work it out.” ", "v": "M", "t": 700.601, "e": 704.377}, {"text": "Ebony pushed him towards the door and repeated “I said get the hell out!”", "v": "F", "t": 704.727, "e": 708.652}]}, {"who": "", "sents": [{"text": "He put his hands in front of him to concede, he turned around and once outside the door he said again “Ebony, I’m so sorry, I hope you change your mind.”", "v": "M", "t": 709.502, "e": 717.907}]}, {"who": "", "sents": [{"text": "Ebony slammed the door in his face as he was talking. ", "v": "F", "t": 718.757, "e": 721.701}, {"text": "She was so angry, breathing hard and pacing back and forth! ", "v": "F", "t": 721.851, "e": 725.286}, {"text": "How dare him think she was a fool, that it would be so easy to get back in her good graces. ", "v": "F", "t": 725.436, "e": 730.321}, {"text": "She thought to herself, I have to calm down, I’m glad he made me angry, it snapped me out of my misery! ", "v": "F", "t": 730.471, "e": 736.146}, {"text": "Ha! ", "v": "F", "t": 736.296, "e": 736.936}, {"text": "He’ll want me before I want him! ", "v": "F", "t": 737.086, "e": 738.729}, {"text": "With those thoughts she went to take her shower and call the girls!", "v": "F", "t": 738.879, "e": 741.972}]}, {"who": "", "sents": [{"text": "Walking to his car, Cree knew he didn't handle that right! ", "v": "M", "t": 742.822, "e": 746.193}, {"text": "He became accusatory, blaming her for his behavior. ", "v": "M", "t": 746.343, "e": 749.884}, {"text": "Damn, I royally messed that apology up but I know Ebony and once she calms down she will forgive me. ", "v": "M", "t": 750.034, "e": 756.007}, {"text": "Raven and Scarlett had to open up their big mouths before I could talk to Ebony!", "v": "M", "t": 756.157, "e": 761.021}]}, {"who": "", "sents": [{"text": "Sunday morning, the sun was shining through Raven’s window waking her up. ", "v": "F", "t": 761.871, "e": 765.839}, {"text": "Swaddled in her fluffy white comforter, she turned over to look at the clock, wow, 8:00am, I never sleep this late. ", "v": "F", "t": 765.989, "e": 772.944}, {"text": "It’s good Jericho didn't come over or I would not have gotten any sleep, my man is insatiable and I love it she smiled to herself! ", "v": "F", "t": 773.094, "e": 780.795}, {"text": "Remembering she needed to go to the mall to return some items she wondered if the girls would want to go. ", "v": "F", "t": 780.945, "e": 786.812}, {"text": "Perhaps we can get Ebony to go, take her mind off of that no good Cree! ", "v": "F", "t": 786.962, "e": 790.781}, {"text": "Raven picked up her phone to conference call, calling Scarlett first, then Charli and finally Ebony. ", "v": "F", "t": 790.931, "e": 796.925}, {"text": "She knew it was early but that was good so they could get an early start and have all day to shop. ", "v": "F", "t": 797.075, "e": 802.345}, {"text": "They all agreed to go and enjoy the day.", "v": "F", "t": 802.495, "e": 804.585}]}, {"who": "", "sents": [{"text": "Two hours later, the four of them were in Raven's pink and white Cadillac convertible. ", "v": "F", "t": 805.235, "e": 810.099}, {"text": "The music was playing loudly and all of them were trying to talk over each other, of course about Cree and that whole fiasco. ", "v": "F", "t": 810.249, "e": 817.289}, {"text": "Scarlett was describing to Ebony again how the woman looked.", "v": "F", "t": 817.439, "e": 820.874}]}, {"who": "Scarlett", "sents": [{"text": "Ebony, seriously, she was big! ", "v": "F", "t": 821.524, "e": 823.444}, {"text": "Like everything, even her eyes!", "v": "F", "t": 823.594, "e": 825.514}]}, {"who": "Raven", "sents": [{"text": "I don't want to talk bad about anyone, and I already told you, she has nothing on you girl, you know you are beautiful. ", "v": "F", "t": 826.164, "e": 832.223}, {"text": "It’s Cree's loss and he will soon realize his mistake. ", "v": "F", "t": 832.373, "e": 835.338}, {"text": "Hey, I know this is random and earlier than I planned but since we're all together, let’s check out that new Bridal store across from the mall today. ", "v": "F", "t": 835.488, "e": 843.957}, {"text": "You know, just to get some ideas and then we can bring Jericho’s twin sisters India and Winter and my cousin Brooklyn another day. ", "v": "F", "t": 844.107, "e": 851.979}, {"text": "Scarlett, you will also have to bring Tia for her flower girl dress.", "v": "F", "t": 852.129, "e": 855.756}]}, {"who": "", "sents": [{"text": "All of them agreed, surprisingly, even Ebony got excited. ", "v": "F", "t": 856.406, "e": 859.777}, {"text": "Yes, let's do this, Ebony said happily.", "v": "F", "t": 859.927, "e": 862.423}]}, {"who": "", "sents": [{"text": "The girls did some shopping and are now going to “Belle Robes” which means beautiful dresses in French. ", "v": "F", "t": 863.073, "e": 869.003}, {"text": "They all tried on some dresses, but no final decision was made on any of them without the rest of the Bridal Party.", "v": "F", "t": 869.153, "e": 875.831}]}, {"who": "Scarlett", "sents": [{"text": "That was so much fun, they had nice dresses but now I’m so hungry!", "v": "F", "t": 876.481, "e": 880.299}]}, {"who": "", "sents": [{"text": "Stopping to get lunch, they were sitting in The Cheesecake Factory looking at the menu when Ebony’s cell phone rang, she looked at it, then at them, “It's Cree. ", "v": "F", "t": 880.949, "e": 889.568}, {"text": "I didn't tell y’all but he's been calling all day.” ", "v": "F", "t": 889.718, "e": 892.342}, {"text": "I haven't answered and I'm not going to.", "v": "F", "t": 892.492, "e": 894.753}]}, {"who": "Charli", "sents": [{"text": "Good for you Ebony, he can go kick rocks!", "v": "F", "t": 895.403, "e": 897.75}]}, {"who": "", "sents": [{"text": "They all got quiet and looked at Charli then busted out laughing because Charli is always quiet and never gives her opinion. ", "v": "F", "t": 898.4, "e": 905.781}, {"text": "She shrugged her shoulders saying “well, he's an ass”, they all shook their heads agreeing with her. ", "v": "F", "t": 905.931, "e": 910.859}, {"text": "After eating, It was getting late so they headed to the car to go home.", "v": "F", "t": 911.009, "e": 914.7}]}, {"who": "Raven", "sents": [{"text": "Oh, I have to stop for gas before we get on the highway.", "v": "F", "t": 915.35, "e": 918.465}]}, {"who": "", "sents": [{"text": "Scarlett said pointing “Raven, there's a gas station a block up the road.” ", "v": "F", "t": 919.115, "e": 923.36}, {"text": "Raven pulls into the station and up to the pump. ", "v": "F", "t": 923.51, "e": 926.155}, {"text": "The attendant approaches and Raven tells him what she wants. ", "v": "F", "t": 926.305, "e": 929.505}, {"text": "He walks away and returns immediately, uhm lady, let me show you something he says to Raven. ", "v": "M", "t": 929.855, "e": 935.125}, {"text": "They all get out of the car and he shows Raven that there's sugar packed solid in her gas pipe.", "v": "F", "t": 935.475, "e": 940.467}]}, {"who": "", "sents": [{"text": "Raven screams “oh my goodness!” ", "v": "F", "t": 941.117, "e": 943.037}, {"text": "While Charli's saying what the hell! ", "v": "F", "t": 943.187, "e": 944.893}, {"text": "And Ebony is also yelling “what does this mean?” ", "v": "F", "t": 945.043, "e": 947.753}, {"text": "Scarlett asks the attendant if he can remove it and he said “no, that it was a huge problem and they need to go to a mechanic, sugar in the tank causes engine problems and will kill the car. ", "v": "F", "t": 947.903, "e": 959.295}, {"text": "He said “someone put that there to damage your car permanently.” ", "v": "M", "t": 959.645, "e": 963.485}, {"text": "Raven asked him if she could drive it home 7 miles away. ", "v": "F", "t": 963.835, "e": 967.355}, {"text": "He said “I don’t want to tell you to do that or not miss”.", "v": "M", "t": 967.705, "e": 971.139}]}, {"who": "", "sents": [{"text": "Raven decided to call her fiancé Jericho. ", "v": "F", "t": 971.989, "e": 974.848}, {"text": "Crying, she told him what happened, he told her to not drive it, he will call to have it towed to his mechanic and he would go to pick them up.", "v": "F", "t": 974.998, "e": 982.465}]}, {"who": "", "sents": [{"text": "Jericho reached them in thirty minutes. ", "v": "M", "t": 983.315, "e": 985.875}, {"text": "Raven was still crying, he hugged her telling her not to worry he'll take care of everything. ", "v": "M", "t": 986.025, "e": 991.081}, {"text": "They all got in Jericho's car except Scarlett, she called Reign and was waiting for him to arrive. ", "v": "M", "t": 991.231, "e": 996.991}, {"text": "So they sat there waiting with her. ", "v": "M", "t": 997.141, "e": 999.274}, {"text": "Reign got there quickly. ", "v": "M", "t": 999.424, "e": 1001.301}, {"text": "He got out of his car, shook Jericho’s hand and hugged Scarlett. ", "v": "M", "t": 1001.451, "e": 1005.483}, {"text": "He told the girls he was glad they were safe. ", "v": "M", "t": 1005.633, "e": 1008.364}, {"text": "Scarlett got in his car and they all waited for the tow truck to arrive.", "v": "M", "t": 1008.514, "e": 1012.759}]}, {"who": "", "sents": [{"text": "After waiting for what seemed a long time, they were finally able to leave. ", "v": "M", "t": 1013.409, "e": 1017.719}, {"text": "Jericho drove off furious, the anger bubbling up inside but he kept his composure to not upset Raven any more than she already was.", "v": "M", "t": 1017.869, "e": 1025.719}]}, {"who": "Jericho", "sents": [{"text": "Glancing over at Raven while holding her hand, he asked, Baby, did you park in the garage or in the driveway when you got home? ", "v": "M", "t": 1026.369, "e": 1033.473}, {"text": "Through sniffles she said “the driveway.” ", "v": "F", "t": 1033.823, "e": 1035.978}, {"text": "Jericho then said, this was planned, someone came on your property and did this. ", "v": "M", "t": 1036.328, "e": 1040.936}, {"text": "The girls all said at the same time, CREE! ", "v": "F", "t": 1041.286, "e": 1043.483}, {"text": "Jericho asked “why would he want to do that to Raven?”. ", "v": "M", "t": 1043.833, "e": 1046.991}, {"text": "Ebony spoke up first.", "v": "F", "t": 1047.341, "e": 1048.791}]}, {"who": "Ebony", "sents": [{"text": "Because Raven and Scarlett told me he was at Limelight with a woman on Friday. ", "v": "F", "t": 1049.441, "e": 1053.879}, {"text": "He tried to apologize to me yesterday and it didn't go as he suspected. ", "v": "F", "t": 1054.029, "e": 1058.125}, {"text": "I didn't forgive him so he is probably mad at Raven and Scarlett. ", "v": "F", "t": 1058.275, "e": 1061.923}, {"text": "Oh no! ", "v": "F", "t": 1062.073, "e": 1062.862}, {"text": "Scarlett! ", "v": "F", "t": 1063.012, "e": 1063.844}, {"text": "Ebony gasped, we have to call her to check her car!", "v": "F", "t": 1063.994, "e": 1066.618}]}, {"who": "", "sents": [{"text": "Jericho said “if Cree did this, I will fuck him up, he must be out of his mind.” ", "v": "M", "t": 1067.468, "e": 1072.183}, {"text": "Ebony was so upset, she started crying loudly saying she was so sorry! ", "v": "F", "t": 1072.533, "e": 1076.671}, {"text": "Jericho told her it is not her fault. ", "v": "M", "t": 1077.021, "e": 1079.731}, {"text": "He asked Charli if she was at Limelight and she said “yes, but I was hanging with Micah and left with him”. ", "v": "M", "t": 1079.881, "e": 1085.683}, {"text": "Jericho quickly looked at Raven, he hated seeing her upset. ", "v": "M", "t": 1085.833, "e": 1089.652}, {"text": "He's going to find out where Cree lives and pay him a visit. ", "v": "M", "t": 1089.802, "e": 1093.258}, {"text": "He called Reign to tell him to make sure he checked Scarlett’s car when they got to her house.", "v": "M", "t": 1093.408, "e": 1098.4}]}, {"who": "Jericho", "sents": [{"text": "Don’t worry baby, he said, squeezing her hand, if the car is totaled, I will buy you a new one. ", "v": "M", "t": 1099.05, "e": 1104.49}, {"text": "Staring ahead, Raven could only nod.", "v": "M", "t": 1104.64, "e": 1107.264}]}, {"who": "", "sents": [{"text": "On Monday, early afternoon, Cree woke up to his doorbell ringing. ", "v": "M", "t": 1107.914, "e": 1111.839}, {"text": "Oh man, he thought angrily, who is ringing my bell like that?! ", "v": "M", "t": 1111.989, "e": 1115.723}, {"text": "He was irritated because he had to wake up in a few hours to get ready for work. ", "v": "M", "t": 1115.873, "e": 1120.523}, {"text": "Jumping out of bed, he went to the window of his first floor apartment and peeked out just in case it was solicitors, but it wasn't, it was Jericho. ", "v": "M", "t": 1120.673, "e": 1128.652}, {"text": "He thought to himself, what the hell is Jericho doing here and how did he get my address. ", "v": "M", "t": 1128.802, "e": 1133.773}, {"text": "His heart started pounding, his first thought was Ebony, he was immediately nervous, did something happen to Ebony?", "v": "M", "t": 1133.923, "e": 1140.301}]}, {"who": "Cree", "sents": [{"text": "He opened the door swiftly. ", "v": "M", "t": 1140.951, "e": 1143.085}, {"text": "“Hey man, what’s going on? ", "v": "M", "t": 1143.235, "e": 1145.304}, {"text": "What brings you here, is Ebony alright?”", "v": "M", "t": 1145.454, "e": 1148.163}]}, {"who": "Jericho", "sents": [{"text": "Closing the small space between them, he said close to Cree’s face “Cree, don’t bullshit me, we both know why I’m here.”", "v": "M", "t": 1148.813, "e": 1155.512}]}, {"who": "Cree", "sents": [{"text": "Yo’ man, back the hell up! ", "v": "M", "t": 1156.162, "e": 1158.146}, {"text": "Who the fuck do you think you are, stepping to me at my door?!", "v": "M", "t": 1158.296, "e": 1161.688}]}, {"who": "Jericho", "sents": [{"text": "“It’s taking everything in me not to lay my hands on you?! ", "v": "M", "t": 1162.338, "e": 1165.922}, {"text": "Do you think Raven and I wouldn’t find out you put sugar in her gas tank” he said yelling, still in Cree’s personal space. ", "v": "M", "t": 1166.072, "e": 1172.707}, {"text": "You better pray her car isn't totalled.", "v": "M", "t": 1172.857, "e": 1175.417}]}, {"who": "Cree", "sents": [{"text": "What?! ", "v": "M", "t": 1176.067, "e": 1176.963}, {"text": "I don’t know what you are talking about, but I’m not going to say it again, get out of my face! ", "v": "M", "t": 1177.113, "e": 1181.827}, {"text": "I didn't do shit to Raven’s car! ", "v": "M", "t": 1181.977, "e": 1184.388}, {"text": "I like Raven, I would never do anything like that to her! ", "v": "M", "t": 1184.538, "e": 1188.015}, {"text": "He yelled at the top of his lungs, dressed only in his boxers, all disheveled.", "v": "M", "t": 1188.165, "e": 1192.773}]}, {"who": "Jericho", "sents": [{"text": "Her and Scarlett saw you at Club Limelight with another woman and you know they told Ebony. ", "v": "M", "t": 1193.423, "e": 1198.437}, {"text": "The next day her car has sugar in the gas tank, that’s too much of a coincidence.", "v": "M", "t": 1198.587, "e": 1203.323}]}, {"who": "Cree", "sents": [{"text": "“I didn't do it and I sure as hell don’t need to keep saying it or defending myself! ", "v": "M", "t": 1203.973, "e": 1208.943}, {"text": "And that woman is an old friend of mine, nothing at all sexual. ", "v": "M", "t": 1209.093, "e": 1213.04}, {"text": "I’m done with this conversation, I have to get ready for work!” ", "v": "M", "t": 1213.19, "e": 1216.945}, {"text": "He went to slam the door in Jericho’s face but Jericho put his hand on the door. ", "v": "M", "t": 1217.095, "e": 1221.852}, {"text": "Cree looked at it and then at Jericho.", "v": "M", "t": 1222.002, "e": 1224.434}]}, {"who": "Cree", "sents": [{"text": "I don’t have beef with you but this is going to get real ugly if you don’t leave.", "v": "M", "t": 1225.084, "e": 1229.5}]}, {"who": "Jericho", "sents": [{"text": "I’m going to leave but you better hope I don’t find out you’re lying. ", "v": "M", "t": 1230.15, "e": 1233.905}, {"text": "He stared at Cree for a long time and turned and walked away.", "v": "M", "t": 1234.055, "e": 1237.831}]}, {"who": "", "sents": [{"text": "Cree finally slammed the door and walked to his bathroom, talking to himself “he must be out of his damned mind stepping to me like that, luckily for him I didn't have time for this nonsense, there’s no way I’m losing my job for him or anyone. ", "v": "M", "t": 1238.481, "e": 1251.473}, {"text": "Cree stepped into the shower, turning on the water, he wondered how to approach the situation after he got off work. ", "v": "M", "t": 1251.623, "e": 1257.831}, {"text": "The first thing is to convince Ebony he’s innocent about his old friend and Raven’s car.", "v": "M", "t": 1257.981, "e": 1263.143}]}, {"who": "", "sents": [{"text": "As Jericho walked to his car, he felt it in his heart that Cree was telling the truth which brings another problem, who would want to screw his baby over like that? ", "v": "M", "t": 1263.793, "e": 1272.241}, {"text": "Raven is such a sweetheart, not a mean bone in her body. ", "v": "M", "t": 1272.391, "e": 1276.125}, {"text": "She’s always willing to go above and beyond for anyone, even strangers. ", "v": "M", "t": 1276.275, "e": 1280.797}, {"text": "This situation presents a huge challenge as far as keeping her safe because Raven is so independent and is always on the go. ", "v": "M", "t": 1280.947, "e": 1288.542}, {"text": "I’m going to have to stay with her for now so I can keep an eye on her, it will be easier. ", "v": "M", "t": 1288.692, "e": 1293.577}, {"text": "He already knew Raven wouldn't want him driving her to work everyday, she would want a rental, she’s so stubborn but that’s one of the many things I love about her he thought. ", "v": "M", "t": 1293.727, "e": 1302.303}, {"text": "Getting in his black Audi, he starts it and pulls off with a roar of the engine.", "v": "M", "t": 1302.453, "e": 1307.04}]}, {"who": "", "sents": [{"text": "While driving to Raven’s, Jericho is thinking about his next steps. ", "v": "M", "t": 1307.69, "e": 1311.765}, {"text": "With everything happening so fast, he didn't have time to review Raven’s Ring camera footage. ", "v": "M", "t": 1311.915, "e": 1317.163}, {"text": "He immediately started driving faster with an urgency he never felt before. ", "v": "M", "t": 1317.313, "e": 1322.049}, {"text": "Finally, reaching her place, coasting into the expansive driveway with colorful flowers lined up on each side, he turned off the ignition and practically ran into her house with his keys she gave him on Valentine’s Day. ", "v": "M", "t": 1322.199, "e": 1334.38}, {"text": "Jericho was so thankful Raven went to see her mother, he was able to look through the footage without her being nervous. ", "v": "M", "t": 1334.53, "e": 1340.845}, {"text": "Although it took some time, the video’s time stamp showed at 4:10am, he finally saw a tall figure, crouching down low while walking.", "v": "M", "t": 1340.995, "e": 1348.824}]}, {"who": "", "sents": [{"text": "The figure was dressed in all black, a hoodie covering their head and holding a bucket. ", "v": "M", "t": 1349.474, "e": 1354.381}, {"text": "It was really hard to pinpoint if it was anyone familiar. ", "v": "M", "t": 1354.531, "e": 1358.307}, {"text": "Rewinding again and again, he thought to himself, it couldn't be, but noticing the leanness and facial bone structure, he immediately knew who it was. ", "v": "M", "t": 1358.457, "e": 1366.307}, {"text": "Harper, it was Harper. ", "v": "M", "t": 1366.457, "e": 1368.292}, {"text": "What the hell?! ", "v": "M", "t": 1368.442, "e": 1369.722}, {"text": "Why?! ", "v": "M", "t": 1369.872, "e": 1370.853}, {"text": "We've been through for a long time, and it wasn't my decision to end the relationship! ", "v": "M", "t": 1371.003, "e": 1375.739}, {"text": "She wanted to be a runway model and nothing or no one was going to get in her way. ", "v": "M", "t": 1375.889, "e": 1380.753}, {"text": "I supported her decision to move to Paris, but of course I wasn't happy about it. ", "v": "M", "t": 1380.903, "e": 1385.703}, {"text": "Time has passed, it’s been years now since she’s been away. ", "v": "M", "t": 1385.853, "e": 1389.331}, {"text": "When she did come back to the states not that long ago, she asked to have lunch with me, I declined only because I didn't want to give her the wrong impression that there are lingering feelings. ", "v": "M", "t": 1389.481, "e": 1399.038}, {"text": "I’m happy, I love Raven, I’m in love with Raven. ", "v": "M", "t": 1399.188, "e": 1402.367}, {"text": "I guess my rejection of her offer pissed her off or she’s jealous of Raven, but why? ", "v": "M", "t": 1402.517, "e": 1407.658}, {"text": "Harper has everything going for her, her modeling career from what I heard is blossoming, she’s also beautiful. ", "v": "M", "t": 1407.808, "e": 1414.229}, {"text": "How do I handle this now? ", "v": "M", "t": 1414.379, "e": 1416.385}, {"text": "It absolutely needs to be addressed. ", "v": "M", "t": 1416.535, "e": 1419.009}, {"text": "I definitely have to tell Raven that it was Harper.", "v": "M", "t": 1419.159, "e": 1422.402}]}, {"who": "", "sents": [{"text": "Three hours later, Jericho is sitting in the living room when Raven walks in and hugs him from behind, kissing his cheek.", "v": "M", "t": 1423.052, "e": 1429.644}]}, {"who": "Raven", "sents": [{"text": "Hey you. ", "v": "F", "t": 1430.494, "e": 1431.326}, {"text": "What are you doing just sitting here staring into space? ", "v": "F", "t": 1431.476, "e": 1434.015}, {"text": "She says smiling. ", "v": "F", "t": 1434.165, "e": 1435.338}, {"text": "Walking around to sit in his lap.", "v": "F", "t": 1435.488, "e": 1437.195}]}, {"who": "Jericho", "sents": [{"text": "Hi baby, he answered pulling her closer. ", "v": "M", "t": 1438.045, "e": 1440.839}, {"text": "I’m just thinking.", "v": "M", "t": 1440.989, "e": 1442.547}]}, {"who": "Raven", "sents": [{"text": "Slightly frowning, she says, “What about, are you okay?”", "v": "F", "t": 1443.397, "e": 1446.362}]}, {"who": "", "sents": [{"text": "This is why I love Raven so much, she’s always concerned with everyone’s feelings.", "v": "M", "t": 1447.212, "e": 1452.311}]}, {"who": "Jericho", "sents": [{"text": "Yes, I’m fine he says with a chuckle. ", "v": "M", "t": 1452.961, "e": 1455.627}, {"text": "I do need to talk to you though. ", "v": "M", "t": 1455.777, "e": 1457.847}, {"text": "Raven shifts to straddle him and looks at him face to face. ", "v": "M", "t": 1457.997, "e": 1461.751}, {"text": "She says, “it’s going to have to wait” as she starts grinding on him. ", "v": "F", "t": 1462.101, "e": 1465.856}, {"text": "I want you so bad. ", "v": "F", "t": 1466.006, "e": 1467.265}, {"text": "Jericho leaned in to kiss her tenderly at first and the kiss progressed to a desperate fury! ", "v": "M", "t": 1467.615, "e": 1472.927}, {"text": "Raven reaches to unbuckle his belt and pants while he is unbuttoning her blouse. ", "v": "M", "t": 1473.077, "e": 1477.962}, {"text": "Within seconds they were both undressed. ", "v": "M", "t": 1478.112, "e": 1480.843}, {"text": "They were so desperate for each other they never made it to the bedroom. ", "v": "M", "t": 1480.993, "e": 1484.854}, {"text": "Jericho rolled on top of Raven, aligning himself at her entrance. ", "v": "M", "t": 1485.004, "e": 1489.377}, {"text": "Sliding his cock up and down several times before entering her. ", "v": "M", "t": 1489.527, "e": 1493.453}, {"text": "She’s so wet for him he actually growls. ", "v": "M", "t": 1493.603, "e": 1496.397}, {"text": "Together they match each other’s strokes. ", "v": "M", "t": 1496.547, "e": 1499.001}, {"text": "Raven’s moans are sending him to the brink. ", "v": "M", "t": 1499.151, "e": 1501.988}, {"text": "Jericho starts thrusting even harder, “Baby, you’re mine, I’m yours.” ", "v": "M", "t": 1502.138, "e": 1506.661}, {"text": "“Yes, I'm yours,” Raven responds, shattering. ", "v": "F", "t": 1507.011, "e": 1509.741}, {"text": "The pleasure builds, Jericho doesn't stop, chasing his own release he shudders and collapses onto Raven. ", "v": "M", "t": 1510.091, "e": 1516.15}, {"text": "Both breathing hard and sated they lie there for a minute, relishing in the closeness. ", "v": "M", "t": 1516.3, "e": 1521.036}, {"text": "Jericho stands and pulls Raven up by her hand. ", "v": "M", "t": 1521.186, "e": 1524.621}, {"text": "Come baby, let’s get you clean. ", "v": "M", "t": 1524.771, "e": 1526.968}, {"text": "They go upstairs to the bathroom where he wets a washcloth, kneels in front of her and wipes her down. ", "v": "M", "t": 1527.118, "e": 1532.601}, {"text": "As he wipes the evidence away of their lovemaking between her legs, he thinks to himself, “I love this woman, I’ll never get enough of her”. ", "v": "M", "t": 1532.751, "e": 1540.196}, {"text": "But he knows he has to tell her what happened.", "v": "M", "t": 1540.346, "e": 1543.013}]}, {"who": "", "sents": [{"text": "He sighs, sweetheart, I looked at the Ring video and it was Harper that put the sugar into your gas tank. ", "v": "M", "t": 1543.663, "e": 1549.487}, {"text": "Raven gasps and jumps out of his reach. ", "v": "F", "t": 1549.837, "e": 1552.119}, {"text": "Standing, with her hands on her hips, she shouts “that Bitch!” ", "v": "F", "t": 1552.269, "e": 1555.448}, {"text": "Raven went from 0 to 100 in the anger department. ", "v": "F", "t": 1555.598, "e": 1558.99}, {"text": "She started pacing back and forth, naked.", "v": "F", "t": 1559.14, "e": 1561.593}]}, {"who": "Jericho", "sents": [{"text": "I wish I would have checked the Ring video before I went to Cree’s place. ", "v": "M", "t": 1562.443, "e": 1566.219}, {"text": "Now, I have to apologize for confronting and threatening him.", "v": "M", "t": 1566.369, "e": 1570.316}]}, {"who": "Raven", "sents": [{"text": "Jericho, why would Harper do this after all of this time you haven't been together? ", "v": "F", "t": 1571.166, "e": 1575.582}, {"text": "I mean, you haven't been in contact with her right?", "v": "F", "t": 1575.732, "e": 1578.207}]}, {"who": "Jericho", "sents": [{"text": "I should be offended that you asked me that but because you’re upset, I’ll let that go. ", "v": "M", "t": 1579.057, "e": 1583.814}, {"text": "You should know me by now and trust me. ", "v": "M", "t": 1583.964, "e": 1586.545}, {"text": "Of course I haven't kept in touch with her. ", "v": "M", "t": 1586.695, "e": 1589.298}, {"text": "Maybe when Harper saw us in the park last week, she became jealous of us. ", "v": "M", "t": 1589.448, "e": 1593.907}, {"text": "I can’t explain her actions.", "v": "M", "t": 1594.057, "e": 1596.19}]}, {"who": "Raven", "sents": [{"text": "“I’m sorry baby, I do trust you” she says as she stands in front of him. ", "v": "F", "t": 1597.04, "e": 1601.072}, {"text": "This is all just so crazy that after all this time you guys haven't been together she would come after me.", "v": "F", "t": 1601.222, "e": 1607.003}]}, {"who": "Jericho", "sents": [{"text": "Raven, you know I have to address this with her right? ", "v": "M", "t": 1607.853, "e": 1610.968}, {"text": "Raven looked at Jericho like he had two heads.", "v": "F", "t": 1611.318, "e": 1613.75}]}, {"who": "Raven", "sents": [{"text": "I don’t want you anywhere near her, she's nuts!", "v": "F", "t": 1614.4, "e": 1616.789}]}, {"who": "Jericho", "sents": [{"text": "I have to, I’ll let her know if she doesn't stay away from us that I will press charges.", "v": "M", "t": 1617.639, "e": 1622.439}]}, {"who": "Raven", "sents": [{"text": "Ok, but I’m coming with you! she shouted.", "v": "F", "t": 1623.289, "e": 1625.721}]}, {"who": "Jericho", "sents": [{"text": "No, I don’t think that is a good idea. ", "v": "M", "t": 1626.571, "e": 1629.302}, {"text": "It will be a short conversation, believe me.", "v": "M", "t": 1629.452, "e": 1632.247}]}, {"who": "", "sents": [{"text": "Raven sighed and conceded that he goes without her. ", "v": "M", "t": 1632.897, "e": 1636.31}, {"text": "Jericho grabbed his keys, kissed Raven and with the smell of sex he left. ", "v": "M", "t": 1636.46, "e": 1640.961}, {"text": "On his drive to Harper’s place he thought of the good times they had together. ", "v": "M", "t": 1641.111, "e": 1645.634}, {"text": "He admits to himself that he was so much in love with her, more than she was with him. ", "v": "M", "t": 1645.784, "e": 1650.52}, {"text": "Harper’s ambition was her first love. ", "v": "M", "t": 1650.67, "e": 1653.337}, {"text": "But, then he thought of Raven, the love of his life, funny how things work out. ", "v": "M", "t": 1653.487, "e": 1657.903}, {"text": "Raven is the total opposite of Harper. ", "v": "M", "t": 1658.053, "e": 1660.89}, {"text": "She’s selfless, always puts others before herself without a second thought. ", "v": "M", "t": 1661.04, "e": 1665.477}, {"text": "Not Harper, she was very selfish at times, but because he loved her he overlooked a lot of her flaws.", "v": "M", "t": 1665.627, "e": 1671.409}]}, {"who": "", "sents": [{"text": "After a forty-five minute drive, he pulled up to her brownstone and parked. ", "v": "M", "t": 1672.059, "e": 1676.645}, {"text": "She lived on a beautiful tree lined block. ", "v": "M", "t": 1676.795, "e": 1679.483}, {"text": "The brownstone was covered in Ivy and there was a tall black wrought iron gate surrounding the building. ", "v": "M", "t": 1679.633, "e": 1685.5}, {"text": "He saw her light was on so he knew she was home, besides it was still early, Harper was all about nightlife.", "v": "M", "t": 1685.65, "e": 1691.815}]}, {"who": "", "sents": [{"text": "He got out of the car and opened the gate, climbing the wide steps to the glass covered doors, he rang the bell. ", "v": "M", "t": 1692.465, "e": 1698.631}, {"text": "Within a few minutes, Harper’s voice came through the Ring camera “Jericho” she said like a question?", "v": "M", "t": 1698.781, "e": 1704.093}]}, {"who": "Jericho", "sents": [{"text": "Yes Harper, it’s me. ", "v": "M", "t": 1704.743, "e": 1706.577}, {"text": "Can you please come down, I need to talk to you. ", "v": "M", "t": 1706.727, "e": 1709.565}, {"text": "There was a slight hesitation and then Harper said “please come upstairs Jericho.” ", "v": "F", "t": 1709.915, "e": 1714.416}, {"text": "Jericho answered “no, come down please.” ", "v": "M", "t": 1714.766, "e": 1717.689}, {"text": "He heard her sigh, he envisioned her rolling her eyes. ", "v": "M", "t": 1717.839, "e": 1721.252}, {"text": "She said “ok, give me a minute.” ", "v": "F", "t": 1721.602, "e": 1723.437}, {"text": "He knew she probably went to check herself in the mirror because Harper is very vain. ", "v": "M", "t": 1723.787, "e": 1728.501}, {"text": "He waited patiently, and five minutes later, she opened the door smiling brightly.", "v": "M", "t": 1728.651, "e": 1733.494}]}, {"who": "Harper", "sents": [{"text": "Jericho! ", "v": "F", "t": 1734.344, "e": 1735.24}, {"text": "Oh my goodness, I am so happy to see you! ", "v": "F", "t": 1735.39, "e": 1737.758}, {"text": "She went to wrap her arms around him but he stepped back. ", "v": "F", "t": 1737.908, "e": 1740.788}, {"text": "“Please don’t.” he said. ", "v": "M", "t": 1741.138, "e": 1742.909}, {"text": "The expression on Harper’s face changed and hardened immediately. ", "v": "F", "t": 1743.259, "e": 1747.035}, {"text": "“What are you doing here then uninvited?”", "v": "F", "t": 1747.185, "e": 1749.446}]}, {"who": "Jericho", "sents": [{"text": "Harper, I’m only going to say this once, “leave Raven and myself alone. ", "v": "M", "t": 1750.296, "e": 1754.84}, {"text": "I know you put sugar in Raven’s gas tank. ", "v": "M", "t": 1754.99, "e": 1757.827}, {"text": "If you go near her house or anywhere near Raven again, I will press charges on you.”", "v": "M", "t": 1757.977, "e": 1762.905}]}, {"who": "Harper", "sents": [{"text": "You don’t know anything, how dare you accuse me?", "v": "F", "t": 1763.755, "e": 1766.273}]}, {"who": "Jericho", "sents": [{"text": "We have you on video. ", "v": "M", "t": 1767.123, "e": 1768.872}, {"text": "I won’t do anything now, but you better listen to my warning. ", "v": "M", "t": 1769.022, "e": 1772.542}, {"text": "Harper hung her head low, then looked up with tears in her eyes.", "v": "F", "t": 1772.892, "e": 1776.327}]}, {"who": "Harper", "sents": [{"text": "I’m so sorry Jericho she whispered. ", "v": "F", "t": 1776.977, "e": 1778.939}, {"text": "I made a huge mistake in ending our relationship. ", "v": "F", "t": 1779.089, "e": 1782.119}, {"text": "She started crying uncontrollably. ", "v": "F", "t": 1782.269, "e": 1784.274}, {"text": "I want you back, I love you, I need you! ", "v": "F", "t": 1784.424, "e": 1786.621}, {"text": "She went to reach for him again, although she could smell Raven all over him, but he caught her by the wrists.", "v": "F", "t": 1786.771, "e": 1792.339}]}, {"who": "Jericho", "sents": [{"text": "I wish you would have realized that long ago. ", "v": "M", "t": 1793.189, "e": 1795.749}, {"text": "I’m with Raven now. ", "v": "M", "t": 1795.899, "e": 1797.585}, {"text": "Harper, I love her. ", "v": "M", "t": 1797.735, "e": 1799.463}, {"text": "Understand, I’m never going to leave her. ", "v": "M", "t": 1799.613, "e": 1802.258}, {"text": "I’m sorry too, I have to go.", "v": "M", "t": 1802.408, "e": 1804.691}]}, {"who": "", "sents": [{"text": "Jericho turned and left her standing there, he felt bad for her but she made her decision long ago to end their relationship.", "v": "M", "t": 1805.341, "e": 1812.21}]}, {"who": "", "sents": [{"text": "Jericho’s thinking with overwhelming dread, and now I have to apologize to Cree.", "v": "M", "t": 1812.86, "e": 1817.895}]}, {"who": "", "sents": [{"text": "While Raven is waiting to hear from Jericho she decides to call the girls. ", "v": "F", "t": 1818.745, "e": 1822.777}, {"text": "She started with Ebony. ", "v": "F", "t": 1822.927, "e": 1824.228}, {"text": "Ebony answered quickly. ", "v": "F", "t": 1824.378, "e": 1825.807}, {"text": "“Hey Raven, what’s going on?” ", "v": "F", "t": 1825.957, "e": 1827.749}, {"text": "Raven answered, I just wanted to tell you that we saw on the Ring video that it was Harper that put the sugar in my tank. ", "v": "F", "t": 1827.899, "e": 1834.299}, {"text": "Cree is innocent.", "v": "F", "t": 1834.449, "e": 1835.537}]}, {"who": "", "sents": [{"text": "Ebony was silent. ", "v": "F", "t": 1836.187, "e": 1837.339}, {"text": "Raven knows her friend, she knows Ebony is confused now. ", "v": "F", "t": 1837.489, "e": 1840.817}, {"text": "While thinking Cree was the bad guy, she didn't have to make a decision to try to accept his forgiveness. ", "v": "F", "t": 1840.967, "e": 1846.365}, {"text": "Now, there’s only the issue of “the woman at the club”.", "v": "F", "t": 1846.515, "e": 1849.288}]}, {"who": "", "sents": [{"text": "Raven said “Ebony, no one will judge you if you want to try and work things out with Cree.”", "v": "F", "t": 1849.938, "e": 1854.93}]}, {"who": "", "sents": [{"text": "After they hung up, Ebony slowly picked up the phone and dialed Cree’s number. ", "v": "F", "t": 1855.58, "e": 1859.932}, {"text": "He answered on the second ring, with his heart beating so fast. ", "v": "F", "t": 1860.082, "e": 1863.602}, {"text": "Before he could say anything, Ebony said with a smile to her soft voice and her pussy already throbbing “Hello.”", "v": "F", "t": 1863.752, "e": 1870.259}]}, {"who": "", "sents": [{"text": "The End", "v": "F", "t": 1870.909, "e": 1871.485}]}];
+const CHAPTERS = [[1, "Friday Night"], [21, "No Call, No Show"], [37, "A Hot Mess"], [54, "White Roses"], [71, "Sugar in the Tank"], [91, "At Cree’s Door"], [102, "The Ring Camera"], [121, "Hello"]];
+const PART2 = 3;
+const WORDS = ['One', 'Two', 'Three', 'Four', 'Five', 'Six', 'Seven', 'Eight', 'Nine', 'Ten'];
+const $ = id => document.getElementById(id);
+const audio = $('audio'), flow = $('flow'), book = $('book'), viewport = $('viewport'), stage = $('stage'), cover = $('cover');
+const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+const KEY = 'book-ebony-club-pos';
+const esc = s => s.replace(/&/g, '&amp;').replace(/</g, '&lt;');
+const fmt = s => { s = Math.max(0, Math.floor(s)); return Math.floor(s / 60) + ':' + String(s % 60).padStart(2, '0'); };
+const RULE = '<span class="line" aria-hidden="true"></span>';
+
+/* ---------- build the text ---------- */
+const S = [];                         // narrated sentences in time order
+const chStartSent = [];               // first sentence index of each chapter
+const chAt = new Map(CHAPTERS.map(([p, t], i) => [p, i]));
+let html = '';
+const t0 = PARAS[0].sents[0];
+html += `<section class="titlepage">
+  <div class="kicker">A Short Story</div>
+  <h1 class="s ${t0.v}" data-n="0"><span class="sc">Ebony</span><span class="st">The Club</span></h1>
+  ${RULE}
+  <div class="kicker" style="color: var(--ink); letter-spacing: 0.3em; text-indent: 0.3em; font-size: 0.72em;">Phillis Brown</div>
+  <div class="voices"><span><i style="background:var(--gold)"></i>His voice: Cree and Jericho</span><span><i style="background:var(--rose)"></i>Her voice: Ebony, Raven, Scarlett, Charli, Harper</span></div>
+  <div class="hint">Press play, or tap any sentence to start there.</div>
+</section>`;
+S.push({ t: t0.t, e: t0.e, v: t0.v });
+html += `<section class="contents"><h2>Contents</h2>${RULE}<ol>` +
+  CHAPTERS.map(([p, t], i) => `<li><button data-ch="${i}"><span class="no">${String(i + 1).padStart(2, '0')}</span><span class="ct">${esc(t)}</span><span class="dots"></span><span class="pn" data-pn="${i}"></span></button></li>`).join('') +
+  `</ol></section>`;
+PARAS.forEach((p, i) => {
+  if (i === 0) return;
+  let opening = false;
+  if (chAt.has(i)) {
+    const c = chAt.get(i); opening = true; chStartSent[c] = S.length;
+    html += `<header class="ch" data-chh="${c}">${c === PART2 ? '<div class="part">Part Two</div>' : ''}<div class="chno">Chapter ${WORDS[c]}</div><h2>${esc(CHAPTERS[c][1])}</h2>${RULE}</header>`;
+  }
+  const isEnd = /^The End\.?\s*$/.test(p.sents.map(s => s.text).join(''));
+  let inner = p.who ? `<span class="who ${p.sents[0].v}">${p.who}</span> ` : '';
+  p.sents.forEach(s => { inner += `<span class="s ${s.v}" data-n="${S.length}">${esc(s.text)}</span>`; S.push({ t: s.t, e: s.e, v: s.v }); });
+  html += isEnd ? `<p class="endmark" id="coda">${inner}${RULE}</p>` : `<p${opening ? ' class="first"' : ''}>${inner}</p>`;
+});
+flow.innerHTML = html;
+const SEL = [...flow.querySelectorAll('[data-n]')];
+const CHH = [...flow.querySelectorAll('[data-chh]')];
+const DUR = S[S.length - 1].e;
+$('dur').textContent = fmt(DUR);
+
+/* ---------- layout & pagination ---------- */
+const G = { N: 2, pw: 0, ph: 0, mOut: 0, mIn: 0, mTop: 0, mBot: 0, colW: 0, gap: 0, flowW: 0, stride: 1 };
+let pages = 1, views = 1, view = 0, chPage = [], opened = false;
+function layout() {
+  const W = stage.clientWidth, H = stage.clientHeight - 22;
+  const spread = W >= 820 && H >= 460;
+  const N = spread ? 2 : 1;
+  let pw, ph;
+  if (spread) { pw = Math.min(W / 2 - 10, H * 0.68, 540); ph = Math.min(H, pw / 0.66); }
+  else { pw = Math.min(W - 14, 560); ph = W > 600 ? Math.min(H, pw / 0.64) : H; }
+  pw = Math.floor(pw); ph = Math.floor(ph);
+  const fs = Math.max(16, Math.min(19.5, pw * 0.036));
+  const mOut = Math.round(Math.max(20, Math.min(54, pw * 0.095)));
+  const mIn = spread ? Math.round(Math.max(18, Math.min(44, pw * 0.08))) : mOut;
+  const mTop = Math.round(Math.max(40, Math.min(66, ph * 0.075)));
+  const mBot = Math.round(Math.max(40, Math.min(64, ph * 0.075)));
+  const colW = pw - mOut - mIn, gap = spread ? mIn * 2 : mOut + mIn;
+  const flowW = colW * N + gap * (N - 1);
+  Object.assign(G, { N, pw, ph, mOut, mIn, mTop, mBot, colW, gap, flowW, stride: colW + gap });
+  book.classList.toggle('single', !spread);
+  book.style.width = (pw * N) + 'px'; book.style.height = ph + 'px'; book.style.fontSize = fs + 'px';
+  $('pgL').hidden = !spread;
+  for (const id of ['pgL', 'pgR']) $(id).style.width = pw + 'px';
+  for (const id of ['headL', 'headR']) $(id).style.top = Math.round(mTop * 0.42) + 'px';
+  for (const id of ['folL', 'folR']) $(id).style.bottom = Math.round(mBot * 0.36) + 'px';
+  Object.assign(viewport.style, { left: mOut + 'px', top: mTop + 'px', width: flowW + 'px', height: (ph - mTop - mBot) + 'px' });
+  Object.assign(flow.style, { columnCount: N, columnGap: gap + 'px', width: flowW + 'px' });
+  flow.style.setProperty('--fs', fs + 'px');
+  // cover: overhangs the page block on the top, bottom and fore-edge
+  const oh = Math.max(4, Math.round(pw * 0.014));
+  const ch = Math.min(ph + oh * 2, Math.round((pw + oh) * 1.5)), ct = Math.round((ph - ch) / 2);
+  book.style.setProperty('--ct', Math.max(0, ct) + 'px');
+  Object.assign(cover.style, { left: (spread ? pw : 0) + 'px', top: ct + 'px', width: (pw + oh) + 'px', height: ch + 'px', fontSize: Math.max(14, pw * 0.036) + 'px' });
+  book.style.setProperty('--shadow-left', spread ? '50%' : '0%');
+  book.style.transform = (!opened && spread) ? `translateX(${-pw / 2}px)` : '';
+  // pagination
+  pages = pageOf($('coda')) + 1;
+  views = Math.ceil(pages / N);
+  chPage = CHH.map(pageOf);
+  flow.querySelectorAll('[data-pn]').forEach(el => { el.textContent = chPage[+el.dataset.pn] + 1; });
+}
+function pageOf(el) {
+  const rects = el.getClientRects(); const r = rects.length ? rects[0] : el.getBoundingClientRect();
+  const fr = flow.getBoundingClientRect();
+  return Math.max(0, Math.floor((r.left - fr.left + 4) / G.stride));
+}
+function chapterOf(idx) { let c = -1; chPage.forEach((p, i) => { if (p <= idx) c = i; }); return c; }
+function headFor(idx) {
+  if (idx < 2 || idx >= pages || chPage.includes(idx)) return '';
+  if (idx % 2 === 0) return 'Ebony';
+  const c = chapterOf(idx); return c >= 0 ? CHAPTERS[c][1] : '';
+}
+const folioFor = idx => (idx < 2 || idx >= pages) ? '' : String(idx + 1);
+function paintFrame(side, idx) { $('head' + side).textContent = headFor(idx); $('fol' + side).textContent = folioFor(idx); }
+function updateLabel() {
+  if (!opened) { $('pagelabel').textContent = 'Tap the cover to open'; return; }
+  const first = view * G.N, last = Math.min(first + G.N, pages);
+  const c = chapterOf(last - 1);
+  const where = first === 0 ? 'Title page' : (c >= 0 ? CHAPTERS[c][1] : 'Contents');
+  const pg = G.N === 2 ? `pp. ${first + 1}-${last}` : `p. ${first + 1}`;
+  $('pagelabel').textContent = `${where} · ${pg} of ${pages}`;
+}
+function applyView(v) {
+  view = v;
+  flow.style.transform = `translateX(${-v * G.N * G.stride}px)`;
+  if (G.N === 2) { paintFrame('L', v * 2); paintFrame('R', v * 2 + 1); } else paintFrame('R', v);
+  updateLabel();
+}
+
+/* ---------- page clones for the turning leaf ---------- */
+function makePage(idx, side) {
+  const pg = document.createElement('div');
+  pg.className = 'pg clone ' + side + (idx < 0 || idx >= pages ? ' blank' : '');
+  Object.assign(pg.style, { width: G.pw + 'px', left: '0', right: 'auto' });
+  if (idx >= 0 && idx < pages) {
+    const head = document.createElement('div'); head.className = 'head'; head.style.top = Math.round(G.mTop * 0.42) + 'px'; head.textContent = headFor(idx);
+    const fol = document.createElement('div'); fol.className = 'folio'; fol.style.bottom = Math.round(G.mBot * 0.36) + 'px'; fol.textContent = folioFor(idx);
+    const vp = document.createElement('div'); vp.className = 'viewport';
+    const x = (G.N === 1 || side === 'l') ? G.mOut : G.mIn;
+    Object.assign(vp.style, { left: x + 'px', top: G.mTop + 'px', width: G.colW + 'px', height: (G.ph - G.mTop - G.mBot) + 'px' });
+    const f = flow.cloneNode(true); f.removeAttribute('id'); f.querySelectorAll('[id]').forEach(e => e.removeAttribute('id'));
+    f.style.transform = `translateX(${-idx * G.stride}px)`;
+    vp.appendChild(f); pg.append(head, fol, vp);
+  }
+  return pg;
+}
+let turning = null;
+function finishTurn() { if (turning) { const t = turning; turning = null; t.anims.forEach(a => a.cancel()); t.done(); } }
+function animateTurn(to) {
+  finishTurn();
+  const from = view, d = to > from ? 1 : -1, { N, pw, ph } = G;
+  const nodes = [], anims = [];
+  const add = el => { book.appendChild(el); nodes.push(el); return el; };
+  const leaf = document.createElement('div'); leaf.className = 'leaf';
+  Object.assign(leaf.style, { width: pw + 'px', height: ph + 'px' });
+  const face = (pg, back) => { const f = document.createElement('div'); f.className = 'face' + (back ? ' back' : ''); f.appendChild(pg); const lit = document.createElement('div'); lit.className = 'lit ' + (back ? (d > 0 ? 'fromR' : 'fromL') : (d > 0 ? 'fromL' : 'fromR')); f.appendChild(lit); leaf.appendChild(f); return lit; };
+  const dur = 720, easing = 'cubic-bezier(.45,.05,.25,1)';
+  let rot, finishUp, cast;
+  if (N === 1) {
+    if (d > 0) {
+      applyView(to);
+      const litF = face(makePage(from, 'r'), false);
+      leaf.style.left = '0'; leaf.style.transformOrigin = 'left center';
+      rot = [{ transform: 'rotateY(0deg)' }, { transform: 'rotateY(-180deg)' }];
+      anims.push(litF.animate([{ opacity: 0 }, { opacity: 0.9, offset: 0.5 }, { opacity: 0.9 }], { duration: dur, easing }));
+      finishUp = () => {};
+    } else {
+      const litF = face(makePage(to, 'r'), false);
+      leaf.style.left = '0'; leaf.style.transformOrigin = 'left center';
+      rot = [{ transform: 'rotateY(-180deg)' }, { transform: 'rotateY(0deg)' }];
+      anims.push(litF.animate([{ opacity: 0.9 }, { opacity: 0.9, offset: 0.5 }, { opacity: 0 }], { duration: dur, easing }));
+      finishUp = () => applyView(to);
+    }
+    cast = add(document.createElement('div')); cast.className = 'cast';
+    Object.assign(cast.style, { left: '0', width: pw + 'px', background: 'linear-gradient(to right, rgba(30,18,8,.35), transparent 70%)' });
+    anims.push(cast.animate(d > 0 ? [{ opacity: 0.8 }, { opacity: 0 }] : [{ opacity: 0 }, { opacity: 0.8 }], { duration: dur, easing }));
+  } else {
+    viewport.style.visibility = 'hidden';
+    const oL = from * 2, oR = oL + 1, nL = to * 2, nR = nL + 1;
+    const uL = add(makePage(d > 0 ? oL : nL, 'l')); uL.style.left = '0'; uL.style.zIndex = 4;
+    const uR = add(makePage(d > 0 ? nR : oR, 'r')); uR.style.left = pw + 'px'; uR.style.zIndex = 4;
+    let litF, litB;
+    if (d > 0) {
+      litF = face(makePage(oR, 'r'), false); litB = face(makePage(nL, 'l'), true);
+      leaf.style.left = pw + 'px'; leaf.style.transformOrigin = 'left center';
+      rot = [{ transform: 'rotateY(0deg)' }, { transform: 'rotateY(-180deg)' }];
+    } else {
+      litF = face(makePage(oL, 'l'), false); litB = face(makePage(nR, 'r'), true);
+      leaf.style.left = '0'; leaf.style.transformOrigin = 'right center';
+      rot = [{ transform: 'rotateY(0deg)' }, { transform: 'rotateY(180deg)' }];
+    }
+    anims.push(litF.animate([{ opacity: 0 }, { opacity: 0.85, offset: 0.5 }, { opacity: 0.85 }], { duration: dur, easing }));
+    anims.push(litB.animate([{ opacity: 0.85 }, { opacity: 0.85, offset: 0.5 }, { opacity: 0 }], { duration: dur, easing }));
+    // shadow the leaf throws on the page it is uncovering, then on the page it lands on
+    cast = add(document.createElement('div')); cast.className = 'cast';
+    Object.assign(cast.style, { left: (d > 0 ? pw : 0) + 'px', width: pw + 'px', background: `linear-gradient(to ${d > 0 ? 'right' : 'left'}, rgba(30,18,8,.4), transparent 60%)`, zIndex: 5 });
+    anims.push(cast.animate([{ opacity: 0.9 }, { opacity: 0, offset: 0.5 }, { opacity: 0 }], { duration: dur, easing }));
+    const cast2 = add(document.createElement('div')); cast2.className = 'cast';
+    Object.assign(cast2.style, { left: (d > 0 ? 0 : pw) + 'px', width: pw + 'px', background: `linear-gradient(to ${d > 0 ? 'left' : 'right'}, rgba(30,18,8,.4), transparent 60%)`, zIndex: 5 });
+    anims.push(cast2.animate([{ opacity: 0 }, { opacity: 0, offset: 0.5 }, { opacity: 0.7, offset: 0.85 }, { opacity: 0 }], { duration: dur, easing }));
+    finishUp = () => { applyView(to); viewport.style.visibility = ''; };
+  }
+  add(leaf);
+  const main = leaf.animate(rot, { duration: dur, easing, fill: 'forwards' });
+  anims.push(main);
+  const done = () => { nodes.forEach(n => n.remove()); finishUp(); };
+  turning = { anims, done };
+  main.onfinish = () => { if (turning && turning.anims === anims) { turning = null; done(); } };
+  view = to; updateLabel();
+}
+function showView(v, animate) {
+  v = Math.max(0, Math.min(views - 1, v));
+  if (v === view && !turning) { applyView(v); return; }
+  if (animate && opened && !reduce) animateTurn(v); else { finishTurn(); applyView(v); }
+  try { localStorage.setItem(KEY + '-view', String(v)); } catch (e) {}
+}
+
+/* ---------- the cover ---------- */
+function openBook(then) {
+  if (opened) { then && then(); return; }
+  opened = true; finishTurn();
+  book.classList.remove('closed');
+  updateLabel();
+  const dur = reduce ? 0 : 1300, easing = 'cubic-bezier(.5,.05,.2,1)';
+  const fade = G.N === 2 ? [{ opacity: 1 }, { opacity: 1, offset: 0.75 }, { opacity: 0 }] : [{ opacity: 0 }, { opacity: 0 }];
+  const a = cover.animate([{ transform: 'rotateY(0deg)' }, { transform: 'rotateY(-180deg)' }], { duration: dur, easing, fill: 'forwards' });
+  cover.querySelector('.back').animate(fade, { duration: dur, easing: 'linear', fill: 'forwards' });
+  if (G.N === 2) book.animate([{ transform: `translateX(${-G.pw / 2}px)` }, { transform: 'translateX(0)' }], { duration: dur, easing });
+  book.style.transform = '';
+  a.onfinish = () => { cover.hidden = true; then && then(); };
+  if (!dur) { cover.hidden = true; then && then(); }
+}
+cover.addEventListener('click', () => openBook());
+cover.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openBook(); } });
+
+/* ---------- audio sync ---------- */
+let cur = -1, follow = true, seeking = false;
+function findSent(t) {
+  let lo = 0, hi = S.length - 1;
+  while (lo < hi) { const m = (lo + hi + 1) >> 1; if (S[m].t <= t + 0.03) lo = m; else hi = m - 1; }
+  return lo;
+}
+function setVoice(v) {
+  $('voicename').textContent = v === 'M' ? 'His voice' : 'Her voice';
+  $('voice').querySelector('i').style.background = v === 'M' ? 'var(--gold)' : 'var(--rose)';
+}
+function render() {
+  const t = audio.currentTime;
+  $('cur').textContent = fmt(t);
+  if (!seeking) $('seek').value = Math.round(1000 * t / (audio.duration || DUR));
+  const n = findSent(t);
+  if (n !== cur) {
+    if (cur >= 0) SEL[cur].classList.remove('on');
+    cur = n; setVoice(S[n].v);
+    if (!audio.paused || t > 0.05) SEL[n].classList.add('on');
+    if (follow && (!audio.paused || t > 0.05)) {
+      const target = Math.floor(pageOf(SEL[n]) / G.N);
+      if (target !== view) showView(target, true);
+    }
+  }
+}
+let raf = 0;
+const loop = () => { render(); raf = requestAnimationFrame(loop); };
+const playBtn = $('play');
+function setIcon() {
+  const p = audio.paused;
+  $('ico-play').hidden = !p; $('ico-pause').hidden = p;
+  playBtn.setAttribute('aria-label', p ? 'Play' : 'Pause');
+}
+function savePos() { try { localStorage.setItem(KEY, String(audio.currentTime)); } catch (e) {} }
+audio.addEventListener('play', () => { setIcon(); setFollow(true); cancelAnimationFrame(raf); loop(); });
+audio.addEventListener('pause', () => { setIcon(); cancelAnimationFrame(raf); render(); savePos(); });
+audio.addEventListener('ended', () => { try { localStorage.removeItem(KEY); } catch (e) {} });
+audio.addEventListener('seeked', render);
+setInterval(() => { if (!audio.paused) savePos(); }, 5000);
+
+const play = () => audio.play().catch(() => {});
+playBtn.addEventListener('click', () => { if (audio.paused) openBook(play); else audio.pause(); });
+$('back').addEventListener('click', () => { audio.currentTime = Math.max(0, audio.currentTime - 15); setFollow(true); render(); });
+$('fwd').addEventListener('click', () => { audio.currentTime = Math.min(DUR, audio.currentTime + 15); setFollow(true); render(); });
+const speeds = [1, 1.25, 1.5, 0.75]; let si = 0;
+$('speed').addEventListener('click', e => { si = (si + 1) % speeds.length; audio.playbackRate = speeds[si]; e.currentTarget.textContent = speeds[si] + '×'; });
+const seek = $('seek');
+seek.addEventListener('input', () => { seeking = true; $('cur').textContent = fmt(seek.value / 1000 * (audio.duration || DUR)); });
+seek.addEventListener('change', () => { openBook(); audio.currentTime = seek.value / 1000 * (audio.duration || DUR); seeking = false; setFollow(true); cur = -1; render(); });
+
+flow.addEventListener('click', e => {
+  const ch = e.target.closest('[data-ch]');
+  if (ch) {
+    const c = +ch.dataset.ch;
+    audio.currentTime = S[chStartSent[c]].t + 0.01; cur = -1;
+    follow = true; followBtn.hidden = true;
+    showView(Math.floor(chPage[c] / G.N), true); render();
+    return;
+  }
+  const s = e.target.closest('[data-n]'); if (!s) return;
+  audio.currentTime = S[+s.dataset.n].t + 0.01; setFollow(true); cur = -1; render();
+  if (audio.paused) play();
+});
+
+/* ---------- manual page turning ---------- */
+const followBtn = $('follow');
+function setFollow(v) {
+  follow = v; followBtn.hidden = v;
+  if (v && cur >= 0 && (!audio.paused || audio.currentTime > 0.05)) {
+    const target = Math.floor(pageOf(SEL[cur]) / G.N); if (target !== view) showView(target, true);
+  }
+}
+function turn(d) {
+  if (!opened) { if (d > 0) openBook(); return; }
+  if (view + d < 0 || view + d >= views) return;
+  showView(view + d, true);
+  if (!audio.paused) { follow = false; followBtn.hidden = false; }
+}
+$('prevp').addEventListener('click', () => turn(-1));
+$('nextp').addEventListener('click', () => turn(1));
+followBtn.addEventListener('click', () => setFollow(true));
+addEventListener('keydown', e => {
+  if (e.target.tagName === 'INPUT' || e.target === cover) return;
+  if (e.key === 'ArrowRight') turn(1); else if (e.key === 'ArrowLeft') turn(-1);
+  else if (e.key === ' ' && e.target.tagName !== 'BUTTON') { e.preventDefault(); playBtn.click(); }
+});
+let tx = 0, ty = 0, tt = 0;
+book.addEventListener('touchstart', e => { tx = e.touches[0].clientX; ty = e.touches[0].clientY; tt = Date.now(); }, { passive: true });
+book.addEventListener('touchend', e => {
+  const dx = e.changedTouches[0].clientX - tx, dy = e.changedTouches[0].clientY - ty;
+  if (Math.abs(dx) > 45 && Math.abs(dx) > Math.abs(dy) * 1.3 && Date.now() - tt < 800) turn(dx < 0 ? 1 : -1);
+}, { passive: true });
+
+/* ---------- boot ---------- */
+function relayout() {
+  finishTurn();
+  const keep = cur >= 0 && (follow || audio.paused) && audio.currentTime > 0.05 ? SEL[cur] : null;
+  const firstPage = view * G.N;
+  layout();
+  views = Math.ceil(pages / G.N);
+  const v = keep ? Math.floor(pageOf(keep) / G.N) : Math.min(Math.floor(firstPage / G.N), views - 1);
+  applyView(Math.max(0, v));
+}
+let rt = 0;
+addEventListener('resize', () => { clearTimeout(rt); rt = setTimeout(relayout, 150); });
+audio.addEventListener('loadedmetadata', () => {
+  let p = 0; try { p = parseFloat(localStorage.getItem(KEY)) || 0; } catch (e) {}
+  if (p > 5 && p < DUR - 5) { audio.currentTime = p; cur = -1; render(); }
+});
+try {
+  if ('mediaSession' in navigator) {
+    navigator.mediaSession.metadata = new MediaMetadata({ title: 'Ebony: The Club', artist: 'Phillis Brown' });
+    navigator.mediaSession.setActionHandler('seekbackward', () => $('back').click());
+    navigator.mediaSession.setActionHandler('seekforward', () => $('fwd').click());
+  }
+} catch (e) {}
+setIcon(); setVoice('F');
+layout(); applyView(0);
+(document.fonts && document.fonts.ready ? document.fonts.ready : Promise.resolve()).then(relayout);
+</script>
+
+</body></html>
