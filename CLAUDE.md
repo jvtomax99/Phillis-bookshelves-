@@ -26,7 +26,6 @@ All books are for adult readers (18+).
 
 - Reader auto-open: when arriving from "Read or listen", open the cover by itself instead of asking for a second tap. Trade-off: loses the open-it-yourself moment.
 - Phone landscape shelf: a compact header helps but "Open the book" is still partly cut off at 390px tall; a real fix puts the caption beside the books.
-- Ebony needs its full description and a content note (it is 18+).
 
 ## Working with the owner
 

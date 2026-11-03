@@ -639,15 +639,18 @@ const BOOKS = [
     read:"read/ebony-the-club/index.html",
     progressKey:"book-ebony-club-pos", duration:1872,
     amazon:"",
-    capline:"A short story · Coming soon",
-    meta:["Short story","Coming soon"],
+    capline:"A short story · Adults 18+",
+    meta:["Short story","About 5,700 words","8 chapters","Adults 18+"],
     blurb:[
+      "Ebony owns her own hair salon, has a crew of girlfriends who always have her back, and a few good weeks with Cree. So when he calls on a Friday night wanting to come over, she skips a night out at Limelight and waits for him.",
       {pull:"He never showed."},
+      "At 1 a.m. she calls Raven, sure something has happened to him. Something has: he’s at Limelight with another woman. The next morning he’s at her door with white roses, an excuse, and the nerve to tell her she’s too intense.",
       {pull:"She showed him the door."},
-      "The full story description is on its way."
+      "Then someone packs sugar into Raven’s gas tank, and everyone knows who to blame. Everyone except the Ring camera.",
+      "A steamy short read about pride, payback and the call she swore she’d never make."
     ],
-    note:"",
-    soon:"Coming soon"
+    note:"For adult readers only. Contains explicit sexual content, strong language, a threatening confrontation and vandalism.",
+    soon:""
   }
 ];
 const AUTHOR = {
@@ -989,7 +992,7 @@ function fillBook(b){
     : "";
   const cta = readBtn + (b.amazon
     ? `<a class="buy${b.read ? " is-soon" : ""}" href="${esc(b.amazon)}" target="_blank" rel="noopener">Buy on Amazon</a>`
-    : `<span class="buy is-soon" role="note">${esc(b.soon)}</span>`);
+    : (b.soon ? `<span class="buy is-soon" role="note">${esc(b.soon)}</span>` : ""));
   dText.innerHTML =
     `<p class="d-eyebrow">${esc(b.kicker === "Phillis Brown" ? "By Phillis Brown" : b.kicker + " · By Phillis Brown")}</p>`+
     `<h2 class="d-title" id="dTitle">${esc(b.title)}</h2>`+
