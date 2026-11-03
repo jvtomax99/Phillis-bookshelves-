@@ -780,7 +780,8 @@ function sizeShelf(){
     const ks = BOOKS.map(x => x.spine.k), kMax = Math.max(...ks), kSum = ks.reduce((p, q) => p + q, 0);
     const fixed = 2 * (innerWidth <= 640 ? 16 : 24) + 14 * (BOOKS.length - 1) + 30;
     const perH = .6667 * .92 + kMax * .42 / 300 + (kSum - kMax) / 300;
-    maxH = Math.min(440, (track.clientWidth - fixed) / perH);
+    // tall screens (tablets, big monitors) let books grow past 440px instead of leaving empty wall
+    maxH = Math.min(innerHeight > 1000 ? 640 : 440, (track.clientWidth - fixed) / perH);
   }
   H = Math.round(Math.max(170, Math.min(maxH, avail)));
   root.style.setProperty("--H", H + "px");
@@ -882,7 +883,7 @@ function ensureCover(slot){
   const face = slot.querySelector(".cover");
   if (face.firstChild) return;
   const b = bookOf(slot);
-  face.innerHTML = (b.coverSm ? `<img src="${esc(b.coverSm)}" alt="" draggable="false" decoding="async">` : drawnCover(b)) + `<span class="open-hint">Open</span>`;
+  face.innerHTML = (b.coverSm ? `<img src="${esc(H > 440 ? b.cover : b.coverSm)}" alt="" draggable="false" decoding="async">` : drawnCover(b)) + `<span class="open-hint">Open</span>`;
 }
 function dropCover(slot){
   if (slot && slot !== sel && slot !== openSlot) slot.querySelector(".cover").replaceChildren();
