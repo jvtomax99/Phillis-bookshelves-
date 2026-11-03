@@ -1,0 +1,376 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>Promo render</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..800;1,6..96,400..800&family=Instrument+Sans:wght@400;500;600;700&family=Pinyon+Script&display=swap">
+<style>
+:root{--red:#C8102E;--hot:#E8203F;--ink:#0B0809;--display:"Bodoni Moda",serif;--body:"Instrument Sans",sans-serif;--script:"Pinyon Script",cursive}
+*{box-sizing:border-box}
+html,body{margin:0;background:#000;width:1080px;height:1920px;overflow:hidden}
+#cam{position:absolute;inset:0;overflow:hidden;background:var(--ink)}
+.sc{position:absolute;inset:0;overflow:hidden;display:none;background:var(--ink)}
+.abs{position:absolute}
+.crop{position:absolute;overflow:hidden}
+.crop img{position:absolute;transform-origin:0 0;display:block}
+.kick{font:600 30px/1 var(--body);letter-spacing:.32em;text-transform:uppercase;color:#fff}
+.kick b{color:var(--hot);font-weight:700}
+.top{left:80px;top:250px}
+.grad-b{left:0;right:0;bottom:0;height:1000px;background:linear-gradient(#0B080900,#0B0809d0 45%,#0B0809f2)}
+.grad-t{left:0;right:0;top:0;height:520px;background:linear-gradient(#0B0809c8,#0B080900)}
+/* captions */
+.cap{position:absolute;left:80px;right:80px;top:1190px;opacity:0}
+.cap .who{font:700 30px/1 var(--body);letter-spacing:.3em;text-transform:uppercase;color:var(--hot);margin-bottom:26px;min-height:30px}
+.cap .ws{font:600 84px/1.13 var(--body);letter-spacing:-.012em;color:#fff}
+.cap .ws span{display:inline-block;margin-right:.24em;transition:none}
+/* brush */
+.brush{position:absolute;filter:url(#rough)}
+/* kinetic */
+.kin{position:absolute;left:60px;right:60px;display:flex;flex-wrap:wrap;justify-content:center;align-content:center;text-align:center}
+.kin span{display:inline-block;margin:0 .14em}
+.big{font:800 168px/.98 var(--display);text-transform:uppercase;letter-spacing:-.025em;color:#fff}
+.ital{font:italic 500 132px/1.06 var(--display);color:#fff}
+#grain{position:absolute;inset:-200px;opacity:.08;pointer-events:none;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='320' height='320'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' seed='3'/><feColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 1.6 -.3'/></filter><rect width='320' height='320' filter='url(%23n)'/></svg>")}
+#flash{position:absolute;inset:0;pointer-events:none;opacity:0}
+.tag{font:700 24px/1 var(--body);letter-spacing:.14em;border:2px solid #fff9;color:#fffc;padding:9px 12px 8px;border-radius:6px}
+.pill{display:inline-block;border:3px solid var(--hot);color:#fff;padding:22px 36px;border-radius:99px;font:700 34px/1 var(--body);letter-spacing:.16em;text-transform:uppercase}
+.rgb{text-shadow:var(--rx,0) 0 0 #E8203Fcc, calc(var(--rx,0) * -1) 0 0 #2fd4ff66}
+.door{position:absolute;top:0;bottom:0;width:541px;background:#050304}
+</style></head><body>
+<svg width="0" height="0" style="position:absolute"><defs>
+<filter id="rough" x="-10%" y="-30%" width="120%" height="160%"><feTurbulence type="fractalNoise" baseFrequency=".012 .09" numOctaves="4" seed="7"/><feDisplacementMap in="SourceGraphic" scale="60"/></filter>
+<symbol id="stroke" viewBox="0 0 1000 200" preserveAspectRatio="none"><path d="M20 120 C 140 40, 380 30, 620 50 S 940 60, 985 90 C 990 120, 900 150, 700 158 S 300 175, 120 170 C 40 165, 10 150, 20 120Z" fill="#C8102E"/></symbol>
+</defs></svg>
+<div id="cam">
+
+<!-- OPEN -->
+<section class="sc" id="s-open">
+  <div class="crop" id="o-l" style="left:0;top:0;width:534px;height:1920px"><img src="build/reign-clean.jpg"></div>
+  <div class="crop" id="o-r" style="left:546px;top:0;width:534px;height:1920px"><img src="build/ebony-clean.jpg"></div>
+  <div class="abs" id="o-seam" style="left:524px;top:0;width:32px;height:1920px;background:var(--red)"></div>
+  <div class="abs" id="o-shade" style="inset:0;background:var(--ink)"></div>
+  <div class="abs" id="o-band" style="left:0;right:0;top:1280px;height:400px;background:#0B0809e8;opacity:0"></div>
+  <div class="abs grad-t" id="o-gt" style="opacity:0"></div>
+  <div class="abs kick top" id="o-kick">A Phillis Brown story &nbsp;<b>18+</b></div>
+  <div class="abs ital" id="o-l1" style="left:0;right:0;text-align:center;font-size:124px">He chose Scarlett.</div>
+  <div class="abs ital" id="o-l2" style="left:0;right:0;top:1470px;text-align:center;font-size:124px;color:var(--hot);opacity:0">Ebony saw him first.</div>
+</section>
+
+<!-- COAT -->
+<section class="sc" id="s-coat">
+  <div class="crop" style="inset:0"><img id="coat-img" src="build/reign-clean.jpg"></div>
+  <div class="abs grad-t"></div><div class="abs grad-b"></div>
+  <div class="abs kick top">Reign Is Mine &nbsp;<b>18+</b></div>
+</section>
+
+<!-- WINE -->
+<section class="sc" id="s-wine">
+  <div class="crop" style="inset:0"><img id="wine-img" src="build/reign-clean.jpg"></div>
+  <div class="abs" style="inset:0;background:linear-gradient(160deg,#C8102E66,#0B080955);mix-blend-mode:multiply"></div>
+  <div class="abs grad-t" style="height:760px"></div><div class="abs grad-b"></div>
+  <div class="abs kick top" id="wine-k">Chapter Five</div>
+  <div class="abs ital" id="wine-t" style="left:72px;top:310px;font-size:190px">Red Wine</div>
+</section>
+
+<!-- DARE -->
+<section class="sc" id="s-dare">
+  <div class="crop" style="inset:0;filter:grayscale(1) contrast(1.3) brightness(.55)"><img id="dare-img" src="build/reign-clean.jpg"></div>
+  <div class="abs" style="inset:0;background:radial-gradient(ellipse 70% 55% at 50% 48%,#C8102E33,#0B0809ee 80%)"></div>
+  <div class="abs kick top">Reign Is Mine &nbsp;<b>18+</b></div>
+  <div class="kin big" id="dare-k1" style="top:560px;height:800px"></div>
+  <div class="kin big" id="dare-k2" style="top:560px;height:800px"></div>
+</section>
+
+<!-- REIGN TITLE -->
+<section class="sc" id="s-reign">
+  <div class="crop" style="inset:0;opacity:.55;filter:blur(14px) brightness(.32) contrast(1.2)"><img id="reign-bg" src="build/reign-clean.jpg"></div>
+  <svg class="brush" id="reign-brush" style="left:-40px;top:860px;width:1160px;height:300px"><use href="#stroke"/></svg>
+  <div class="abs" id="reign-title" style="left:0;right:0;top:640px;text-align:center">
+    <div style="font:italic 500 170px/1 var(--display);color:#fff">Reign <span style="color:var(--hot)">is</span></div>
+    <div class="rgb" id="reign-mine" style="font:800 330px/.9 var(--display);letter-spacing:-.03em;color:#fff;text-transform:uppercase">Mine</div>
+  </div>
+  <div class="abs" id="reign-cta" style="left:0;right:0;top:1290px;text-align:center"><span class="pill">Out now &middot; Read or listen</span></div>
+</section>
+
+<!-- CALLS -->
+<section class="sc" id="s-calls">
+  <div class="crop" style="inset:0"><img id="calls-img" src="build/ebony-clean.jpg"></div>
+  <div class="abs grad-t" style="height:820px;background:linear-gradient(#0B0809e6,#0B080900)"></div><div class="abs grad-b"></div>
+  <div class="abs kick top">Ebony: The Club &nbsp;<b>18+</b></div>
+  <div class="abs" id="calls-ui" style="left:80px;right:80px;top:330px">
+    <div id="clock" style="font:300 230px/1 var(--body);letter-spacing:-.04em;color:#fff;opacity:0">1:00<span style="font-size:.4em;letter-spacing:0;margin-left:.15em">AM</span></div>
+    <div id="callpill" style="margin-top:26px;display:inline-flex;align-items:center;gap:22px;background:#ffffff1f;border:2px solid #ffffff33;border-radius:99px;padding:18px 30px 18px 24px;font:600 40px/1 var(--body);color:#fff;opacity:0">
+      <span id="dot" style="width:22px;height:22px;border-radius:50%;background:var(--hot)"></span><span>Calling Cree&hellip;</span>
+      <span id="missed" style="background:var(--hot);border-radius:99px;padding:8px 18px;font-weight:700;font-size:34px">1 missed</span></div>
+  </div>
+</section>
+
+<!-- WOMAN -->
+<section class="sc" id="s-woman" style="background:var(--red)">
+  <div class="crop" style="inset:0;filter:grayscale(1) contrast(1.2);mix-blend-mode:multiply"><img id="woman-img" src="build/ebony-clean.jpg"></div>
+  <div class="abs" style="left:0;right:0;top:0;height:300px;background:linear-gradient(#C8102E,#C8102E00)"></div>
+  <div class="abs grad-b" style="height:900px"></div>
+  <div class="abs kick top">Ebony: The Club &nbsp;<b style="color:#fff">18+</b></div>
+  <div class="abs" id="woman-big" style="left:70px;top:330px;font:800 200px/.88 var(--display);text-transform:uppercase;letter-spacing:-.03em;color:#fff">
+    <div>He</div><div>never</div><div>showed.</div></div>
+</section>
+
+<!-- SLAM -->
+<section class="sc" id="s-slam">
+  <div class="crop" style="inset:0;filter:brightness(.7)"><img id="slam-img" src="build/ebony-clean.jpg"></div>
+  <div class="abs grad-t"></div><div class="abs grad-b"></div>
+  <div class="door" id="door-l" style="left:0"></div><div class="door" id="door-r" style="right:0"></div>
+  <div class="abs" id="slam-red" style="left:536px;top:0;width:8px;height:1920px;background:var(--hot);opacity:0"></div>
+  <div class="abs kick top">Ebony: The Club &nbsp;<b>18+</b></div>
+  <div class="abs" id="slam-txt" style="left:0;right:0;top:440px;text-align:center;font:800 186px/.92 var(--display);text-transform:uppercase;letter-spacing:-.03em;color:#fff;opacity:0">
+    <div>She showed</div><div>him</div><div style="color:var(--hot)">the door.</div></div>
+</section>
+
+<!-- WANT -->
+<section class="sc" id="s-want">
+  <div class="crop" style="inset:0"><img id="want-img" src="build/ebony-clean.jpg"></div>
+  <div class="abs" style="inset:0;background:radial-gradient(ellipse 90% 40% at 50% 50%,#0B0809cc,#0B080955)"></div>
+  <div class="abs kick top">Ebony: The Club &nbsp;<b>18+</b></div>
+  <div class="kin ital" id="want-k" style="top:620px;height:640px;font-size:150px"></div>
+</section>
+
+<!-- END -->
+<section class="sc" id="s-end">
+  <div class="abs" id="end-name" style="left:0;right:0;top:170px;text-align:center;font:400 150px/1 var(--script);color:#fff">Phillis Brown</div>
+  <div class="crop" id="end-c1" style="left:120px;top:420px;width:440px;height:660px;box-shadow:0 40px 90px #000c"><img src="../covers/reign-is-mine.jpg" style="width:440px"></div>
+  <div class="crop" id="end-c2" style="left:520px;top:450px;width:440px;height:660px;box-shadow:-30px 40px 90px #000e"><img src="../covers/ebony-the-club.jpg" style="width:440px"></div>
+  <div class="abs" style="left:0;right:0;top:1150px;text-align:center;font:italic 500 92px/1.1 var(--display);color:#fff">
+    <div id="end-t1">Two stories.</div><div id="end-t2">One woman</div>
+    <div id="end-t3" class="rgb" style="font-style:normal;font-weight:800;text-transform:uppercase;color:var(--hot);letter-spacing:-.01em">you can&rsquo;t trust.</div></div>
+  <div class="abs" id="end-list" style="left:0;right:0;top:1500px;text-align:center;font:600 30px/1.7 var(--body);letter-spacing:.2em;text-transform:uppercase;color:#fffc">
+    <div>Reign Is Mine &middot; <span style="color:var(--hot)">Out now</span></div><div>Ebony: The Club &middot; <span style="color:var(--hot)">Coming soon</span></div></div>
+  <div class="abs" id="end-cta" style="left:0;right:0;top:1640px;text-align:center"><span class="pill">Read or listen &middot; Link in bio</span>
+    <div style="margin-top:22px;font:600 22px/1 var(--body);letter-spacing:.2em;color:#fff8">ADULTS 18+</div></div>
+</section>
+
+<div id="caps"></div>
+</div>
+<div id="grain"></div>
+<div id="flash"></div>
+
+<script>
+let TL;
+const $ = id => document.getElementById(id);
+const cl = x => Math.max(0, Math.min(1, x));
+const P = (t, a, d) => cl((t - a) / d);
+const eOut = x => 1 - Math.pow(1 - x, 3);
+const eExpo = x => x >= 1 ? 1 : 1 - Math.pow(2, -10 * x);
+const eBack = x => { const c1 = 1.9, c3 = c1 + 1; return 1 + c3 * Math.pow(x - 1, 3) + c1 * Math.pow(x - 1, 2); };
+const mix = (a, b, x) => a + (b - a) * x;
+const rnd = s => { const x = Math.sin(s * 127.1 + 311.7) * 43758.5453; return x - Math.floor(x); };
+const SRCW = 1024, SRCH = 1536;
+
+// put source point (fx,fy) of a cover at frame point (px,py), at zoom z (cover px -> frame px)
+function place(img, z, fx, fy, px, py) {
+  img.style.width = SRCW + 'px';
+  img.style.transform = `translate(${px - fx * z}px,${py - fy * z}px) scale(${z})`;
+}
+
+function wordsHTML(words) { return words.map(w => `<span>${w.w.replace(/&/g, '&amp;').replace(/</g, '&lt;')}</span>`).join(''); }
+
+function build() {
+  const caps = $('caps');
+  TL.vo.forEach((v, i) => {
+    v.i = i;
+    if (['dare', 'want'].includes(v.scene)) return; // kinetic scenes
+    caps.insertAdjacentHTML('beforeend', `<div class="cap" id="cap${i}"><div class="who">${v.who}</div><div class="ws">${wordsHTML(v.words)}</div></div>`);
+  });
+  const dare = TL.vo.filter(v => v.scene === 'dare');
+  $('dare-k1').innerHTML = wordsHTML(dare[0].words);
+  $('dare-k2').innerHTML = wordsHTML(dare[1].words);
+  $('want-k').innerHTML = wordsHTML(TL.vo.find(v => v.scene === 'want').words);
+  TL.S = Object.fromEntries(TL.scenes.map(s => [s.id, s]));
+}
+
+function caption(t) {
+  TL.vo.forEach((v, i) => {
+    const el = $('cap' + i); if (!el) return;
+    const sc = TL.S[v.scene];
+    const next = TL.vo[i + 1];
+    const endT = next && next.scene === v.scene ? next.at - .05 : sc.b;
+    const on = t >= v.at - .12 && t < endT && t >= sc.a;
+    if (!on) { el.style.opacity = 0; return; }
+    const a = P(t, v.at - .12, .18);
+    el.style.opacity = a; el.style.transform = `translateY(${(1 - eOut(a)) * 30}px)`;
+    const spans = el.querySelectorAll('.ws span');
+    v.words.forEach((w, k) => {
+      const nt = k + 1 < v.words.length ? v.words[k + 1].t : v.at + v.dur;
+      const s = spans[k];
+      if (t < w.t) { s.style.opacity = .26; s.style.color = '#fff'; s.style.transform = 'none'; }
+      else if (t < nt) { const q = eBack(P(t, w.t, .16)); s.style.opacity = 1; s.style.color = 'var(--hot)'; s.style.transform = `translateY(${-6 * q}px) scale(${1 + .06 * (1 - P(t, w.t + .1, .2))})`; }
+      else { s.style.opacity = 1; s.style.color = '#fff'; s.style.transform = 'none'; }
+    });
+  });
+}
+
+function kinetic(el, v, t, opts = {}) {
+  const spans = el.querySelectorAll('span');
+  v.words.forEach((w, k) => {
+    const q = P(t, w.t - .04, .22);
+    const s = spans[k];
+    s.style.opacity = q > 0 ? 1 : 0;
+    const sc = mix(1.6, 1, eExpo(q));
+    s.style.transform = `scale(${sc}) translateY(${(1 - eExpo(q)) * -30}px)`;
+    s.style.filter = q < 1 ? `blur(${(1 - eExpo(q)) * 10}px)` : 'none';
+    if (opts.red && opts.red(w.w)) s.style.color = 'var(--hot)';
+  });
+}
+
+const R = {
+  open(lt, d, t) {
+    const B = 1.55;
+    const l1 = $('o-l1');
+    const q1 = P(lt, .35, .45);
+    const mv = eExpo(P(lt, B, .4));
+    l1.style.opacity = q1;
+    l1.style.top = mix(800, 1330, mv) + 'px';
+    l1.style.fontSize = mix(124, 104, mv) + 'px';
+    l1.style.filter = `blur(${(1 - eExpo(q1)) * 22}px)`;
+    l1.style.transform = `scale(${mix(1.3, 1, eExpo(q1))})`;
+    const qs = eExpo(P(lt, B, .38));
+    $('o-shade').style.opacity = 1 - P(lt, B, .12);
+    $('o-band').style.opacity = qs; $('o-gt').style.opacity = qs;
+    const L = $('o-l').firstElementChild, Rr = $('o-r').firstElementChild;
+    const z = mix(1.75, 1.62, P(lt, B, d - B));
+    place(L, z, 515, 560, 267, 720 - (1 - qs) * 1900);
+    place(Rr, z, 520, 520, 267, 720 + (1 - qs) * 1900);
+    $('o-seam').style.transform = `scaleY(${qs})`;
+    const q2 = P(lt, B + .2, .35);
+    $('o-l2').style.opacity = q2; $('o-l2').style.top = (1440 + (1 - eExpo(q2)) * 40) + 'px';
+    $('o-l2').style.fontSize = '104px';
+    $('o-kick').style.opacity = P(lt, .1, .4);
+  },
+  coat(lt, d) {
+    const z = mix(2.35, 1.95, eExpo(P(lt, 0, .5))) + .18 * P(lt, .5, d);
+    place($('coat-img'), z, 505, 720, 540, 760 - 30 * P(lt, 0, d));
+  },
+  wine(lt, d) {
+    const z = mix(2.9, 2.45, eExpo(P(lt, 0, .5))) + .12 * P(lt, .5, d);
+    place($('wine-img'), z, 395, 690, mix(520, 560, P(lt, 0, d)), 900);
+    const k = P(lt, .15, .4);
+    $('wine-t').style.opacity = k; $('wine-t').style.transform = `translateX(${(1 - eExpo(k)) * -80}px)`;
+    $('wine-t').style.letterSpacing = mix(.08, -.01, eExpo(k)) + 'em';
+    $('wine-k').style.opacity = P(lt, .05, .3);
+  },
+  dare(lt, d, t) {
+    const z = 1.45 + .12 * P(lt, 0, d);
+    place($('dare-img'), z, 520, 820, 540, 960);
+    const [v1, v2] = TL.vo.filter(v => v.scene === 'dare');
+    const k1 = $('dare-k1'), k2 = $('dare-k2');
+    k1.style.display = t < v2.at - .02 ? 'flex' : 'none';
+    k2.style.display = t >= v2.at - .02 ? 'flex' : 'none';
+    kinetic(k1, v1, t);
+    kinetic(k2, v2, t, { red: w => /scarlett/i.test(w) });
+    const g = TL.hits.find(h => h.k === 'glitch');
+    const e = t >= g.t ? Math.exp(-(t - g.t) / .25) : 0;
+    k2.lastElementChild.style.textShadow = e > .01 ? `${(rnd(t * 90) - .5) * 40 * e}px 0 0 #2fd4ffaa, ${(rnd(t * 70 + 3) - .5) * 40 * e}px 0 0 #fff8` : 'none';
+  },
+  reign(lt, d) {
+    place($('reign-bg'), 1.3, 512, 800, 540, 960);
+    const q = eExpo(P(lt, 0, .5));
+    $('reign-title').style.transform = `scale(${mix(1.5, 1, q)})`; $('reign-title').style.opacity = P(lt, 0, .08);
+    $('reign-brush').style.clipPath = `inset(0 ${100 - 100 * eOut(P(lt, .08, .32))}% 0 0)`;
+    const e = Math.exp(-lt / .35);
+    $('reign-mine').style.setProperty('--rx', ((rnd(lt * 60) - .5) * 30 * e + 3) + 'px');
+    const c = P(lt, .7, .35); $('reign-cta').style.opacity = c; $('reign-cta').style.transform = `translateY(${(1 - eOut(c)) * 30}px)`;
+    $('reign-title').style.marginTop = (-20 * P(lt, .5, d)) + 'px';
+  },
+  calls(lt, d, t) {
+    const z = mix(2.5, 1.95, eOut(P(lt, 0, d)));
+    place($('calls-img'), z, 420, 600, 560, 1000);
+    const [v1, v2] = TL.vo.filter(v => v.scene === 'calls');
+    const pq = P(t, v1.at - .1, .25);
+    const pill = $('callpill');
+    pill.style.opacity = pq; pill.style.transform = `translateY(${(1 - eBack(pq)) * 40}px)`;
+    const n = Math.max(1, Math.min(23, Math.floor(1 + 22 * Math.pow(P(t, v1.at + .2, v1.dur), 1.4))));
+    $('missed').textContent = n + ' missed';
+    $('dot').style.opacity = .35 + .65 * (Math.sin(t * 9) * .5 + .5);
+    const cq = P(t, v2.at - .05, .3);
+    $('clock').style.opacity = cq; $('clock').style.transform = `scale(${mix(1.25, 1, eExpo(cq))})`; $('clock').style.transformOrigin = '0 50%';
+    $('clock').style.filter = `blur(${(1 - eExpo(cq)) * 12}px)`;
+  },
+  woman(lt, d) {
+    place($('woman-img'), mix(1.75, 1.6, P(lt, 0, d)), 525, 780, 540, 1100);
+    [...$('woman-big').children].forEach((el, i) => {
+      const q = P(lt, .02 + i * .13, .2);
+      el.style.opacity = q > 0 ? 1 : 0;
+      el.style.transform = `translateX(${(1 - eExpo(q)) * -140}px)`;
+    });
+  },
+  slam(lt, d, t) {
+    place($('slam-img'), mix(2.2, 2.35, P(lt, 0, d)), 520, 430, 540, 820);
+    const h = TL.hits.find(x => x.k === 'slam').t;
+    const q = eExpo(P(t, h - .09, .12));
+    $('door-l').style.transform = `translateX(${-(1 - q) * 100}%)`;
+    $('door-r').style.transform = `translateX(${(1 - q) * 100}%)`;
+    $('slam-red').style.opacity = t >= h ? Math.max(.0, 1 - P(t, h + .05, .5)) : 0;
+    const tq = P(t, h + .12, .25);
+    $('slam-txt').style.opacity = tq; $('slam-txt').style.transform = `scale(${mix(1.25, 1, eExpo(tq))})`;
+  },
+  want(lt, d, t) {
+    place($('want-img'), mix(1.28, 1.42, P(lt, 0, d)), 525, 760, 540, 980);
+    kinetic($('want-k'), TL.vo.find(v => v.scene === 'want'), t, { red: w => /him!/i.test(w) });
+  },
+  end(lt, d) {
+    $('end-name').style.opacity = P(lt, .1, .5);
+    const c1 = eBack(P(lt, .0, .6)), c2 = eBack(P(lt, .1, .6));
+    $('end-c1').style.transform = `translate(${(1 - c1) * -700}px,${(1 - c1) * 120}px) rotate(${mix(-24, -6, c1)}deg)`;
+    $('end-c2').style.transform = `translate(${(1 - c2) * 700}px,${(1 - c2) * 120}px) rotate(${mix(22, 5, c2)}deg)`;
+    const drift = P(lt, .7, d);
+    $('end-c1').style.marginTop = (-12 * drift) + 'px'; $('end-c2').style.marginTop = (10 * drift) + 'px';
+    [['end-t1', .75], ['end-t2', 1.1], ['end-t3', 1.55]].forEach(([id, a]) => {
+      const q = P(lt, a, .3), el = $(id);
+      el.style.opacity = q; el.style.transform = `translateY(${(1 - eExpo(q)) * 40}px)`;
+      el.style.filter = q < 1 ? `blur(${(1 - eExpo(q)) * 10}px)` : 'none';
+    });
+    const e = lt > 1.55 ? Math.exp(-(lt - 1.55) / .3) : 0;
+    $('end-t3').style.setProperty('--rx', ((rnd(lt * 50) - .5) * 26 * e + 2) + 'px');
+    const l = P(lt, 2.2, .4); $('end-list').style.opacity = l;
+    const c = P(lt, 2.6, .4); $('end-cta').style.opacity = c; $('end-cta').style.transform = `translateY(${(1 - eBack(c)) * 30}px)`;
+  },
+};
+
+const FX = { tick: [0, 0, .12, ''], mid: [16, .18, .22, '#fff'], big: [30, .5, .3, '#fff'], slam: [46, .7, .35, '#E8203F'], glitch: [20, .25, .25, '#2fd4ff'] };
+
+window.render = function (t) {
+  for (const s of TL.scenes) {
+    const el = $('s-' + s.id);
+    const on = t >= s.a && t < s.b || (s === TL.scenes.at(-1) && t >= s.a);
+    el.style.display = on ? 'block' : 'none';
+    if (on) R[s.id](t - s.a, s.b - s.a, t);
+  }
+  caption(t);
+  // camera: shake + flash from hits, tiny zoom punch on every cut
+  let sx = 0, sy = 0, fl = 0, fc = '#fff', punch = 0;
+  for (const h of TL.hits) {
+    if (t < h.t) continue;
+    const [amp, fa, dur, col] = FX[h.k];
+    const e = Math.exp(-(t - h.t) / dur);
+    if (e < .003) continue;
+    sx += (rnd(t * 37 + h.t) - .5) * 2 * amp * e; sy += (rnd(t * 53 + h.t + 9) - .5) * 2 * amp * e;
+    const f = fa * Math.exp(-(t - h.t) / .09); if (f > fl) { fl = f; fc = col; }
+    punch = Math.max(punch, (h.k === 'tick' ? .025 : .04) * e);
+  }
+  $('cam').style.transform = `translate(${sx}px,${sy}px) scale(${1 + punch})`;
+  const F = $('flash'); F.style.opacity = fl; F.style.background = fc;
+  const fr = Math.floor(t * 10);
+  $('grain').style.transform = `translate(${Math.floor(rnd(fr) * 200 - 100)}px,${Math.floor(rnd(fr + .5) * 200 - 100)}px)`;
+  // fade out at the very end
+  const tail = P(t, TL.T - .35, .35);
+  $('cam').style.opacity = 1 - tail;
+};
+
+window.ready = (async () => {
+  TL = await (await fetch('build/timeline.json')).json();
+  build();
+  await Promise.all(['italic 500 100px "Bodoni Moda"', '800 100px "Bodoni Moda"', '600 80px "Instrument Sans"', '700 30px "Instrument Sans"', '300 100px "Instrument Sans"', '400 100px "Pinyon Script"'].map(f => document.fonts.load(f)));
+  await document.fonts.ready;
+  await Promise.all([...document.images].map(i => i.decode().catch(() => {})));
+  const q = new URLSearchParams(location.search).get('t');
+  if (q !== null) render(+q);
+  return TL;
+})();
+</script>
+</body></html>
