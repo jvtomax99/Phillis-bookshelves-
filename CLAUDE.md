@@ -24,7 +24,6 @@ All books are for adult readers (18+).
 
 ## Open ideas (mocked, not built)
 
-- Reader on phones: left-aligned text instead of justified (narrow columns leave big word gaps), plus a slim crimson progress bar instead of the browser's default slider. Adds about one page per book.
 - Reader auto-open: when arriving from "Read or listen", open the cover by itself instead of asking for a second tap. Trade-off: loses the open-it-yourself moment.
 - Tablet shelf: raise the 440px book-height cap in `sizeShelf()` to about 640px on screens taller than 1000px.
 - Phone landscape shelf: a compact header helps but "Open the book" is still partly cut off at 390px tall; a real fix puts the caption beside the books.

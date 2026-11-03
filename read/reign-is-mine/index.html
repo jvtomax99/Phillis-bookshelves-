@@ -68,6 +68,8 @@ body {
   hyphens: auto; -webkit-hyphens: auto; text-align: justify; text-rendering: optimizeLegibility;
   font-kerning: normal; font-optical-sizing: auto;
 }
+/* Narrow columns: justified text leaves wide gaps between words, so phones get ragged-right text */
+@media (max-width: 640px) { .flow { text-align: left; hyphens: manual; -webkit-hyphens: manual; } }
 .flow p { margin: 0; text-indent: 1.3em; orphans: 2; widows: 2; }
 .flow p.first { text-indent: 0; }
 .flow p.first::first-letter {
@@ -186,7 +188,12 @@ body {
 .prog { display: flex; align-items: center; gap: 0.7rem; }
 .time { font-family: var(--label); font-size: 0.72rem; letter-spacing: 0.06em; color: var(--desk-muted); font-variant-numeric: tabular-nums; min-width: 2.9em; }
 .time.r { text-align: right; }
-#seek { flex: 1; min-width: 0; accent-color: #C8102E; height: 20px; }
+#seek { flex: 1; min-width: 0; height: 22px; margin: 0; background: transparent; -webkit-appearance: none; appearance: none; cursor: pointer; --p: 0%; }
+#seek::-webkit-slider-runnable-track { height: 3px; border-radius: 2px; background: linear-gradient(90deg, #C8102E var(--p), rgba(244, 234, 237, 0.18) var(--p)); }
+#seek::-webkit-slider-thumb { -webkit-appearance: none; width: 14px; height: 14px; margin-top: -5.5px; border-radius: 50%; background: #F4EAED; box-shadow: 0 0 0 4px rgba(200, 16, 46, 0.28); }
+#seek::-moz-range-track { height: 3px; border-radius: 2px; background: rgba(244, 234, 237, 0.18); }
+#seek::-moz-range-progress { height: 3px; border-radius: 2px; background: #C8102E; }
+#seek::-moz-range-thumb { width: 14px; height: 14px; border: 0; border-radius: 50%; background: #F4EAED; box-shadow: 0 0 0 4px rgba(200, 16, 46, 0.28); }
 .btns { display: flex; align-items: center; justify-content: center; gap: clamp(0.4rem, 3vw, 1.4rem); }
 .deck button { font: inherit; color: var(--desk-ink); background: none; border: 0; cursor: pointer; border-radius: 999px; display: grid; place-items: center; }
 .deck button:focus-visible { outline: 1px solid var(--blush); outline-offset: 3px; }
@@ -479,6 +486,7 @@ cover.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ')
 
 /* ---------- audio sync ---------- */
 let cur = -1, follow = true, seeking = false;
+function paintSeek() { const s = $('seek'); s.style.setProperty('--p', (s.value / 10) + '%'); }
 function findSent(t) {
   let lo = 0, hi = S.length - 1;
   while (lo < hi) { const m = (lo + hi + 1) >> 1; if (S[m].t <= t + 0.03) lo = m; else hi = m - 1; }
@@ -491,7 +499,7 @@ function setVoice(v) {
 function render() {
   const t = audio.currentTime;
   $('cur').textContent = fmt(t);
-  if (!seeking) $('seek').value = Math.round(1000 * t / (audio.duration || DUR));
+  if (!seeking) { $('seek').value = Math.round(1000 * t / (audio.duration || DUR)); paintSeek(); }
   const n = findSent(t);
   if (n !== cur) {
     if (cur >= 0) SEL[cur].classList.remove('on');
@@ -525,7 +533,7 @@ $('fwd').addEventListener('click', () => { audio.currentTime = Math.min(DUR, aud
 const speeds = [1, 1.25, 1.5, 0.75]; let si = 0;
 $('speed').addEventListener('click', e => { si = (si + 1) % speeds.length; audio.playbackRate = speeds[si]; e.currentTarget.textContent = speeds[si] + '×'; });
 const seek = $('seek');
-seek.addEventListener('input', () => { seeking = true; $('cur').textContent = fmt(seek.value / 1000 * (audio.duration || DUR)); });
+seek.addEventListener('input', () => { seeking = true; paintSeek(); $('cur').textContent = fmt(seek.value / 1000 * (audio.duration || DUR)); });
 seek.addEventListener('change', () => { openBook(); audio.currentTime = seek.value / 1000 * (audio.duration || DUR); seeking = false; setFollow(true); cur = -1; render(); });
 
 flow.addEventListener('click', e => {
