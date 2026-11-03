@@ -467,8 +467,8 @@ button{font:inherit;color:inherit}
 .d-title{margin:0;font:400 clamp(46px,7.2vw,104px)/.92 var(--display);letter-spacing:-.015em;text-wrap:balance}
 .d-title.script{font:400 clamp(56px,8vw,112px)/1 var(--script);letter-spacing:0}
 .d-sub{margin:10px 0 0;font:italic 400 clamp(22px,2.4vw,30px)/1.2 var(--display);color:var(--dacc)}
-.d-meta{display:flex;flex-wrap:wrap;gap:6px 16px;margin:26px 0 0;padding:0;list-style:none;font:500 11px/1.4 var(--body);letter-spacing:.18em;text-transform:uppercase;opacity:.8}
-.d-meta li + li::before{content:"·";margin-right:16px}
+.d-meta{display:flex;flex-wrap:wrap;gap:6px 0;margin:26px 0 0;padding:0;list-style:none;font:500 11px/1.4 var(--body);letter-spacing:.18em;text-transform:uppercase;opacity:.8}
+.d-meta li:not(:last-child)::after{content:"·";margin:0 12px}
 .d-blurb{margin-top:26px;display:grid;gap:14px}
 .d-blurb p{margin:0;font:400 17px/1.62 var(--body);max-width:62ch}
 .d-blurb p.pull{font:italic 400 clamp(22px,2.3vw,28px)/1.25 var(--display)}
@@ -485,6 +485,13 @@ button{font:inherit;color:inherit}
 .buy:focus-visible{outline:2px solid var(--dink);outline-offset:3px}
 .buy.is-soon{background:transparent;color:var(--dacc);box-shadow:inset 0 0 0 1px var(--dacc)}
 span.buy.is-soon{box-shadow:none;padding-inline:0;font-style:italic;text-transform:none;letter-spacing:.02em;font-size:14px}
+/* Phones: keep "Read or listen" on screen while the blurb scrolls */
+@media (max-width:640px){
+  .d-cta{position:sticky;bottom:0;z-index:3;margin:30px -16px 0;padding:22px 16px calc(16px + env(safe-area-inset-bottom,0px));
+    background:linear-gradient(to bottom, transparent, var(--dbg) 34%);gap:10px 14px}
+  .d-cta .buy.read{flex:1;justify-content:center}
+  .d-cta span.buy.is-soon{flex-basis:100%;text-align:center;font-size:13px}
+}
 .buy.read{background:var(--dink);color:var(--dbg)}
 .buy.read:hover{background:var(--dacc)}
 .d-prog{margin-top:16px;display:flex;align-items:center;gap:14px;max-width:26rem}
@@ -505,7 +512,7 @@ span.buy.is-soon{box-shadow:none;padding-inline:0;font-style:italic;text-transfo
 .d-cover .fc{position:absolute}
 @media (max-width:760px){
   .d-grid{grid-template-columns:minmax(0,1fr);align-items:start;gap:28px;min-height:0}
-  .d-cover{order:-1;justify-self:center;height:auto;width:min(60vw,280px)}
+  .d-cover{order:-1;justify-self:center;height:auto;width:min(60vw,280px,30.7vh)} /* 30.7vh keeps the cover under 46% of the screen height, so the title clears the pinned bar on short phones */
   .d-blurb p{font-size:16px}
 }
 @media (max-width:640px){
