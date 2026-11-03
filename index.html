@@ -485,12 +485,23 @@ button{font:inherit;color:inherit}
 .buy:focus-visible{outline:2px solid var(--dink);outline-offset:3px}
 .buy.is-soon{background:transparent;color:var(--dacc);box-shadow:inset 0 0 0 1px var(--dacc)}
 span.buy.is-soon{box-shadow:none;padding-inline:0;font-style:italic;text-transform:none;letter-spacing:.02em;font-size:14px}
-/* Phones: keep "Read or listen" on screen while the blurb scrolls */
-@media (max-width:640px){
+/* Single-column layout (phones and narrow windows): keep "Read or listen" on screen while the blurb scrolls */
+@media (max-width:760px){
   .d-cta{position:sticky;bottom:0;z-index:3;margin:30px -16px 0;padding:22px 16px calc(16px + env(safe-area-inset-bottom,0px));
     background:linear-gradient(to bottom, transparent, var(--dbg) 34%);gap:10px 14px}
   .d-cta .buy.read{flex:1;justify-content:center}
   .d-cta span.buy.is-soon{flex-basis:100%;text-align:center;font-size:13px}
+}
+/* Wider screens: title and details, then the content note and the button, then the blurb,
+   so "Read or listen" shows without scrolling on laptops and the warning sits next to it */
+@media (min-width:761px){
+  .d-text{display:flex;flex-direction:column}
+  .d-text > *{order:2}
+  .d-eyebrow,.d-title,.d-sub,.d-meta{order:0}
+  .d-note,.d-cta,.d-prog{order:1}
+  .d-note{margin-top:22px}
+  .d-cta{margin-top:18px}
+  .d-blurb{margin-top:34px}
 }
 .buy.read{background:var(--dink);color:var(--dbg)}
 .buy.read:hover{background:var(--dacc)}
