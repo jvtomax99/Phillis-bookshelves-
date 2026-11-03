@@ -363,7 +363,7 @@ window.render = function (t) {
     if (t >= pt && t - pt < .3) { punch += .05 * Math.exp(-(t - pt) / .08); const f = .22 * Math.exp(-(t - pt) / .06); if (f > fl) { fl = f; fc = '#fff'; } }
   }
   let wx = 0, blur = 0;
-  if (TL.music === 'groove') TL.scenes.forEach((s, i) => {
+  if (TL.music && TL.music !== 'pulse') TL.scenes.forEach((s, i) => {
     if (i === 0 || t < s.a || t - s.a > .22) return;
     const q = eExpo(P(t, s.a, .2)), dir = i % 2 ? 1 : -1;
     wx += dir * (1 - q) * 260; blur = Math.max(blur, (1 - q) * 22);

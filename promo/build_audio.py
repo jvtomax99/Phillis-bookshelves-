@@ -5,8 +5,11 @@ import numpy as np
 SR = 48000
 # VOICE: A as recorded, B velvet, B2 velvet breathier, B3 velvet after dark, C low and slow (see voice_fx.py)
 VOICE = os.environ.get('VOICE', 'B2')
-# MUSIC: groove = 140 bpm half-time R&B/trap beat with cuts on the grid, pulse = the first version's heartbeat bed
-MUSIC = os.environ.get('MUSIC', 'groove')
+# MUSIC: groove = 140 bpm half-time R&B/trap beat with cuts on the grid, pulse = the first version's heartbeat bed,
+#        remix1 = heartbeat and drone through Reign Is Mine, building into the title slam where the groove drops,
+#        remix2 = groove throughout over the drone, heartbeat in the open (before the drop) and under the end card
+MUSIC = os.environ.get('MUSIC', 'remix1')
+GRIDDED = MUSIC != 'pulse'
 import sys; sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from voice_fx import treat
 BPM = 140
@@ -93,7 +96,7 @@ for sid, lines, hold in SCRIPT:
             clips.append((t, x))
             t += len(x) / SR + (GAP if i < len(lines) - 1 else 0)
         cursor = t + hold
-    if MUSIC == 'groove':
+    if GRIDDED:
         cursor = np.ceil(cursor / GRID - 1e-6) * GRID
     scenes.append({'id': sid, 'a': round(start, 3), 'b': round(cursor, 3)})
 T = round(cursor, 3)
@@ -104,7 +107,7 @@ def word_at(sid, needle, k=0):
     return hits[k]
 
 # hits: (time, kind) kind: big | mid | tick | slam | glitch
-OPEN = {'l1': BEAT, 'B': BAR} if MUSIC == 'groove' else {'l1': .35, 'B': 1.55}
+OPEN = {'l1': BEAT, 'B': BAR} if GRIDDED else {'l1': .35, 'B': 1.55}
 hits = [(OPEN['l1'], 'mid'), (OPEN['B'], 'mid')]
 for s in scenes[1:]:
     hits.append((s['a'], 'tick'))
@@ -114,12 +117,30 @@ hits += [(word_at('dare', 'dare'), 'mid'), (word_at('dare', 'Scarlett'), 'glitch
 hits = sorted({(round(t, 3), k) for t, k in hits if not (k == 'tick' and any(abs(t - u) < .05 and kk != 'tick' for u, kk in hits))})
 risers = [S['reign']['a'], S['end']['a']]
 
-# camera pulses on the kick and mid-shot punch-ins on a bar line (groove only)
-kicks, punchins = [], {}
-if MUSIC == 'groove':
-    t = BAR
-    while t < S['end']['a']:
+DROP = S['reign']['a'] if MUSIC == 'remix1' else OPEN['B']      # where the full groove starts
+GROOVE_END = S['end']['a'] + (.45 if MUSIC == 'remix2' else 3.2)
+hearts = []                                                       # (time, amp) lub times for the remixes
+if MUSIC == 'remix1':
+    t = OPEN['l1']; n_fast = DROP - 2 * BAR                       # last two bars before the drop go double time
+    while t < DROP - BEAT - 1e-6:
+        hearts.append((t, .5 + .35 * min(1, t / DROP)))
+        t += BEAT if t >= n_fast - 1e-6 else GRID
+elif MUSIC == 'remix2':
+    t = OPEN['l1']
+    while t < OPEN['B'] - 1e-6:
+        hearts.append((t, .6)); t += GRID
+    t = S['end']['a'] + GRID
+    while t < T - .6:
+        hearts.append((t, .6)); t += GRID
+hearts = [(round(t, 3), a) for t, a in hearts if not any(k in ('big', 'slam') and h - BEAT - .02 <= t < h for h, k in hits)]
+
+# camera pulses on the kick (or heartbeat) and mid-shot punch-ins on a bar line (gridded versions only)
+kicks, punchins = [h for h, _ in hearts], {}
+if GRIDDED:
+    t = DROP if MUSIC == 'remix1' else BAR
+    while t < min(S['end']['a'], GROOVE_END):
         kicks.append(round(t, 3)); kicks.append(round(t + 10 * BEAT / 4, 3)); t += BAR
+    kicks = sorted(kicks)
     for s in scenes:
         if s['id'] in ('coat', 'wine', 'calls', 'woman', 'want') and s['b'] - s['a'] > 2.4:
             mid = (s['a'] + s['b']) / 2
@@ -161,6 +182,13 @@ drone *= .6 + .4 * np.sin(2*np.pi*tt/7.3) ** 2
 noise = fft_filter(rng.standard_normal(N), 200, 1400) * .012
 if MUSIC == 'pulse':
     bed += drone + noise
+elif MUSIC == 'remix1':                                         # full drone until the drop, then tucked under the groove
+    g = np.where(tt < DROP, 1.0, .55); g = np.convolve(g, np.ones(int(.3 * SR)) / int(.3 * SR), 'same')
+    bed += (drone + noise) * g
+elif MUSIC == 'remix2':
+    bed += (drone + noise) * .7
+for t, a in hearts:
+    add(bed, kick(amp=a), t); add(bed, kick(amp=a * .55, f0=80), t + BEAT / 2)
 
 # heartbeat pulse, 84 bpm (lub-dub), starts after the first title hit, stops for the end card tail
 beat = 60 / 84
@@ -193,15 +221,15 @@ def chord(freqs, dur):
     a = np.minimum(1, t / .25) * np.minimum(1, (dur - t) / .2)
     return x * a * .22
 music = np.zeros(N)
-if MUSIC == 'groove':
+if GRIDDED:
     NOTES = [55.0, 55.0, 43.65, 49.0]                       # A1 A1 F1 G1
     CHORDS = [(220, 261.6, 329.6), (220, 261.6, 329.6), (174.6, 220, 261.6), (196, 246.9, 293.7)]
-    end_music = S['end']['a'] + 3.2
-    k = 0; t = 0.0
+    end_music = GROOVE_END
+    k = 0; t = DROP if MUSIC == 'remix1' else 0.0
     while t < end_music:
         bar_i = k % 4
         add(music, chord(CHORDS[bar_i], BAR + .05), t, .9)
-        full = t >= OPEN['B'] - 1e-6                         # beat drops on "Ebony saw him first"
+        full = t >= DROP - 1e-6                              # beat drops on "Ebony saw him first" (remix1: on the Reign title)
         for st in range(16):
             ts = t + st * BEAT / 4
             if ts >= end_music: break
@@ -221,7 +249,7 @@ if MUSIC == 'groove':
         if h_k in ('big', 'slam'):
             a, b = int((h_t - BEAT) * SR), int(h_t * SR)
             music[a:b] *= np.linspace(1, 0, b - a) ** .3 * 0 + np.r_[np.linspace(1, 0, min(b - a, 2400)), np.zeros(max(0, b - a - 2400))]
-    fade = int(1.2 * SR); e = int(end_music * SR); music[e - fade:e] *= np.linspace(1, 0, fade); music[e:] = 0
+    fade = int((.4 if MUSIC == 'remix2' else 1.2) * SR); e = int(end_music * SR); music[e - fade:e] *= np.linspace(1, 0, fade); music[e:] = 0
     bed += music * .6
 
 # hits
@@ -278,7 +306,7 @@ for t0, x in clips:
 duck = np.ones(N)
 for v in vos:
     a, b = int((v['at'] - .1) * SR), int((v['at'] + v['dur'] + .15) * SR)
-    duck[a:b] = .3 if MUSIC == 'groove' else .38
+    duck[a:b] = .3 if GRIDDED else .38
 k = int(.08 * SR); duck = np.convolve(duck, np.ones(k) / k, 'same')
 mix = bed * duck * .8 + fx * (.3 + .7 * duck) * .9 + vo * 1.25
 fade = int(.6 * SR); mix[-fade:] *= np.linspace(1, 0, fade) ** 2

@@ -10,9 +10,9 @@ Run `./make.sh`. It writes `build/phillis-promo.mp4` (about 30 MB, ignored by gi
 - `promo.html`: the animation. `render(t)` draws the frame at time `t`, so every frame is exact. Open `promo.html?t=12.3` on a local server to look at one moment.
 - `render.js`: screenshots each frame with Playwright.
 
-Options: `VOICE=A|B|B2|B3|C` and `MUSIC=groove|pulse` (`pulse` is the first version's heartbeat bed without the beat grid), e.g. `VOICE=A MUSIC=pulse ./make.sh`. `./test.sh NAME MUSIC VOICE SCENE` renders only up to the end of one scene, for quick comparisons.
+Options: `VOICE=A|B|B2|B3|C` and `MUSIC=remix1|remix2|groove|pulse`. The default `remix1` plays Reign Is Mine over the first version's heartbeat and drone, speeds the heartbeat up into the "Reign is MINE" slam and drops the groove there for the Ebony half. `groove` is v2 (beat from the open), `remix2` is the groove over the drone with a heartbeat open and outro, `pulse` is the first version's heartbeat bed without the beat grid, e.g. `VOICE=A MUSIC=pulse ./make.sh`. `./test.sh NAME MUSIC VOICE SCENE` renders only up to the end of one scene, for quick comparisons.
 
-The music is synthesized in `build_audio.py`: a 140 BPM half-time beat (808 on A, A, F, G, claps, hats with rolls), the beat drops on "Ebony saw him first", and drops out for one beat before each title slam. Scene cuts snap to a two-beat grid, the picture pulses on kicks, and long shots punch in on a bar line.
+The music is synthesized in `build_audio.py`: a heartbeat locked to the beat grid, a low drone, and a 140 BPM half-time beat (808 on A, A, F, G, claps, hats with rolls), and drops out for one beat before each title slam. Scene cuts snap to a two-beat grid, the picture pulses on kicks, and long shots punch in on a bar line.
 
 To change a line: edit `SCRIPT` in `build_audio.py` (scene timings follow automatically), then adjust that scene's look in `R.<scene>` in `promo.html` if needed.
 
