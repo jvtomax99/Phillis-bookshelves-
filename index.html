@@ -238,6 +238,9 @@ button{font:inherit;color:inherit}
   transition:width .85s cubic-bezier(.2,.75,.2,1);
 }
 .slot.real{cursor:pointer;outline:none}
+/* Keyboard focus: a flat gold outline, since a ring on the tilted 3D cover barely shows */
+.slot.real:focus-visible{outline:2px solid var(--gold,#C9A25B);outline-offset:10px;border-radius:6px}
+@media (max-width:640px){.slot.real:focus-visible{outline-offset:4px}}
 .slot.sel{width:calc(var(--d) + var(--t) * .2 + 40px);z-index:5}
 .slot::after{
   content:"";position:absolute;left:-4px;right:-4px;bottom:-5px;height:10px;
@@ -845,7 +848,7 @@ function setCaption(b){
   capMeta.textContent = pos ? `${b.capline} · ${mins(pos)} of ${mins(b.duration)} min in` : b.capline;
   capOpen.hidden = !sel;
   counter.textContent = String(BOOKS.indexOf(b) + 1).padStart(2,"0") + " / " + String(BOOKS.length).padStart(2,"0");
-  document.querySelectorAll("#dots button").forEach((d, i) => d.setAttribute("aria-current", String(i === BOOKS.indexOf(b))));
+  document.querySelectorAll("#dots button").forEach((d, i) => d.setAttribute("aria-current", String(+d.dataset.i === BOOKS.indexOf(b))));
 }
 
 function select(slot, opts = {}){
@@ -1116,7 +1119,7 @@ function routeFromHash(){
 }
 
 /* Dots under the button: one per book */
-$("#dots").innerHTML = BOOKS.map((b, i) => `<button type="button" data-i="${i}" aria-label="${esc(b.title)}${b.subtitle ? ": " + esc(b.subtitle) : ""}"></button>`).join("");
+$("#dots").innerHTML = SET_LAYOUT.filter(c => c[0] === "B").map(c => +c[1]).map(i => [BOOKS[i], i]).map(([b, i]) => `<button type="button" data-i="${i}" aria-label="${esc(b.title)}${b.subtitle ? ": " + esc(b.subtitle) : ""}"></button>`).join("");
 $("#dots").addEventListener("click", e => { const d = e.target.closest("button"); if (d) select(midCopy(+d.dataset.i)); });
 
 /* Style preview switcher (remembered on this device) */
