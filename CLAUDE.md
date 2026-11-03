@@ -1,6 +1,6 @@
 # Phillis Brown Books
 
-Static author site for Phillis Brown, published with GitHub Pages from `main` (root folder). No build step, no package manager, no tests. What is on `main` is what is live at https://jvtomax99.github.io/phillis-bookshelves-/ a minute or two after a push.
+Static author site for Phillis Brown, published with GitHub Pages from `main` (root folder). No build step, no package manager, no tests. What is on `main` is what is live at https://jvtomax99.github.io/Phillis-bookshelves-/ a minute or two after a push (the path is case-sensitive: the lowercase `phillis-bookshelves-` returns 404).
 
 All books are for adult readers (18+).
 
