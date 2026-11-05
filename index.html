@@ -11,6 +11,16 @@
 <link rel="apple-touch-icon" sizes="180x180" href="icons/apple-touch-icon.png">
 <link rel="manifest" href="manifest.webmanifest">
 <style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif}img{max-width:100%}[hidden]{display:none!important}</style>
+<script>
+/* Start screen: once per visit, never on a link straight to a book (#id). ?start=1 shows it, ?start=0 skips it. */
+(function(){
+  try {
+    var q = new URLSearchParams(location.search).get("start");
+    var seen = sessionStorage.getItem("pb-start-seen");
+    if (q === "1" || (q !== "0" && !location.hash && !seen)) document.documentElement.classList.add("ss-on");
+  } catch (e) {}
+})();
+</script>
 </head>
 <body>
 <title>Phillis Brown Books</title>
@@ -577,6 +587,94 @@ button.buy.tr-book{border:0;cursor:pointer;padding:15px 22px}
   .slot,.book,.d-text > *,.back,.open-hint{transition:none !important}
 }
 </style>
+
+<!-- Start screen: a rendered nightstand (start/). The book opens on tap, then the shelf. -->
+<style>
+.ss{display:none}
+.ss-on .ss{display:block}
+.ss-on,.ss-on body{overflow:hidden}
+.ss{position:fixed;inset:0;z-index:100;background:#0B0506;color:#F6ECDF;font-family:var(--body);overflow:hidden;
+  container-type:size;cursor:pointer;-webkit-tap-highlight-color:transparent;
+  --ar:calc(780 / 1690)}
+.ss-frame{position:absolute;left:50%;top:50%;width:max(100cqw, calc(100cqh * var(--ar)));aspect-ratio:var(--ar);
+  transform:translate(-50%,-50%)}
+.ss-frame img,.ss-frame video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
+.ss-clip,.ss-end{opacity:0}
+.ss.playing .ss-clip{opacity:1}
+.ss.ended .ss-end{opacity:1;transition:opacity .3s}
+/* candle flames breathe while the screen waits */
+.ss-flame{position:absolute;left:calc(var(--x) * 100%);top:calc(var(--y) * 100%);width:16%;aspect-ratio:1;translate:-50% -50%;
+  border-radius:50%;pointer-events:none;mix-blend-mode:screen;
+  background:radial-gradient(closest-side,rgba(255,196,120,.42),rgba(255,150,70,.14) 45%,transparent);
+  animation:ssFlicker var(--d,2.6s) ease-in-out infinite alternate}
+.ss-flame:nth-child(4){--d:3.1s;animation-delay:-1.2s}
+.ss-flame:nth-child(5){--d:2.2s;animation-delay:-.5s}
+@keyframes ssFlicker{0%{opacity:.55;scale:.92}35%{opacity:.9;scale:1.04}55%{opacity:.7;scale:.97}100%{opacity:1;scale:1.06}}
+.ss.go .ss-flame{opacity:0;animation:none;transition:opacity .3s}
+.ss-shade{position:absolute;inset:0;pointer-events:none;background:linear-gradient(transparent 62%,rgba(8,4,4,.55) 78%,rgba(8,4,4,.85))}
+.ss-ui{position:absolute;left:20px;right:20px;bottom:calc(env(safe-area-inset-bottom) + 24px);display:grid;gap:16px;justify-items:center;
+  transition:opacity .35s,translate .35s}
+.ss.go .ss-ui,.ss.go .ss-shade{opacity:0;translate:0 8px;pointer-events:none;transition:opacity .35s,translate .35s}
+.ss-eyebrow,.ss-title{display:none;margin:0}
+.ss-eyebrow{font:500 11px/1 var(--body);letter-spacing:.32em;text-transform:uppercase;color:#CDB9A4}
+.ss-title{margin-bottom:6px;font:400 56px/1 var(--script);color:#F6ECDF}
+.ss-cont{width:100%;box-sizing:border-box;display:flex;align-items:center;gap:12px;padding:11px 14px;border-radius:14px;color:inherit;text-decoration:none;
+  background:rgba(20,10,8,.55);-webkit-backdrop-filter:blur(12px) saturate(140%);backdrop-filter:blur(12px) saturate(140%);border:1px solid rgba(214,178,105,.3)}
+.ss-cont::before{content:"";width:4px;align-self:stretch;border-radius:2px;background:#C8102E}
+.ss-cont b{display:block;font:600 14.5px/1.25 var(--body)}
+.ss-cont small{font:500 12px/1.3 var(--body);color:#CDB9A4}
+.ss-cont em{margin-left:auto;font:600 11px/1 var(--body);font-style:normal;letter-spacing:.12em;text-transform:uppercase;color:#E3BE79}
+.ss-open{appearance:none;border:0;background:none;color:inherit;padding:8px 16px;cursor:pointer;
+  font:600 17px/1 var(--body);letter-spacing:.08em;text-shadow:0 2px 12px rgba(0,0,0,.8)}
+.ss-open::after{content:"";display:block;width:34px;height:1px;margin:10px auto 0;background:#C9A25B}
+.ss-open:focus-visible,.ss-cont:focus-visible{outline:2px solid #E3BE79;outline-offset:4px;border-radius:10px}
+.ss-note{margin:0;text-align:center;font:500 12px/1.45 var(--body);color:#B9A597}
+.ss-note b{color:#E0213F}
+/* the fade into the shelf goes through candlelight */
+.ss-glow{position:absolute;inset:0;pointer-events:none;opacity:0;background:radial-gradient(70% 55% at 45% 55%,rgba(255,170,90,.55),rgba(60,14,10,.9) 60%,#0B0506)}
+.ss.out .ss-glow{opacity:1;transition:opacity .45s ease-in}
+.ss.gone{display:block;opacity:0;transition:opacity .55s ease-out}
+@media (min-aspect-ratio:1/1){
+  .ss{--ar:calc(1920 / 1200)}
+  .ss-frame{left:0;translate:0 0;transform:translateY(-50%)}
+  .ss-shade{background:linear-gradient(90deg,transparent 52%,rgba(8,4,4,.5) 70%,rgba(8,4,4,.7))}
+  .ss-ui{left:auto;right:max(24px,7vw);top:50%;bottom:auto;transform:translateY(-50%);width:min(360px,40vw);justify-items:start;gap:18px}
+  .ss-eyebrow,.ss-title{display:block}
+  .ss-open{padding-left:0}
+  .ss-open::after{margin-left:0}
+  .ss-note{text-align:left}
+}
+@media (prefers-reduced-motion:reduce){
+  .ss-flame{animation:none}
+}
+</style>
+<div class="ss" id="start" role="dialog" aria-modal="true" aria-labelledby="ssOpen">
+  <div class="ss-frame" aria-hidden="true">
+    <img class="ss-still" id="ssStill" alt="" decoding="async">
+    <video class="ss-clip" id="ssClip" muted playsinline preload="auto"></video>
+    <img class="ss-end" id="ssEnd" alt="" decoding="async">
+    <i class="ss-flame"></i><i class="ss-flame"></i><i class="ss-flame"></i>
+  </div>
+  <div class="ss-shade"></div>
+  <div class="ss-ui">
+    <p class="ss-eyebrow">Short fiction for grown readers</p>
+    <p class="ss-title">Phillis Brown</p>
+    <a class="ss-cont" id="ssCont" hidden><span><b></b><small></small></span><em>Resume</em></a>
+    <button class="ss-open" id="ssOpen" type="button">Tap to open</button>
+    <p class="ss-note"><b>Adults 18+.</b> Opening confirms you are 18 or older.</p>
+  </div>
+  <div class="ss-glow"></div>
+</div>
+<script>
+/* Pick the phone or desktop render as soon as the markup exists, so the still loads first. */
+(function(){
+  if (!document.documentElement.classList.contains("ss-on")) return;
+  var wide = matchMedia("(min-aspect-ratio: 1/1)").matches, k = wide ? "desk" : "phone";
+  var FLAMES = wide ? [[0.246,0.26],[0.31,0.246],[0.189,0.28]] : [[0.284,0.299],[0.448,0.289],[0.136,0.314]];
+  document.getElementById("ssStill").src = "start/closed-" + k + ".webp";
+  document.querySelectorAll(".ss-flame").forEach(function(f, i){ f.style.setProperty("--x", FLAMES[i][0]); f.style.setProperty("--y", FLAMES[i][1]); });
+})();
+</script>
 
 <div class="app">
   <header class="top">
@@ -1234,6 +1332,61 @@ addEventListener("resize", () => {
   }, 120);
 });
 if (document.fonts && document.fonts.ready) document.fonts.ready.then(() => { sizeShelf(); if (sel) track.scrollLeft = sel.offsetLeft + selW(sel) / 2 - track.clientWidth / 2; });
+
+/* ---------- Start screen ----------
+   Tap: the cover opens onto the signed page (start/open-*.mp4), then the screen fades
+   through candlelight into the shelf. A second tap or Escape skips ahead. */
+(function startScreen(){
+  const ss = $("#start");
+  if (!root.classList.contains("ss-on")) { ss.remove(); return; }
+  const app = $(".app"), clip = $("#ssClip"), end = $("#ssEnd"), openBtn = $("#ssOpen"), cont = $("#ssCont");
+  const k = matchMedia("(min-aspect-ratio: 1/1)").matches ? "desk" : "phone";
+  app.inert = true;
+  if (!reduce){
+    const mp4 = clip.canPlayType('video/mp4; codecs="avc1.4D401F"');
+    clip.src = `start/open-${k}.${mp4 ? "mp4" : "webm"}`;
+    end.src = `start/open-${k}.webp`;
+  }
+
+  // Continue: the story with the most listening saved on this device
+  const going = BOOKS.map(b => [b, posOf(b)]).filter(([, p]) => p > 0).sort((a, b) => b[1] / b[0].duration - a[1] / a[0].duration)[0];
+  if (going){
+    const [b, p] = going;
+    cont.href = b.read;
+    cont.querySelector("b").textContent = "Continue " + b.title + (b.subtitle ? ": " + b.subtitle : "");
+    cont.querySelector("small").textContent = `${mins(p)} of ${mins(b.duration)} min in`;
+    cont.hidden = false;
+  }
+
+  let stage = 0; // 0 waiting, 1 opening, 2 leaving
+  const markSeen = () => { try { sessionStorage.setItem("pb-start-seen", "1"); } catch(_) {} };
+  function leave(){
+    if (stage === 2) return;
+    stage = 2; markSeen();
+    ss.classList.add("go", "out");
+    setTimeout(() => {
+      root.classList.remove("ss-on"); app.inert = false;
+      ss.classList.add("gone");
+      setTimeout(() => { ss.remove(); try { track.focus({preventScroll:true}); } catch(_) {} }, 600);
+    }, reduce ? 0 : 450);
+  }
+  function open(){
+    if (stage) return leave();
+    stage = 1; markSeen();
+    ss.classList.add("go");
+    if (reduce || !clip.src) return leave();
+    clip.addEventListener("playing", () => ss.classList.add("playing"), {once:true});
+    clip.addEventListener("ended", () => { ss.classList.add("ended"); setTimeout(leave, 1100); }, {once:true});
+    clip.addEventListener("error", leave, {once:true});
+    const p = clip.play();
+    if (p && p.catch) p.catch(leave);
+    setTimeout(() => { if (stage === 1 && !ss.classList.contains("playing")) leave(); }, 2500);
+  }
+  cont.addEventListener("click", markSeen);
+  ss.addEventListener("click", e => { if (!e.target.closest(".ss-cont")) open(); });
+  addEventListener("keydown", e => { if (stage !== 2 && e.key === "Escape") leave(); });
+  openBtn.focus({preventScroll:true, focusVisible:false});
+})();
 </script>
 
 </body>
