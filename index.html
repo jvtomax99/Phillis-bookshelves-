@@ -599,8 +599,10 @@ button.buy.tr-book{border:0;cursor:pointer;padding:15px 22px}
 .ss-frame{position:absolute;left:50%;top:50%;width:max(100cqw, calc(100cqh * var(--ar)));aspect-ratio:var(--ar);
   transform:translate(-50%,-50%)}
 .ss-frame img,.ss-frame video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
-.ss-clip,.ss-end{opacity:0}
-.ss.playing .ss-clip{opacity:1}
+.ss-loop,.ss-clip,.ss-end{opacity:0}
+.ss.looping .ss-loop{opacity:1;transition:opacity .25s}
+.ss.looping .ss-flame{display:none}
+.ss.playing .ss-clip{opacity:1;transition:opacity .15s}
 .ss.ended .ss-end{opacity:1;transition:opacity .3s}
 /* candle flames breathe while the screen waits */
 .ss-flame{position:absolute;left:calc(var(--x) * 100%);top:calc(var(--y) * 100%);width:16%;aspect-ratio:1;translate:-50% -50%;
@@ -651,6 +653,7 @@ button.buy.tr-book{border:0;cursor:pointer;padding:15px 22px}
 <div class="ss" id="start" role="dialog" aria-modal="true" aria-labelledby="ssOpen">
   <div class="ss-frame" aria-hidden="true">
     <img class="ss-still" id="ssStill" alt="" decoding="async">
+    <video class="ss-loop" id="ssLoop" muted loop playsinline preload="auto"></video>
     <video class="ss-clip" id="ssClip" muted playsinline preload="auto"></video>
     <img class="ss-end" id="ssEnd" alt="" decoding="async">
     <i class="ss-flame"></i><i class="ss-flame"></i><i class="ss-flame"></i>
@@ -1339,13 +1342,21 @@ if (document.fonts && document.fonts.ready) document.fonts.ready.then(() => { si
 (function startScreen(){
   const ss = $("#start");
   if (!root.classList.contains("ss-on")) { ss.remove(); return; }
-  const app = $(".app"), clip = $("#ssClip"), end = $("#ssEnd"), openBtn = $("#ssOpen"), cont = $("#ssCont");
+  const app = $(".app"), loop = $("#ssLoop"), clip = $("#ssClip"), end = $("#ssEnd"), openBtn = $("#ssOpen"), cont = $("#ssCont");
   const k = matchMedia("(min-aspect-ratio: 1/1)").matches ? "desk" : "phone";
   app.inert = true;
   if (!reduce){
-    const mp4 = clip.canPlayType('video/mp4; codecs="avc1.4D401F"');
-    clip.src = `start/open-${k}.${mp4 ? "mp4" : "webm"}`;
-    end.src = `start/open-${k}.webp`;
+    const ext = clip.canPlayType('video/mp4; codecs="avc1.4D401F"') ? "mp4" : "webm";
+    const saveData = !!(navigator.connection && navigator.connection.saveData);
+    const loadClip = () => { if (!clip.src){ clip.src = `start/open-${k}.${ext}`; end.src = `start/open-${k}.webp`; } };
+    // The candles flicker: a 2 s loop of the whole room. Its first frame is the still, so the switch is invisible.
+    // If the phone won't autoplay (Low Power Mode) or asks to save data, the still and its CSS glow stay.
+    if (!saveData){
+      loop.addEventListener("playing", () => { ss.classList.add("looping"); loadClip(); }, {once:true});
+      loop.src = `start/loop-${k}.${ext}`;
+      const lp = loop.play(); if (lp && lp.catch) lp.catch(loadClip);
+    }
+    setTimeout(loadClip, 1500);
   }
 
   // Continue: the story with the most listening saved on this device
@@ -1374,8 +1385,9 @@ if (document.fonts && document.fonts.ready) document.fonts.ready.then(() => { si
     if (stage) return leave();
     stage = 1; markSeen();
     ss.classList.add("go");
-    if (reduce || !clip.src) return leave();
-    clip.addEventListener("playing", () => ss.classList.add("playing"), {once:true});
+    if (reduce) return leave();
+    if (!clip.src){ clip.src = `start/open-${k}.${clip.canPlayType('video/mp4; codecs="avc1.4D401F"') ? "mp4" : "webm"}`; end.src = `start/open-${k}.webp`; }
+    clip.addEventListener("playing", () => { ss.classList.add("playing"); setTimeout(() => loop.pause(), 200); }, {once:true});
     clip.addEventListener("ended", () => { ss.classList.add("ended"); setTimeout(leave, 1100); }, {once:true});
     clip.addEventListener("error", leave, {once:true});
     const p = clip.play();
