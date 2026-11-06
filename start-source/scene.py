@@ -16,7 +16,11 @@ ap.add_argument("--blend", default="")
 ap.add_argument("--nomask", action="store_true")
 ap.add_argument("--anim", default="")   # folder for an opening clip
 ap.add_argument("--endstill", action="store_true")  # render only the clip's last frame
-ap.add_argument("--flames", default="")  # write flame screen positions (json) here
+ap.add_argument("--flames", default="")
+ap.add_argument("--loop", default="")      # folder: a seamless flicker loop of the closed scene
+ap.add_argument("--flameonly", action="store_true")  # render only the flames, on black (sprites)
+ap.add_argument("--noflames", action="store_true")
+ap.add_argument("--loopstill", action="store_true")  # the loop's first frame as a sharp still   # hide the flame shapes (lights stay)  # write flame screen positions (json) here
 A = ap.parse_args(sys.argv[1:])
 
 bpy.ops.wm.read_factory_settings(use_empty=True)
@@ -314,7 +318,7 @@ def import_glb(name, target, loc, rot_z=0.0, lay_flat=False, size_axis="max"):
     return holder, meshes
 
 cand = import_glb("candles", 0.18, (-0.075, 0.21, 0.0), rot_z=math.radians(28), size_axis="max")
-flames = []
+flames = []; rigs = []
 if cand:
     holder, meshes = cand
     vs = [o.matrix_world @ v.co for o in meshes for v in o.data.vertices]
@@ -327,12 +331,19 @@ if cand:
             tops.append(v)
         if len(tops) == 3: break
     for t in tops:
-        bpy.ops.mesh.primitive_uv_sphere_add(segments=24, ring_count=12, radius=1, location=(t.x, t.y, t.z + 0.012))
-        f = bpy.context.active_object; f.scale = (0.0042, 0.0042, 0.0115); f.data.materials.append(M_flame)
+        # a teardrop flame on a pivot at the wick, so it can lean and stretch
+        piv = bpy.data.objects.new("wick", None); S.collection.objects.link(piv); piv.location = (t.x, t.y, t.z + 0.001)
+        bpy.ops.mesh.primitive_uv_sphere_add(segments=24, ring_count=16, radius=1, location=(0, 0, 0))
+        f = bpy.context.active_object
+        for v in f.data.vertices:
+            if v.co.z > 0:
+                k = 1 - 0.62 * (v.co.z ** 1.25); v.co.x *= k; v.co.y *= k
+        f.parent = piv; f.location = (0, 0, 0.011); f.scale = (0.0042, 0.0042, 0.0115); f.data.materials.append(M_flame)
         f.visible_shadow = False
+        if A.noflames: f.hide_render = True
         L = bpy.data.lights.new("candle", "POINT"); L.energy = 1.4; L.color = (1.0, 0.62, 0.34); L.shadow_soft_size = 0.004
         lo = bpy.data.objects.new("candle_light", L); S.collection.objects.link(lo); lo.location = (t.x, t.y, t.z + 0.014)
-        flames.append(lo)
+        flames.append(lo); rigs.append((piv, f, lo, L))
     print("flames", [tuple(round(c, 3) for c in t) for t in tops])
 if not flames:
     for (x, y, z) in [(-0.13, 0.17, 0.17), (-0.10, 0.18, 0.13)]:
@@ -398,6 +409,40 @@ if A.flames:
     json.dump([[round(p.x, 4), round(1 - p.y, 4)] for p in pts], open(A.flames, "w"))
     print("flames on screen", [[round(p.x, 3), round(1 - p.y, 3)] for p in pts])
 if A.blend: bpy.ops.wm.save_as_mainfile(filepath=A.blend)
+def flicker_keys(n, T=48):
+    """Candle flicker on frames 1..n, periodic over T frames, so every clip starts on the same light as the loop."""
+    for i, (piv, f, lo, L) in enumerate(rigs):
+        ph = 1.7 * i + 0.4; base_loc = lo.location.copy()
+        for fr in range(1, n + 1):
+            w = 2 * math.pi * (fr - 1) / T
+            sz = 1 + 0.12 * math.sin(2 * w + ph) + 0.06 * math.sin(5 * w + 2 * ph) + 0.03 * math.sin(9 * w + ph)
+            sx = 1 - 0.05 * math.sin(3 * w + ph)
+            rx = 0.13 * math.sin(w + ph) + 0.06 * math.sin(4 * w + 1.7 * ph)
+            ry = 0.10 * math.sin(2 * w + 0.6 * ph) + 0.04 * math.sin(7 * w + ph)
+            en = 1.4 * (1 + 0.16 * math.sin(3 * w + ph) + 0.10 * math.sin(7 * w + 2 * ph) + 0.06 * math.sin(11 * w + ph))
+            S.frame_set(fr)
+            piv.rotation_euler = (rx, ry, 0); piv.keyframe_insert("rotation_euler")
+            f.scale = (0.0042 * sx, 0.0042 * sx, 0.0115 * sz); f.keyframe_insert("scale")
+            L.energy = en; L.keyframe_insert("energy")
+            lo.location = base_loc + Vector((0.004 * ry, -0.004 * rx, 0.0)); lo.keyframe_insert("location")
+
+if A.loopstill:
+    flicker_keys(1); S.frame_set(1); S.render.filepath = A.out
+    bpy.ops.render.render(write_still=True); print("rendered loopstill", A.out); sys.exit(0)
+if A.loop:
+    # 48 frames at 24 fps; every motion is a sum of sines with whole periods, so frame 49 == frame 1
+    T = 48; S.frame_start = 1; S.frame_end = T; S.render.fps = 24
+    if A.flameonly:
+        for o in S.objects:
+            if o.type in ("MESH", "CURVE", "FONT") and not any(o is r[1] for r in rigs): o.hide_render = True
+            if o.type == "LIGHT": o.hide_render = True
+        S.world.node_tree.nodes["Background"].inputs["Color"].default_value = (0, 0, 0, 1)
+        cam.dof.use_dof = True
+    flicker_keys(T)
+    S.render.use_persistent_data = False  # persistent data lost the flames' emission on some frames (black flames)
+    os.makedirs(A.loop, exist_ok=True); S.render.filepath = os.path.join(A.loop, "f####")
+    S.render.use_overwrite = False  # re-render only missing frames
+    bpy.ops.render.render(animation=True); print("rendered loop", A.loop); sys.exit(0)
 if A.anim or A.endstill:
     # the opening: cover swings open while the camera pushes in over the signed page
     F = 32; S.frame_start = 1; S.frame_end = F; S.render.fps = 24
@@ -426,11 +471,13 @@ if A.anim or A.endstill:
         co.rotation_euler = q0.slerp(q1, t).to_euler(); co.keyframe_insert("rotation_euler")
     for fc in (co.animation_data.action.fcurves if hasattr(co.animation_data.action, "fcurves") else []):
         for kp in fc.keyframe_points: kp.interpolation = "BEZIER"; kp.easing = "AUTO"
+    flicker_keys(F)
     S.render.use_persistent_data = True
     if A.endstill:
         S.frame_set(F); S.render.filepath = A.out; bpy.ops.render.render(write_still=True)
     else:
         os.makedirs(A.anim, exist_ok=True); S.render.filepath = os.path.join(A.anim, "f####")
+        S.render.use_overwrite = False  # resume: keep frames already rendered
         bpy.ops.render.render(animation=True)
     print("rendered anim", A.anim or A.out)
     sys.exit(0)
