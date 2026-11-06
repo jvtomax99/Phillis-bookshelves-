@@ -646,11 +646,45 @@ button.buy.tr-book{border:0;cursor:pointer;padding:15px 22px}
   .ss-open::after{margin-left:0}
   .ss-note{text-align:left}
 }
+/* Start menu: the first tap starts the music (browsers allow sound only after one), the second opens the book */
+.ss-menu{position:absolute;inset:0;z-index:2;display:grid;place-items:center;text-align:center;padding:0 28px;transition:opacity .9s ease}
+.ss-menu::before{content:"";position:absolute;inset:0;background:radial-gradient(60% 45% at 40% 40%,rgba(10,4,4,.55),rgba(6,2,2,.92) 70%)}
+.ss.entered .ss-menu{opacity:0;pointer-events:none}
+.ss-menu-in{position:relative;display:grid;gap:16px;justify-items:center}
+.ss-mono{width:76px;height:76px;border-radius:18px;background:url(icons/icon-192.png) center/cover;box-shadow:0 0 0 1px rgba(201,162,91,.45),0 20px 40px -16px rgba(0,0,0,.9)}
+.ss-name{margin:0;font:400 52px/1 var(--script);color:#F6ECDF}
+.ss-sub{margin:0 0 26px;font:500 11px/1.4 var(--body);letter-spacing:.32em;text-transform:uppercase;color:#CDB9A4}
+.ss-sound{appearance:none;border:0;cursor:pointer;display:inline-flex;gap:10px;align-items:center;padding:15px 26px;border-radius:999px;color:#F6ECDF;
+  background:linear-gradient(#C8102E,#8E0B22);box-shadow:0 14px 30px -12px rgba(200,16,46,.7);font:600 15px/1 var(--body);letter-spacing:.08em}
+.ss-sound svg,.ss-mute svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.7}
+.ss-sound .x,.ss-mute .x{display:none}
+.ss-quiet{appearance:none;border:0;background:none;cursor:pointer;padding:8px 12px;color:#CDB9A4;font:500 13px/1 var(--body);text-decoration:underline;text-underline-offset:4px}
+.ss-sound:focus-visible,.ss-quiet:focus-visible,.ss-mute:focus-visible{outline:2px solid #E3BE79;outline-offset:4px}
+.ss-menu .ss-note{position:absolute;left:24px;right:24px;bottom:calc(env(safe-area-inset-bottom) + 26px);text-align:center}
+.ss:not(.entered) .ss-ui,.ss:not(.entered) .ss-shade{opacity:0;pointer-events:none}
+.ss.entered:not(.go) .ss-ui,.ss.entered:not(.go) .ss-shade{transition:opacity .9s .35s}
+/* while the music plays: what's playing, and a mute button */
+.ss-audio{position:absolute;z-index:3;top:calc(env(safe-area-inset-top,0px) + 14px);left:max(16px,env(safe-area-inset-left,0px));right:max(16px,env(safe-area-inset-right,0px));
+  display:flex;align-items:center;justify-content:space-between;opacity:0;pointer-events:none;transition:opacity .6s}
+.ss.entered .ss-audio{opacity:1;pointer-events:auto}
+.ss.go .ss-audio{opacity:0;pointer-events:none}
+.ss-now{display:flex;gap:8px;align-items:center;font:500 11px/1 var(--body);letter-spacing:.2em;text-transform:uppercase;color:#CDB9A4}
+.ss-now i{display:inline-flex;gap:2px;align-items:flex-end;height:12px}
+.ss-now i b{width:2px;height:4px;background:#E3BE79;display:block;transition:height .3s}
+.ss.music-on .ss-now i b{animation:ssEq 1.1s ease-in-out infinite alternate}
+.ss.music-on .ss-now i b:nth-child(2){animation-duration:.8s}
+.ss.music-on .ss-now i b:nth-child(3){animation-duration:1.3s}
+@keyframes ssEq{from{height:3px}to{height:12px}}
+.ss-mute{appearance:none;cursor:pointer;width:40px;height:40px;border-radius:50%;display:grid;place-items:center;color:#F6ECDF;
+  background:rgba(20,10,8,.5);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);border:1px solid rgba(214,178,105,.35)}
+.ss:not(.music-on) .ss-mute .w{display:none}
+.ss:not(.music-on) .ss-mute .x{display:inline}
 @media (prefers-reduced-motion:reduce){
   .ss-flame{animation:none}
+  .ss.music-on .ss-now i b{animation:none;height:8px}
 }
 </style>
-<div class="ss" id="start" role="dialog" aria-modal="true" aria-labelledby="ssOpen">
+<div class="ss" id="start" role="dialog" aria-modal="true" aria-labelledby="ssName">
   <div class="ss-frame" aria-hidden="true">
     <img class="ss-still" id="ssStill" alt="" decoding="async">
     <video class="ss-loop" id="ssLoop" muted loop playsinline preload="auto"></video>
@@ -664,7 +698,20 @@ button.buy.tr-book{border:0;cursor:pointer;padding:15px 22px}
     <p class="ss-title">Phillis Brown</p>
     <a class="ss-cont" id="ssCont" hidden><span><b></b><small></small></span><em>Resume</em></a>
     <button class="ss-open" id="ssOpen" type="button">Tap to open</button>
-    <p class="ss-note"><b>Adults 18+.</b> Opening confirms you are 18 or older.</p>
+  </div>
+  <div class="ss-menu" id="ssMenu">
+    <div class="ss-menu-in">
+      <div class="ss-mono" aria-hidden="true"></div>
+      <p class="ss-name" id="ssName">Phillis Brown</p>
+      <p class="ss-sub">Short fiction for grown readers</p>
+      <button class="ss-sound" id="ssSound" type="button"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9h4l5-4v14l-5-4H4z"/><path class="w" d="M16.5 8.5a5 5 0 010 7M19 6a8.5 8.5 0 010 12"/><path class="x" d="M16 9l6 6M22 9l-6 6"/></svg>Enter with sound</button>
+      <button class="ss-quiet" id="ssQuiet" type="button">Enter quietly</button>
+    </div>
+    <p class="ss-note"><b>Adults 18+.</b> Entering confirms you are 18 or older.</p>
+  </div>
+  <div class="ss-audio">
+    <span class="ss-now" aria-hidden="true"><i><b></b><b></b><b></b></i><span id="ssNowText">Now playing</span></span>
+    <button class="ss-mute" id="ssMute" type="button" aria-pressed="false" aria-label="Music"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9h4l5-4v14l-5-4H4z"/><path class="w" d="M16.5 8.5a5 5 0 010 7M19 6a8.5 8.5 0 010 12"/><path class="x" d="M16 9l6 6M22 9l-6 6"/></svg></button>
   </div>
   <div class="ss-glow"></div>
 </div>
@@ -1343,6 +1390,7 @@ if (document.fonts && document.fonts.ready) document.fonts.ready.then(() => { si
   const ss = $("#start");
   if (!root.classList.contains("ss-on")) { ss.remove(); return; }
   const app = $(".app"), loop = $("#ssLoop"), clip = $("#ssClip"), end = $("#ssEnd"), openBtn = $("#ssOpen"), cont = $("#ssCont");
+  const soundBtn = $("#ssSound"), quietBtn = $("#ssQuiet"), muteBtn = $("#ssMute"), nowText = $("#ssNowText");
   const k = matchMedia("(min-aspect-ratio: 1/1)").matches ? "desk" : "phone";
   app.inert = true;
   if (!reduce){
@@ -1369,11 +1417,71 @@ if (document.fonts && document.fonts.ready) document.fonts.ready.then(() => { si
     cont.hidden = false;
   }
 
-  let stage = 0; // 0 waiting, 1 opening, 2 leaving
+  /* Music: the late-night lounge piece (start/music.*), a 58 s loop played through Web Audio so the loop point
+     has no gap. It loads after the still, starts on the first tap and fades out as the shelf appears. */
+  const LOOP = 58.182, VOL = 0.8;
+  const musicExt = new Audio().canPlayType('audio/mp4; codecs="mp4a.40.2"') ? "m4a" : "webm";
+  let actx = null, gain = null, music = null, musicOn = false, fetching = null;
+  const fetchMusic = () => fetching || (fetching = fetch(`start/music.${musicExt}`).then(r => r.ok ? r.arrayBuffer() : null).catch(() => null));
+  setTimeout(fetchMusic, 1200);
+  function fadeTo(v, sec){
+    if (!gain) return;
+    const t = actx.currentTime; gain.gain.cancelScheduledValues(t); gain.gain.setValueAtTime(gain.gain.value, t); gain.gain.linearRampToValueAtTime(v, t + sec);
+  }
+  function startMusic(){
+    if (actx) return;
+    const AC = window.AudioContext || window.webkitAudioContext;
+    if (!AC) return;
+    try { actx = new AC(); } catch(_) { return; }
+    gain = actx.createGain(); gain.gain.value = 0; gain.connect(actx.destination);
+    try { const s = actx.createBufferSource(); s.buffer = actx.createBuffer(1, 1, 22050); s.connect(actx.destination); s.start(0); } catch(_) {} // unlocks iPhone audio inside the tap
+    if (actx.resume) actx.resume();
+    fetchMusic()
+      .then(data => data && stage < 2 ? new Promise((ok, no) => actx.decodeAudioData(data, ok, no)) : null)
+      .then(buf => {
+        if (!buf || stage === 2) return;
+        // skip any silent encoder lead-in, then loop exactly the 58 s piece
+        const ch = buf.getChannelData(0); let i = 0; while (i < ch.length && Math.abs(ch[i]) < 1e-4) i++;
+        const lead = Math.min(i / buf.sampleRate, 0.2);
+        music = actx.createBufferSource(); music.buffer = buf; music.loop = true;
+        if (buf.duration >= lead + LOOP - 0.02){ music.loopStart = lead; music.loopEnd = Math.min(buf.duration, lead + LOOP); }
+        music.connect(gain); music.start(0, lead);
+        fadeTo(musicOn ? VOL : 0, 2.5);
+      })
+      .catch(() => {});
+  }
+  function setMusic(on){
+    musicOn = on;
+    ss.classList.toggle("music-on", on);
+    muteBtn.setAttribute("aria-pressed", String(on));
+    muteBtn.setAttribute("aria-label", on ? "Music on. Turn it off" : "Music off. Turn it on");
+    nowText.textContent = on ? "Now playing" : "Music off";
+    if (on && !actx) startMusic();
+    else fadeTo(on ? VOL : 0, 0.4);
+  }
+  function stopMusic(sec){
+    if (!actx) return;
+    fadeTo(0, sec);
+    setTimeout(() => { try { music && music.stop(); actx.close(); } catch(_) {} }, sec * 1000 + 100);
+  }
+  document.addEventListener("visibilitychange", () => {
+    if (!actx || stage === 2) return;
+    if (document.hidden) actx.suspend && actx.suspend(); else actx.resume && actx.resume();
+  });
+
+  let stage = -1; // -1 start menu, 0 waiting, 1 opening, 2 leaving
+  function enter(withSound){
+    if (stage !== -1) return;
+    stage = 0;
+    ss.classList.add("entered");
+    setMusic(withSound);
+    openBtn.focus({preventScroll:true, focusVisible:false});
+  }
   const markSeen = () => { try { sessionStorage.setItem("pb-start-seen", "1"); } catch(_) {} };
   function leave(){
     if (stage === 2) return;
     stage = 2; markSeen();
+    stopMusic(1.8);
     ss.classList.add("go", "out");
     setTimeout(() => {
       root.classList.remove("ss-on"); app.inert = false;
@@ -1382,6 +1490,7 @@ if (document.fonts && document.fonts.ready) document.fonts.ready.then(() => { si
     }, reduce ? 0 : 450);
   }
   function open(){
+    if (stage === -1) return enter(true);
     if (stage) return leave();
     stage = 1; markSeen();
     ss.classList.add("go");
@@ -1394,10 +1503,14 @@ if (document.fonts && document.fonts.ready) document.fonts.ready.then(() => { si
     if (p && p.catch) p.catch(leave);
     setTimeout(() => { if (stage === 1 && !ss.classList.contains("playing")) leave(); }, 2500);
   }
-  cont.addEventListener("click", markSeen);
-  ss.addEventListener("click", e => { if (!e.target.closest(".ss-cont")) open(); });
+  cont.addEventListener("click", () => { markSeen(); stopMusic(0.3); });
+  ss.addEventListener("click", e => {
+    if (e.target.closest(".ss-mute")) return setMusic(!musicOn);
+    if (stage === -1) return enter(!e.target.closest(".ss-quiet")); // a tap anywhere but "Enter quietly" starts the music
+    if (!e.target.closest(".ss-cont")) open();
+  });
   addEventListener("keydown", e => { if (stage !== 2 && e.key === "Escape") leave(); });
-  openBtn.focus({preventScroll:true, focusVisible:false});
+  soundBtn.focus({preventScroll:true, focusVisible:false});
 })();
 </script>
 

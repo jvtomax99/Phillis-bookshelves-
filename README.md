@@ -6,7 +6,7 @@ Author site for Phillis Brown: a wood bookshelf where each book turns to show it
 - `covers/`: book covers (full size and small shelf versions)
 - `img/`: author portrait
 - `read/<book>/`: the reader for each book, with its audio
-- `start/`: the start screen's rendered frames and opening clip (a candlelit nightstand; the book opens on tap, then the shelf)
+- `start/`: the start screen: rendered frames, the candle-flicker loop, the opening clip and its music (a start menu asks for sound, a tap opens the book, then the shelf)
 
 All books are for adult readers (18+).
 
