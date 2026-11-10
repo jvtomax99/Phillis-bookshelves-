@@ -35,13 +35,12 @@ All books are for adult readers (18+).
 - **Not set up yet.** `DESIGN.md` and `docs/CLEANUP.md` do not exist. `docs/design-rules.md`, `docs/assets.md`, `docs/cleanup-audit.md` and `docs/refactor.md` were added on 2026-11-10; follow `docs/design-rules.md` to make `DESIGN.md` before the first design work.
 - **Packages.** None. The site has no package list and no install step. Tools used only to check it (Playwright) are not project packages.
 
-### Older rules kept until Jose decides
+### Extras kept from the old rules (Jose, 2026-11-10)
 
-These came from the old CLAUDE.md. Each one is stricter than, or different from, the general rules below. Follow them until Jose says which wins.
+These came from the old CLAUDE.md and go further than the general rules below. Follow them too. The old "never commit or push without asking" rule is gone: the general rules' branch, pull request and "push" flow replaced it.
 
 - **Clickable choices, always.** Whenever there are options, a suggestion or a next step, show them as clickable buttons, recommended pick first and marked "(Recommended)", with one line on why it's the pick. (Wider than the general rules, which ask for buttons only in named cases.)
 - **Show a mock of every suggestion.** Before asking the owner to choose, show what each option would look like. For anything visual, render a draft in Playwright and send the screenshot (phone width and desktop when layout differs), one per option, side by side when there are several. For text or code changes, show a short before and after in the button's preview. Build the real change only after the owner picks. (Stricter: the general rules ask for proof after building, not a mock of every option before.)
-- **Pushing is the owner's call.** Never commit or push without asking. When a change is ready, ask with buttons (for example "Push to main", "Branch + PR", "Hold off"). Pushing to `main` makes it live right away. (Conflicts with the general rules, which allow commits and feature-branch pushes without asking, require a pull request into `main`, never a direct commit to `main`, and say to commit and push `HANDOFF.md` in cloud sessions.)
 - **Notify when action is needed.** Send a phone notification every time the owner has to do something: approve a push, answer a question, check something on their phone, change a setting. Name the change and what they need to do, even if they seem to be in the chat. (Wider: the general rules ask for a notification only when a change needs Jose's "push".)
 
 - **Public repo, paid assets.** The repo is public (checked 2026-11-10) and GitHub Pages on a free plan needs it public, so paid raw files (fonts, models) can't be committed here (docs/assets.md, section 9). Before any purchase, ask Jose: keep to free assets, or GitHub Pro / a move to Vercel so the repo can go private.
