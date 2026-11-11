@@ -7,7 +7,7 @@ paths:
 
 # Trailer and app icons
 
-- **Trailer.** `video/trailer.mp4` is a 720x1280 web copy, about 4.7 MB,
+- **Trailer.** `video/trailer.mp4` is a 720x1280 web copy, about 4 MB,
   with `trailer-poster.jpg`. It plays in the player opened by "Watch the
   trailer" on the shelf and "Trailer" on each book page. Its source lives
   in `promo/` on the `promo-video` branch: rebuild there with
