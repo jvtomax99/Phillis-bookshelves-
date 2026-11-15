@@ -149,21 +149,6 @@ body {
   background-size: 260% 100%; background-position: 130% 0; animation: sheen 9s ease-in-out infinite;
 }
 @keyframes sheen { 0%, 25% { background-position: 130% 0; } 75%, 100% { background-position: -30% 0; } }
-.cover .art { position: absolute; inset: 9% 9% 8% 12%; display: flex; flex-direction: column; align-items: center; justify-content: space-between; text-align: center; }
-.cover .lbl { font-family: var(--label); font-size: 0.6em; letter-spacing: 0.5em; text-indent: 0.5em; text-transform: uppercase; color: var(--blush); opacity: 0.85; }
-.cover .mid { display: flex; flex-direction: column; align-items: center; gap: 1.1em; }
-.cover .ttl { font-family: var(--display); font-weight: 400; line-height: 0.9; font-size: 4.8em; letter-spacing: -0.015em; }
-.cover .ttl span { display: block; }
-.cover .ttl .and { font-style: italic; font-size: 0.38em; margin: 0.35em 0 0.18em; }
-.cover .ttl .st { font-style: italic; font-size: 0.46em; margin-top: 0.3em; letter-spacing: 0.01em; }
-.sheen-text {
-  background: linear-gradient(172deg, var(--champ-light) 0%, var(--blush) 42%, var(--champagne) 70%, var(--champ-light) 100%);
-  -webkit-background-clip: text; background-clip: text; color: transparent;
-}
-.cover .line { background: var(--blush); width: 3em; }
-.cover .foot { display: flex; flex-direction: column; align-items: center; gap: 1.2em; }
-.cover .tap { font-family: var(--body); font-style: italic; font-size: 0.82em; color: var(--champagne); opacity: 0.7; animation: breathe 2.8s ease-in-out infinite; }
-@keyframes breathe { 50% { opacity: 0.3; } }
 .cover .back {
   background: linear-gradient(115deg, #2e1420 0%, #4d2234 38%, #36182a 55%, #5a2a3e 78%, #2e1420 100%);
   border-radius: 6px 2px 2px 6px;
