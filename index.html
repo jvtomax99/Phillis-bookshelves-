@@ -1282,8 +1282,6 @@ function applyStyle(name){
   try { localStorage.setItem("pb-style", name || "cream"); } catch(_) {}
 }
 $("#styles").addEventListener("click", e => { const b = e.target.closest("button"); if (b) applyStyle(b.dataset.style); });
-let savedStyle = "cream";
-try { savedStyle = localStorage.getItem("pb-style") || "cream"; } catch(_) {}
 applyStyle("walnut");
 
 buildShelf();
