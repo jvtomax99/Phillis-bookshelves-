@@ -1164,7 +1164,10 @@ document.addEventListener("click", e => {
 });
 $("#trClose").addEventListener("click", closeTrailer);
 /* No signal: the trailer stays online-only (it is not in the offline copy), so say so instead of a dead player */
-trVideo.addEventListener("error", () => { $("#trOff").hidden = false; });
+trVideo.addEventListener("error", () => {
+  /* only when it is really the connection (code 2), not a phone that can't play the file */
+  if (!navigator.onLine || (trVideo.error && trVideo.error.code === 2)) $("#trOff").hidden = false;
+});
 trVideo.addEventListener("loadeddata", () => { $("#trOff").hidden = true; });
 trailer.addEventListener("click", e => { if (e.target === trailer) closeTrailer(); });
 addEventListener("keydown", e => {

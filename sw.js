@@ -182,6 +182,7 @@ self.addEventListener('fetch', e => {
   if (/^(version\.json|sw\.js|offline-files\.json)$/.test(path) || /\.mp3$/i.test(path) || /^video\/.*\.mp4$/i.test(path)) return;
   const page = req.mode === 'navigate';
   if (page && (path === '' || path.endsWith('/'))) path += 'index.html';
+  else if (page && !/\.[a-z0-9]+$/i.test(path)) path += '/index.html';   // read/<book> without its last slash
   // Each time a page opens with signal, look for a newer copy (or the off switch) once it has had time to start.
   if (page) e.waitUntil(check(8000).catch(() => {}));
   e.respondWith(networkFirst(req, path));

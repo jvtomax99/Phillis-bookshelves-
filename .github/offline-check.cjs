@@ -95,6 +95,7 @@ const DECOYS = ['atl:/CPA-study-app/:build:test', 'pk:test', 'pbb:/someone-else/
   // ---------- 2. No signal ----------
   console.log('2. No signal: everything kept opens from the copy');
   net.down = true; offlinePhase = true;
+  await ctx.setOffline(true);               // (the phone itself knows it has no signal, as on airplane mode)
   if (await visit(page, base + 'index.html?start=0')) {
     expect(await page.locator('#stage').isVisible(), 'the shelf opens');
     await page.locator('[data-trailer]').first().click().catch(() => {});
@@ -114,7 +115,9 @@ const DECOYS = ['atl:/CPA-study-app/:build:test', 'pk:test', 'pbb:/someone-else/
       expect(await page.locator('#offlineNote').isVisible(), `the ${b} reader says the narration needs internet`);
     }
   }
+  if (await visit(page, base + 'read/ebony-the-club', 3000)) expect(await page.locator('#offlineNote').count() === 1, 'a reader address without its last slash opens');
   offlinePhase = false;
+  await ctx.setOffline(false);
 
   // ---------- 3. A slow signal ----------
   console.log('3. A slow signal: the page falls back to the copy');
