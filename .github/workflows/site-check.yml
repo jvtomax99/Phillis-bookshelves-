@@ -32,5 +32,11 @@ jobs:
         run: |
           npm install --no-save --no-package-lock playwright@1.56.1
           npx playwright install --with-deps chromium
+      - name: Check the offline copy's list
+        # offline-files.json and version.json must match the files in the repo,
+        # or phones keep an older offline copy
+        run: node tools/offline.cjs --check
       - name: Check the site
         run: node .github/site-check.cjs "index.html?start=0" read/ebony-the-club/index.html read/reign-is-mine/index.html
+      - name: Check the site works without internet
+        run: node .github/offline-check.cjs

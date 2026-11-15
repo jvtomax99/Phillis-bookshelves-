@@ -53,6 +53,11 @@ The PB monogram as the tab icon and home-screen icon (`manifest.webmanifest`).
   - Done when: it shows there and nowhere else (not before a story is started, not on Android
     or a computer, not in the installed app).
 
+### Works without internet
+Phillis said yes, 2026-11-15. After one visit with signal, the start screen, shelf, book pages, About and both readers' text open with no signal, from a copy kept on the phone (about 5 MB; 2 MB with data saver, which leaves out the start screen's clips and music). With signal, everything loads from the live site as before; a weak signal falls back to the copy after 4 seconds. The narration and the trailer stay online-only: offline, the reader says "The narration needs internet. You can still read, and your place is kept." and the trailer player says "The trailer needs internet." (wording waiting for Phillis's OK).
+- Done when: on a phone, after one visit with signal, airplane mode still opens the shelf, both book pages, About and both readers; the notes show; progress and "Continue" are unchanged after going back online.
+- Done when: other apps' offline copies on jvtomax99.github.io are untouched, and `"sw": false` in `version.json` or `?sw=off` removes the copy. (Checked by `.github/offline-check.cjs` on every pull request.)
+
 ### Access for everyone
 Keyboard use (arrow keys, Enter, Escape, visible focus), screen reader labels, and calmer motion under reduced motion.
 - Done when: the whole site can be used with the keyboard alone, and nothing big moves under reduced motion.
@@ -61,6 +66,7 @@ Keyboard use (arrow keys, Enter, Escape, visible focus), screen reader labels, a
 
 - "Buy on Amazon" links: the code is ready (`amazon:""` in `BOOKS`), waiting for the Kindle editions. TO FILL: the links, when live.
 - An age check on direct book links and on the readers: the 18+ note only shows on the start screen, which a `#book` link or a reader link skips. (drafted from code, Jose to confirm)
+- Fonts offline: they come from Google Fonts, so offline the lettering falls back to Georgia and Helvetica. Hosting the free fonts in the site is a later change.
 - Style picker for visitors: five other looks exist in the code, but the site is fixed to walnut and the picker is hidden. (drafted from code, Jose to confirm)
 - TO FILL: Jose's own list.
 
