@@ -72,5 +72,10 @@ must keep working.
   at 22%, `400 13px/1.45` text, Share and Add to Home Screen in `600`. Shown
   only in Safari on an iPhone or iPad, when the site is not on the Home
   Screen and the reader has started that story.
+- **Offline notes**: shown only when the narration or trailer can't load.
+  In a reader, `.offline-note` above the player meta row: the reader's own
+  small-label style (label face, `0.66rem`, capitals, `.16em`, muted), centred.
+  In the trailer, `.tr-off` over the video: a `14px` card on `rgba(10,6,7,.82)`
+  with a gold hairline, `600 12px` capitals with `.12em`.
 - **Start screen** (`#start`): see `.claude/rules/start-screen.md`.
 - **Trailer** (`#trailer`): see `.claude/rules/trailer-and-icons.md`.

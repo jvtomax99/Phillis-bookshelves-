@@ -447,6 +447,8 @@ button{font:inherit;color:inherit}
 }
 .trailer .tr-x svg{width:18px;height:18px}
 .trailer .tr-x:focus-visible{outline:2px solid #fff;outline-offset:3px}
+.trailer .tr-off{position:absolute;left:16px;right:16px;top:50%;transform:translateY(-50%);margin:0;padding:14px 16px;border-radius:14px;background:rgba(10,6,7,.82);box-shadow:inset 0 0 0 1px rgba(201,162,91,.45);color:#F6ECDF;text-align:center;font:600 12px/1.4 var(--body);letter-spacing:.12em;text-transform:uppercase}
+.trailer .tr-off[hidden]{display:none}
 .trailer .tr-cap{position:absolute;left:0;right:0;bottom:-28px;margin:0;text-align:center;color:rgba(255,255,255,.72);font:500 11px/1 var(--body);letter-spacing:.2em;text-transform:uppercase}
 @media (max-width:760px){
   .trailer .tr-box{height:min(80vh,calc((100vw - 32px) * 16 / 9))}
@@ -778,6 +780,7 @@ button.buy.tr-book{border:0;cursor:pointer;padding:15px 22px}
   <div class="tr-box">
     <video id="trVideo" poster="video/trailer-poster.jpg" controls playsinline preload="none"></video>
     <button class="tr-x" id="trClose" type="button" aria-label="Close the trailer"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+    <p class="tr-off" id="trOff" role="status" hidden>The trailer needs internet.</p>
     <p class="tr-cap">Adults 18+ · Sound on</p>
   </div>
 </div>
@@ -1144,6 +1147,7 @@ let trFrom = null;
 function openTrailer(from){
   trFrom = from || null;
   if (!trVideo.getAttribute("src")) trVideo.src = "video/trailer.mp4";
+  else if (trVideo.error) trVideo.load();      /* it failed before (no signal): try again */
   trailer.hidden = false;
   $("#trClose").focus({preventScroll:true});
   try { trVideo.currentTime = 0; } catch(_) {}
@@ -1159,6 +1163,12 @@ document.addEventListener("click", e => {
   if (t){ e.preventDefault(); openTrailer(t); }
 });
 $("#trClose").addEventListener("click", closeTrailer);
+/* No signal: the trailer stays online-only (it is not in the offline copy), so say so instead of a dead player */
+trVideo.addEventListener("error", () => {
+  /* only when it is really the connection (code 2), not a phone that can't play the file */
+  if (!navigator.onLine || (trVideo.error && trVideo.error.code === 2)) $("#trOff").hidden = false;
+});
+trVideo.addEventListener("loadeddata", () => { $("#trOff").hidden = true; });
 trailer.addEventListener("click", e => { if (e.target === trailer) closeTrailer(); });
 addEventListener("keydown", e => {
   if (trailer.hidden) return;
@@ -1531,5 +1541,44 @@ if (document.fonts && document.fonts.ready) document.fonts.ready.then(() => { si
 })();
 </script>
 
+<script>
+/* The offline copy, the page's side (the worker is sw.js; how it works is at its top). The worker
+   keeps a copy of the site and uses it only when the internet does not answer; with signal the
+   site loads as it always has. This only starts the worker and asks it to look for a newer copy
+   once the page has finished loading. Off switches: ?sw=off on the address, or "sw": false in
+   version.json. Only this site's caches (names starting "pbb:" plus this folder) are ever removed. */
+(async function () {
+  var sw = navigator.serviceWorker;
+  if (!sw || !window.caches || location.protocol === "file:") return;
+  var here = new URL("./", location.href);
+  async function remove() {
+    try {
+      if (sw.controller) sw.controller.postMessage({ cmd: "off" });   /* so a copy being fetched is dropped, not finished */
+      for (var r of await sw.getRegistrations()) if (r.scope === here.href) await r.unregister();
+      for (var k of await caches.keys()) if (k.indexOf("pbb:" + here.pathname + ":") === 0) await caches.delete(k);
+    } catch (e) {}
+  }
+  /* for tests and for looking: what the worker holds */
+  window.__offline = function () {
+    return new Promise(function (res) {
+      var w = sw.controller; if (!w) return res(null);
+      var ch = new MessageChannel(), t = setTimeout(function () { res(null); }, 4000);
+      ch.port1.onmessage = function (e) { clearTimeout(t); res(e.data); };
+      w.postMessage({ cmd: "state" }, [ch.port2]);
+    });
+  };
+  try {
+    if (new URLSearchParams(location.search).get("sw") === "off") return remove();
+    var v = await fetch("./version.json", { cache: "no-store" }).then(function (r) { return r.ok ? r.json() : null; }).catch(function () { return null; });
+    if (!v) return;                        /* no signal: the copy on the phone carries on */
+    if (v.sw === false) return remove();   /* the off switch */
+    await sw.register("./sw.js", { updateViaCache: "none" });
+    var w = (await sw.ready).active;
+    if (document.readyState !== "complete") await new Promise(function (r) { addEventListener("load", r, { once: true }); });
+    await new Promise(function (r) { setTimeout(r, 4000); });
+    if (w) w.postMessage({ cmd: "check" });
+  } catch (e) {}
+})();
+</script>
 </body>
 </html>

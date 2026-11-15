@@ -17,6 +17,7 @@ A static site: plain HTML, CSS and JS, no build step, no server code, no package
 - `start/`: start screen stills, loops, opening clips (phone and desk), music.
 - `video/`: the trailer and its poster.
 - `icons/`, `manifest.webmanifest`: app icon and install info (shelf only).
+- `sw.js`: the offline worker (how it works is at its top). `tools/offline.cjs` writes `offline-files.json` (the kept files and each one's SHA-1) and `version.json` (a fingerprint of them all, plus the `"sw"` off switch). `.github/offline-check.cjs` tests it in a browser.
 - `SPEC.md`: what it does and the phases. `CLAUDE.md`: project facts and rules.
 - `docs/`: this file, plus Jose's working rules (`design-rules.md`, `assets.md`, `cleanup-audit.md`, `refactor.md`).
 
@@ -37,4 +38,5 @@ Nothing leaves the visitor's device. There is no account, database or server.
   4. "Tap to open" plays `start/open-*.mp4`, holds its last frame, then fades into the shelf; the music fades out and `pb-start-seen` is set. A second tap or Escape skips ahead.
   5. "Continue" (when listening is saved) goes straight to that reader.
 - **Links**: `#reign-is-mine`, `#ebony-the-club` and `#about` open those pages directly. Readers link back with `../../index.html#<book>`.
+- **Offline copy**: the shelf's last script registers `sw.js` (reach: the whole site folder, so the readers too) and, 4 s after load, asks it to check `version.json`. A build it doesn't hold is fetched into the cache `pbb:/Phillis-bookshelves-/:build:<build>`, each file checked against its SHA-1, all or nothing. Every request goes to the internet first; the copy answers only when the internet fails or takes over 4 s. The narration (`.mp3`), the trailer (`video/*.mp4`), Google Fonts, `version.json`, `offline-files.json` and `sw.js` are never served from it. Nothing in `localStorage` is touched.
 - **Trailer**: `video/trailer.mp4` loads only when the player first opens.

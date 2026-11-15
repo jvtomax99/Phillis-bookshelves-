@@ -181,6 +181,7 @@ body {
 
 /* ---------- player ---------- */
 .deck { flex: none; width: 100%; max-width: 640px; margin: 0 auto; display: grid; gap: 0.4rem; padding-top: 0.5rem; padding-bottom: calc(0.7rem + env(safe-area-inset-bottom, 0px)); }
+.offline-note { margin: 0; text-align: center; font-family: var(--label); font-size: 0.66rem; line-height: 1.5; letter-spacing: 0.16em; text-transform: uppercase; color: var(--desk-muted); }
 .meta { display: flex; align-items: center; gap: 0.8rem; font-family: var(--label); font-size: 0.66rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--desk-muted); min-width: 0; }
 .meta .grow { flex: 1; }
 #pagelabel { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; min-width: 0; color: var(--desk-ink); }
@@ -233,6 +234,7 @@ body {
 </div>
 
 <div class="deck" role="region" aria-label="Audio player">
+  <p class="offline-note" id="offlineNote" role="status" hidden>The narration needs internet. You can still read, and your place is kept.</p>
   <div class="meta">
     <span id="pagelabel">Closed</span>
     <span class="grow"></span>
@@ -518,14 +520,18 @@ function setIcon() {
   $('ico-play').hidden = !p; $('ico-pause').hidden = p;
   playBtn.setAttribute('aria-label', p ? 'Play' : 'Pause');
 }
-function savePos() { try { localStorage.setItem(KEY, String(audio.currentTime)); } catch (e) {} }
+/* Only once the narration has really loaded: with no signal its time reads 0, and saving that would wipe the reader's place. */
+function savePos() { if (audio.readyState < 1 || audio.error) return; try { localStorage.setItem(KEY, String(audio.currentTime)); } catch (e) {} }
 audio.addEventListener('play', () => { setIcon(); setFollow(true); cancelAnimationFrame(raf); loop(); });
 audio.addEventListener('pause', () => { setIcon(); cancelAnimationFrame(raf); render(); savePos(); });
 audio.addEventListener('ended', () => { try { localStorage.removeItem(KEY); } catch (e) {} });
 audio.addEventListener('seeked', render);
 setInterval(() => { if (!audio.paused) savePos(); }, 5000);
 
-const play = () => audio.play().catch(() => {});
+/* No signal: the narration stays online-only, so say so (the text still reads). A failed load is tried again on the next play. */
+audio.addEventListener('error', () => { $('offlineNote').hidden = false; });
+audio.addEventListener('loadedmetadata', () => { $('offlineNote').hidden = true; });
+const play = () => { if (audio.error) audio.load(); return audio.play().catch(() => {}); };
 playBtn.addEventListener('click', () => { if (audio.paused) openBook(play); else audio.pause(); });
 $('back').addEventListener('click', () => { audio.currentTime = Math.max(0, audio.currentTime - 15); setFollow(true); render(); });
 $('fwd').addEventListener('click', () => { audio.currentTime = Math.min(DUR, audio.currentTime + 15); setFollow(true); render(); });

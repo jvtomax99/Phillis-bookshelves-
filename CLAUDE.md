@@ -13,9 +13,10 @@ where this file differs, this file wins.
 
 ## Rules for this repo
 
-- **Real user.** Not Jose: Phillis Brown and her readers. Remind Jose to
-  check plans, and any words that speak for Phillis (About text, blurbs,
-  the flyleaf line), with Phillis before building.
+- **Real user.** Not Jose: Phillis Brown and her readers. On 2026-11-15
+  Phillis gave Jose standing permission to do anything on the site, so plans
+  and wording no longer wait for her OK. Still show Jose every plan and any
+  words that speak for her (About text, blurbs, the flyleaf line) first.
 - **Relative paths only.** The site is served from a subfolder, so a link
   starting with `/` breaks on Pages.
 - **Looks.** `index.html` holds several looks as
@@ -30,6 +31,16 @@ where this file differs, this file wins.
   duplicate them without asking.
 - **Readers link the icons but not the manifest,** so a home-screen
   shortcut to a reader opens that reader instead of the shelf.
+- **Offline copy** (`sw.js`, Phillis said yes 2026-11-15): with signal the
+  site loads as always; with none, from a copy on the phone. After changing
+  ANY file the site loads, run `node tools/offline.cjs` and commit
+  `offline-files.json` and `version.json` (CI fails otherwise). A file in a
+  new folder or of a new kind goes into the rules in that script. The worker
+  only ever opens or deletes caches named `pbb:/Phillis-bookshelves-/:...`:
+  other apps on jvtomax99.github.io share cache storage, never delete theirs.
+  Narration and trailer stay out of the copy. Off switches: `"sw": false` in
+  `version.json`, or `?sw=off`. Readers save a listening place only once the
+  narration has loaded (offline it reads 0 and would wipe the place).
 - **`.nojekyll`** keeps Pages from running Jekyll. Do not delete.
 - **Start screen** (`start/` and its code in `index.html`): read
   `.claude/rules/start-screen.md` before changing it. **Trailer and app
@@ -48,7 +59,8 @@ where this file differs, this file wins.
 - **Mockups.** `index.html` and the readers put their main `<style>` in the
   body, after `</head>`. Insert draft CSS before `</body>`, or the page's
   own rules override it and the mock lies.
-- **Site check.** `node .github/site-check.cjs` with the pages listed in
+- **Site check.** `node tools/offline.cjs --check`, `node .github/offline-check.cjs`,
+  and `node .github/site-check.cjs` with the pages listed in
   `.github/workflows/site-check.yml`; it also runs on every pull request and
   must be green before asking Jose to push. A new page goes into that list.
 - **Not made yet:** `DESIGN.md` and `docs/CLEANUP.md`. Follow
