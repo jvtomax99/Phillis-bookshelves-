@@ -13,9 +13,10 @@ where this file differs, this file wins.
 
 ## Rules for this repo
 
-- **Real user.** Not Jose: Phillis Brown and her readers. Remind Jose to
-  check plans, and any words that speak for Phillis (About text, blurbs,
-  the flyleaf line), with Phillis before building.
+- **Real user.** Not Jose: Phillis Brown and her readers. On 2026-11-15
+  Phillis gave Jose standing permission to do anything on the site, so plans
+  and wording no longer wait for her OK. Still show Jose every plan and any
+  words that speak for her (About text, blurbs, the flyleaf line) first.
 - **Relative paths only.** The site is served from a subfolder, so a link
   starting with `/` breaks on Pages.
 - **Looks.** `index.html` holds several looks as
