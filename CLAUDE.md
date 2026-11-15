@@ -63,8 +63,8 @@ where this file differs, this file wins.
   and `node .github/site-check.cjs` with the pages listed in
   `.github/workflows/site-check.yml`; it also runs on every pull request and
   must be green before asking Jose to push. A new page goes into that list.
-- **Not made yet:** `docs/CLEANUP.md`. `DESIGN.md` exists (2026-11-15);
-  change it in the same commit when a look value changes.
+- `DESIGN.md` exists (2026-11-15): change it in the same commit when a look
+  value changes. `docs/CLEANUP.md` holds the open cleanup items.
 - `README.md` is the public readme, not session notes; leave it as it is.
 
 ## Extras Jose asked for here

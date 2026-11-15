@@ -23,7 +23,7 @@ A rendered nightstand with flickering candles. A start menu says the site is for
 - Done when: with reduced motion, data saver or Low Power Mode, the still image shows and the screen still opens to the shelf.
 
 ### Bookshelf
-An endless wood shelf of the two books with props (wine glass, rose, bookends). The picked book turns to show its cover, with its title, details, "Open the book" and "Watch the trailer" below. Move by swipe, wheel, arrow keys or the dots. Each spine shows how far the reader has listened.
+An endless wood shelf of the two books. The picked book turns to show its cover, with its title, details, "Open the book" and "Watch the trailer" below. Move by swipe, wheel, arrow keys or the dots. Each spine shows how far the reader has listened.
 - Done when: a visitor can move between both books on a phone and a laptop and open either one.
 
 ### Book page
