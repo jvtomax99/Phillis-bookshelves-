@@ -3,6 +3,7 @@
   "short_name": "Phillis Brown",
   "start_url": "./",
   "scope": "./",
+  "display": "standalone",
   "background_color": "#F4ECDF",
   "theme_color": "#241007",
   "icons": [

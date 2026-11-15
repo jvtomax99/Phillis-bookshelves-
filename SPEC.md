@@ -45,7 +45,8 @@ One page per book (`read/<book>/`): a black satin hardcover that opens to a two-
 
 ### App icon
 The PB monogram as the tab icon and home-screen icon (`manifest.webmanifest`).
-- Done when: "Add to Home Screen" on iPhone and Android shows the monogram and opens the shelf.
+- Done when: "Add to Home Screen" on iPhone and Android shows the monogram and opens the shelf
+  as an app, full screen, without the browser's bars (Phillis said yes, 2026-11-15).
 
 ### Access for everyone
 Keyboard use (arrow keys, Enter, Escape, visible focus), screen reader labels, and calmer motion under reduced motion.
