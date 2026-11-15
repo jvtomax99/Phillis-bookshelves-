@@ -47,6 +47,11 @@ One page per book (`read/<book>/`): a black satin hardcover that opens to a two-
 The PB monogram as the tab icon and home-screen icon (`manifest.webmanifest`).
 - Done when: "Add to Home Screen" on iPhone and Android shows the monogram and opens the shelf
   as an app, full screen, without the browser's bars (Phillis said yes, 2026-11-15).
+- Install line (Phillis said yes, 2026-11-15): a reader who has started a story, in Safari on
+  an iPhone with the site not on the Home Screen, sees one line on that book's page: "To keep
+  your place on this iPhone, tap Share, then Add to Home Screen."
+  - Done when: it shows there and nowhere else (not before a story is started, not on Android
+    or a computer, not in the installed app).
 
 ### Access for everyone
 Keyboard use (arrow keys, Enter, Escape, visible focus), screen reader labels, and calmer motion under reduced motion.
