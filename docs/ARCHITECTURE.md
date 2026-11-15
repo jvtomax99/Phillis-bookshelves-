@@ -4,7 +4,7 @@ A static site: plain HTML, CSS and JS, no build step, no server code, no package
 
 ## Folders and key files
 
-- `index.html` (1,518 lines): the whole shelf site. Inline CSS, then the markup (start screen `#start`, shelf `#stage`, trailer `#trailer`, book and author page `#detail`), then one script. Script sections, by banner comment:
+- `index.html` (about 1,480 lines): the whole shelf site. Inline CSS, then the markup (start screen `#start`, shelf `#stage`, trailer `#trailer`, book and author page `#detail`), then one script. Script sections, by banner comment:
   - Content: `BOOKS` (one object per book: title, colours, cover, reader path, `progressKey`, `duration`, blurb, content note, Amazon link) and `AUTHOR`.
   - Shelf build, Sizing and endless wrap: draws the shelf (`buildShelf`) in copies so it scrolls without end.
   - Where each reader left off: `posOf`, `refreshProgress`.
@@ -12,7 +12,7 @@ A static site: plain HTML, CSS and JS, no build step, no server code, no package
   - The page that unfolds: `fillBook`, `fillAuthor`, `openBook`, `closePage`.
   - Start: `routeFromHash`, dots, `applyStyle` (fixed to walnut).
   - Start screen: menu, candle loop, opening clip, music.
-- `read/<book>/index.html` (about 610 lines each): a self-contained reader. `PARAS` holds the text with each sentence's start and end time in the audio and its voice; `CHAPTERS` the chapter starts; `KEY` the storage key. The `.mp3` and `cover.jpg` sit beside it.
+- `read/<book>/index.html` (about 600 lines each): a self-contained reader. `PARAS` holds the text with each sentence's start and end time in the audio and its voice; `CHAPTERS` the chapter starts; `KEY` the storage key. The `.mp3` and `cover.jpg` sit beside it.
 - `covers/`: shelf covers, full and `-sm`. `img/`: author photo.
 - `start/`: start screen stills, loops, opening clips (phone and desk), music.
 - `video/`: the trailer and its poster.
