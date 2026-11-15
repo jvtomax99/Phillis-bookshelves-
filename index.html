@@ -288,7 +288,6 @@ button{font:inherit;color:inherit}
     linear-gradient(90deg, rgba(0,0,0,.42) 0%, rgba(255,255,255,.14) 20%, rgba(255,255,255,.04) 46%, rgba(0,0,0,.06) 72%, rgba(0,0,0,.42) 100%),
     repeating-linear-gradient(0deg, rgba(255,255,255,.035) 0 1px, transparent 1px 3px);
 }
-.spine.fill{filter:saturate(.75)}
 .spine.paper{color:#141012;padding:calc(var(--t) * .34) 0 calc(var(--t) * .28)}
 .spine.paper::before{
   background:
@@ -306,9 +305,6 @@ button{font:inherit;color:inherit}
   -webkit-mask:linear-gradient(transparent, #000 6%, #000 94%, transparent);
           mask:linear-gradient(transparent, #000 6%, #000 94%, transparent);
 }
-.band{position:absolute;left:0;right:0;height:2px;background:rgba(222,190,120,.6);box-shadow:0 5px 0 rgba(222,190,120,.45)}
-.band.t{top:9%}
-.band.b{bottom:11%}
 .sp-mark{position:relative;font:italic 500 calc(var(--t) * .3)/1 var(--display);letter-spacing:.02em}
 .sp-title{
   position:relative;margin:auto 0;
@@ -344,44 +340,6 @@ button{font:inherit;color:inherit}
 
 /* Reading progress on the spine */
 .sp-prog{position:absolute;left:0;bottom:0;width:3px;height:calc(var(--p,0) * 100%);background:var(--red);box-shadow:0 0 6px rgba(200,16,46,.5)}
-
-/* Props on the shelf */
-.slot.prop{width:calc(var(--H) * var(--w));height:calc(var(--H) * var(--ph));perspective:none}
-.slot.prop svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
-.slot.prop-g::after,.slot.prop-glass::after,.slot.prop-rose::after{display:none}
-.slot.prop-glass::before,.slot.prop-rose::before{content:"";position:absolute;left:10%;right:10%;bottom:-3px;height:6px;background:radial-gradient(closest-side, rgba(40,20,10,.35), transparent)}
-.mirror{position:absolute;inset:0;transform:scaleX(-1)}
-.prop-endL{margin-right:-1px}.prop-endR{margin-left:-1px}
-.prop-candle .jar{position:absolute;left:12%;right:12%;bottom:0;height:72%;border-radius:10% 10% 14% 14%/8% 8% 12% 12%;
-  background:linear-gradient(90deg, rgba(255,255,255,.55), rgba(255,255,255,.12) 30%, rgba(255,255,255,.08) 70%, rgba(255,255,255,.4));
-  box-shadow:inset 0 0 0 1px rgba(80,60,50,.25)}
-.prop-candle .wax{position:absolute;left:5%;right:5%;bottom:4%;height:74%;border-radius:0 0 12% 12%;background:linear-gradient(#F6EFE3,#E9DCC7)}
-.prop-candle .label{position:absolute;left:50%;top:52%;transform:translate(-50%,-50%);font:italic 600 calc(var(--H) * .045)/1 var(--display);color:#B0142F;letter-spacing:.04em}
-.prop-candle .wick{position:absolute;left:50%;bottom:58%;width:2px;height:7%;background:#2a201c;transform:translateX(-50%)}
-.prop-candle .flame{position:absolute;left:50%;bottom:63%;width:16%;height:30%;margin-left:-8%;border-radius:50% 50% 45% 45%/62% 62% 38% 38%;
-  background:radial-gradient(50% 70% at 50% 72%, #fff 0 18%, #FFE29A 30%, #FFB347 58%, rgba(255,120,40,0) 75%);
-  transform-origin:50% 90%;animation:flick 2.6s ease-in-out infinite}
-.prop-candle .glow{position:absolute;left:50%;bottom:40%;width:calc(var(--H) * .9);height:calc(var(--H) * .9);transform:translate(-50%,50%);
-  background:radial-gradient(closest-side, rgba(255,196,120,.38), rgba(255,196,120,.12) 45%, transparent);pointer-events:none;animation:glow 3.4s ease-in-out infinite}
-@keyframes flick{0%,100%{transform:scale(1,1) rotate(0)}25%{transform:scale(.92,1.06) rotate(-3deg)}50%{transform:scale(1.04,.95) rotate(2deg)}75%{transform:scale(.96,1.08) rotate(-1deg)}}
-@keyframes glow{0%,100%{opacity:.9}50%{opacity:.7}}
-.prop-stack,.prop-stack2{display:flex;flex-direction:column-reverse;align-items:center;justify-content:flex-start}
-.flat{position:relative;display:block;width:var(--fw);height:calc(100% / 3.1);background:var(--c);border-radius:1px 3px 3px 1px;
-  box-shadow:inset 0 -2px 0 rgba(0,0,0,.18), inset 0 1px 0 rgba(255,255,255,.25), 0 1px 0 rgba(0,0,0,.15)}
-.prop-stack2 .flat{height:calc(100% / 2.1)}
-.flat::before{content:"";position:absolute;right:0;top:12%;bottom:12%;width:7%;background:repeating-linear-gradient(#FBF6EC 0 1px,#E8DDCB 1px 2px);border-radius:0 2px 2px 0}
-.flat::after{content:"";position:absolute;left:14%;right:22%;top:44%;height:12%;background:var(--e);opacity:.8}
-.prop-stack .flat:nth-child(2){transform:translateX(-4%) rotate(-.6deg)}
-.prop-frame{cursor:pointer}
-.frame{position:absolute;inset:0;padding:6%;background:linear-gradient(135deg,#1C1716,#0E0B0B);border-radius:2px;
-  box-shadow:inset 0 0 0 1px #C9A25B, 0 14px 24px -12px rgba(40,20,10,.6), 6px 4px 14px -6px rgba(40,20,10,.35);
-  transform:rotate(-2.5deg);transform-origin:50% 100%;transition:transform .4s cubic-bezier(.2,.75,.2,1)}
-.mat{display:block;position:absolute;inset:6%;padding:9%;background:#F7F1E6}
-.photo{display:block;width:100%;height:100%;background:url("img/phillis-brown.jpg") center 18%/cover;box-shadow:inset 0 0 0 1px rgba(0,0,0,.1)}
-.prop-frame:hover .frame,.prop-frame:focus-visible .frame{transform:rotate(0) translateY(-4px)}
-.prop-frame:focus-visible{outline:none}
-.prop-frame:focus-visible .frame{box-shadow:inset 0 0 0 1px #C9A25B, 0 0 0 3px #B0142F}
-@media (prefers-reduced-motion:reduce){.prop-candle .flame,.prop-candle .glow{animation:none}}
 
 /* Drawn covers (used until the real cover image is added) */
 .fc{
@@ -860,48 +818,7 @@ const AUTHOR = {
 };
 
 /* ---------- Shelf build ---------- */
-const FILL = ["#8C6F4E","#6F7F78","#7F6A5C","#9C4F43","#55606B","#7A7158","#5E4B3C","#3F4A44","#6B5A6E","#8A6A45","#4E5560","#9A7B5A"];
 const SET_LAYOUT = ["B1","B0"];
-/* Props: w = width, h = height, both as a share of the shelf height */
-const PROPS = {
-  endL:{w:.15,h:.46}, endR:{w:.15,h:.46}, candle:{w:.3,h:.34}, stack:{w:.6,h:.25}, stack2:{w:.5,h:.18},
-  frame:{w:.46,h:.6}, glass:{w:.2,h:.5}, rose:{w:.26,h:.8}, g:{w:.1,h:.01}
-};
-const SVG_GLASS = `<svg viewBox="0 0 60 150" aria-hidden="true"><defs><clipPath id="bowlClip"><path d="M12 6 C10 40 14 70 30 76 C46 70 50 40 48 6 Z"/></clipPath></defs>
-<g clip-path="url(#bowlClip)"><rect x="0" y="40" width="60" height="40" fill="#7A0E1C"/><rect x="0" y="40" width="60" height="40" fill="url(#wineShade)"/></g>
-<linearGradient id="wineShade" x1="0" x2="1"><stop offset="0" stop-color="#000" stop-opacity=".35"/><stop offset=".45" stop-color="#fff" stop-opacity=".08"/><stop offset="1" stop-color="#000" stop-opacity=".4"/></linearGradient>
-<ellipse cx="30" cy="40" rx="17.6" ry="2.2" fill="#A3192B"/>
-<path d="M12 6 C10 40 14 70 30 76 C46 70 50 40 48 6 Z" fill="rgba(255,255,255,.16)" stroke="rgba(70,50,45,.5)" stroke-width="1.2"/>
-<path d="M16 12 C15 32 17 50 22 62" stroke="rgba(255,255,255,.8)" stroke-width="2" fill="none" stroke-linecap="round"/>
-<rect x="29" y="76" width="2.2" height="63" fill="rgba(90,70,60,.5)"/>
-<ellipse cx="30" cy="143" rx="17" ry="3.6" fill="rgba(255,255,255,.4)" stroke="rgba(70,50,45,.5)" stroke-width="1.1"/></svg>`;
-const SVG_ROSE = `<svg viewBox="0 0 60 160" aria-hidden="true">
-<path d="M30 150 C29 122 31 84 30 44" stroke="#3E6A3A" stroke-width="2.2" fill="none"/>
-<path d="M30 92 C38 84 46 84 50 88 C44 94 36 95 30 92 Z" fill="#4C7C45"/>
-<path d="M30 112 C22 104 14 104 10 108 C16 114 24 115 30 112 Z" fill="#41703B"/>
-<path d="M24 96 L24 112 Q12 124 14 142 Q16 158 30 158 Q44 158 46 142 Q48 124 36 112 L36 96 Z" fill="rgba(255,255,255,.3)" stroke="rgba(80,60,50,.4)" stroke-width="1.1"/>
-<path d="M15.5 132 Q16 156 30 156 Q44 156 44.5 132 Z" fill="rgba(150,185,195,.28)"/>
-<path d="M19 112 Q16 128 18 146" stroke="rgba(255,255,255,.8)" stroke-width="1.6" fill="none"/>
-<g stroke="#D9CDB6" stroke-width=".9">
-<ellipse cx="30" cy="34" rx="15" ry="12.5" fill="#F4EEE2"/>
-<path d="M17 30 C18 18 26 14 30 16 C35 14 43 18 43 30 C38 26 22 26 17 30 Z" fill="#FBF7EE"/>
-<path d="M22 32 C22 24 28 21 31 23 C35 22 38 26 37 31 C33 28 27 28 22 32 Z" fill="#F7F1E5"/>
-<path d="M26 29 C27 25 32 24 33 27 C31 26 28 27 26 29 Z" fill="none"/>
-<path d="M18 40 C22 46 38 46 42 40" fill="none"/></g></svg>`;
-const SVG_END = `<svg viewBox="0 0 40 100" preserveAspectRatio="none" aria-hidden="true"><defs><linearGradient id="endShade" x1="0" x2="1"><stop offset="0" stop-color="#2A2523"/><stop offset=".55" stop-color="#151112"/><stop offset="1" stop-color="#0B0909"/></linearGradient></defs>
-<path d="M0 100 L0 88 L26 88 L26 2 Q26 0 28 0 L38 0 Q40 0 40 2 L40 100 Z" fill="url(#endShade)"/>
-<path d="M26.5 1.2 L39.5 1.2" stroke="#C9A25B" stroke-width="1.4"/><path d="M0.6 88.6 L26 88.6" stroke="#C9A25B" stroke-width="1"/></svg>`;
-function propHTML(name){
-  if (name === "endL") return SVG_END;
-  if (name === "endR") return `<span class="mirror">${SVG_END}</span>`;
-  if (name === "glass") return SVG_GLASS;
-  if (name === "rose") return SVG_ROSE;
-  if (name === "candle") return `<span class="glow"></span><span class="jar"><span class="wax"></span><span class="label">PB</span></span><span class="wick"></span><span class="flame"></span>`;
-  if (name === "stack") return `<span class="flat" style="--fw:92%;--c:#F4EFE6;--e:#141012"></span><span class="flat" style="--fw:100%;--c:#141012;--e:#C8A35E"></span><span class="flat" style="--fw:86%;--c:#C8102E;--e:#F4EFE6"></span>`;
-  if (name === "stack2") return `<span class="flat" style="--fw:100%;--c:#5E4B3C;--e:#C8A35E"></span><span class="flat" style="--fw:88%;--c:#F4EFE6;--e:#C8102E"></span>`;
-  if (name === "frame") return `<span class="frame"><span class="mat"><span class="photo"></span></span></span>`;
-  return "";
-}
 const SETS = 1, MID = 0, JUMP = 3;
 
 const $ = s => document.querySelector(s);
@@ -911,7 +828,6 @@ const capTitle = $("#capTitle"), capMeta = $("#capMeta"), capOpen = $("#capOpen"
 const detail = $("#detail"), ink = $("#ink"), dText = $("#dText"), dCover = $("#dCover"), dInner = $("#dInner"), backBtn = $("#back");
 const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-function rng(seed){return function(){seed|=0;seed=seed+0x6D2B79F5|0;let t=Math.imul(seed^seed>>>15,1|seed);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296}}
 const esc = s => String(s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 
 function drawnCover(b){
@@ -923,7 +839,6 @@ const coverHTML = b => b.cover ? `<img src="${esc(b.cover)}" alt="Cover of ${esc
 function buildShelf(){
   const frag = document.createDocumentFragment();
   for (let s = 0; s < SETS; s++){
-    const r = rng(4100 + (s % JUMP) * 97);
     for (const code of SET_LAYOUT){
       const el = document.createElement("div");
       if (code[0] === "B"){
@@ -943,25 +858,6 @@ function buildShelf(){
               `<span class="sp-auth">Brown</span><span class="sp-prog"></span></span>`+
             `<span class="face cover"></span>`+
           `</span>`;
-      } else if (code[0] === "P" || code === "g"){
-        const name = code === "g" ? "g" : code.slice(2), pr = PROPS[name];
-        el.className = `slot prop prop-${name}`;
-        el._k = pr.w * 300; el._r = pr.h;
-        el.style.cssText = `--w:${pr.w};--ph:${pr.h}`;
-        el.innerHTML = propHTML(name);
-        if (name === "frame"){
-          el.setAttribute("role","button");
-          el.tabIndex = -1;
-          el.setAttribute("aria-label","About Phillis Brown");
-        } else el.setAttribute("aria-hidden","true");
-      } else {
-        const k = 20 + Math.round(r() * 22), h = +(0.8 + r() * 0.17).toFixed(3);
-        const c = code.startsWith("s:") ? code.slice(2) : `var(--f${Math.floor(r() * 6)})`, bands = !code.startsWith("s:") && r() < .5;
-        el.className = "slot filler";
-        el.setAttribute("aria-hidden","true");
-        el._k = k; el._r = h;
-        el.style.cssText = `--k:${k};--r:${h}`;
-        el.innerHTML = `<span class="book"><span class="face spine fill" style="--c:${c}">${bands?'<i class="band t"></i><i class="band b"></i>':""}</span></span>`;
       }
       frag.appendChild(el);
     }
@@ -1127,8 +1023,6 @@ stage.addEventListener("wheel", e => {
 
 track.addEventListener("click", e => {
   if (moved) return;
-  const frame = e.target.closest(".prop-frame");
-  if (frame){ openAuthor({}, frame.querySelector(".frame")); return; }
   const slot = e.target.closest(".slot.real");
   if (!slot){ select(null); return; }
   if (slot === sel) openBook(slot); else select(slot);
