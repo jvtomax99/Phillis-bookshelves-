@@ -87,4 +87,5 @@ Grouped from the git history (21 commits on `main`).
 - [x] Phase 3: polish. Reader header and player, spine lettering, "Read or listen" in view on phones and laptops, ragged-right reader text, keyboard focus, bigger books on tall screens, Ebony's full description and content note.
 - [x] Phase 4: trailer. Promo video on the shelf and each book page.
 - [x] Phase 5: start screen. Rendered nightstand, candle-flicker loop, opening clip, start menu with music.
+- [x] Phase 6: phone app. Opens as an app when installed, the iPhone install line, and the shelf, book pages and story text without internet (verified on Jose's phone, 2026-11-15).
 - [ ] Phase next: to decide with Jose.
