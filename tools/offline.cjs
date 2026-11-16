@@ -11,10 +11,11 @@
 // "sw": false in version.json is the off switch; this script keeps it as it was.
 //
 // Kept ("app"): index.html, the manifest, icons/ (not source.png, 2 MB and not
-// loaded), covers/, img/, the start screen's stills, the trailer's poster, and
-// each reader's page and cover. Kept unless data saver is on ("start"): the
+// loaded), covers/, img/, the start screen's stills, the trailer's poster,
+// each reader's page and cover, and each book's share-link page in book/. Kept unless data saver is on ("start"): the
 // start screen's clips and music. Never kept: the narration (.mp3) and the
-// trailer (video/*.mp4), which stay online-only. A new kind of file, or a file
+// trailer (video/*.mp4), which stay online-only, and share/ (the pictures link
+// apps fetch for a card; no page loads them). A new kind of file, or a file
 // in a new folder, must be added to the rules below.
 const fs = require('fs'), path = require('path'), crypto = require('crypto');
 const root = path.resolve(__dirname, '..');
@@ -35,7 +36,8 @@ const keep = {
     .concat(ls('img', () => true))
     .concat(ls('start', f => f.endsWith('.webp')))
     .concat(['video/trailer-poster.jpg'])
-    .concat(books.flatMap(b => ls('read/' + b, f => f === 'index.html' || f === 'cover.jpg'))),
+    .concat(books.flatMap(b => ls('read/' + b, f => f === 'index.html' || f === 'cover.jpg')))
+    .concat(books.flatMap(b => ls('book/' + b, f => f === 'index.html'))),
   start: ls('start', f => /\.(mp4|webm|m4a)$/.test(f)),
 };
 
