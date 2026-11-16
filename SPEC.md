@@ -96,5 +96,5 @@ Grouped from the git history (21 commits on `main`).
 - [x] Phase 4: trailer. Promo video on the shelf and each book page.
 - [x] Phase 5: start screen. Rendered nightstand, candle-flicker loop, opening clip, start menu with music.
 - [x] Phase 6: phone app. Opens as an app when installed, the iPhone install line, and the shelf, book pages and story text without internet (verified on Jose's phone, 2026-11-15).
-- [ ] Phase 7: share cards and the 18+ note (built 2026-11-16; waiting for Jose's phone test).
+- [x] Phase 7: share cards and the 18+ note. Links show their own card, and a visitor who skips the start screen sees the 18+ note once (verified on Jose's phone, 2026-11-16).
 - [ ] Phase next: to decide with Jose.
