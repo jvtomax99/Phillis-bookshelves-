@@ -4,6 +4,16 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="description" content="Phillis Brown's books: short fiction for grown readers. Pick a story from the shelf to read or listen.">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Phillis Brown Books">
+<meta property="og:title" content="Phillis Brown Books">
+<meta property="og:description" content="Steamy short reads for grown readers. Read them, or listen.">
+<meta property="og:url" content="https://jvtomax99.github.io/Phillis-bookshelves-/">
+<meta property="og:image" content="https://jvtomax99.github.io/Phillis-bookshelves-/share/shelf.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Phillis Brown Books: the two book covers on a dark walnut background">
+<meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="icons/favicon.ico" sizes="any">
 <link rel="icon" type="image/png" sizes="32x32" href="icons/favicon-32.png">
 <link rel="icon" type="image/png" sizes="16x16" href="icons/favicon-16.png">
@@ -1396,7 +1406,7 @@ if (document.fonts && document.fonts.ready) document.fonts.ready.then(() => { si
     setMusic(withSound);
     openBtn.focus({preventScroll:true, focusVisible:false});
   }
-  const markSeen = () => { try { sessionStorage.setItem("pb-start-seen", "1"); } catch(_) {} };
+  const markSeen = () => { try { sessionStorage.setItem("pb-start-seen", "1"); localStorage.setItem("pb-18-ok", "1"); } catch(_) {} };
   function leave(){
     if (stage === 2) return;
     stage = 2; markSeen();
@@ -1470,6 +1480,61 @@ if (document.fonts && document.fonts.ready) document.fonts.ready.then(() => { si
     await new Promise(function (r) { setTimeout(r, 4000); });
     if (w) w.postMessage({ cmd: "check" });
   } catch (e) {}
+})();
+</script>
+<!-- 18+ note (SPEC "18+ note"): once per device, only when the start screen was skipped
+     (a #book link, a book/ card page, a reader link). The same block is in index.html and
+     both readers; change all three. Remembered as pb-18-ok; the start screen sets it too. -->
+<style>
+#ag{position:fixed;inset:0;z-index:100000;display:grid;place-items:center;padding:16px;background:rgba(17,10,6,.86);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);animation:agIn .3s ease both}
+@keyframes agIn{from{opacity:0}}
+@media (prefers-reduced-motion:reduce){#ag{animation:none}}
+#ag .ag-box{max-width:400px;width:100%;box-sizing:border-box;padding:34px 28px 26px;border-radius:14px;background:#24160F;color:#F6ECDF;text-align:center;box-shadow:inset 0 0 0 1px #C9A25B,0 14px 24px -12px rgba(40,20,10,.6)}
+#ag .ag-k{font:600 11px/1 "Instrument Sans","Jost","Helvetica Neue",Arial,sans-serif;letter-spacing:.14em;text-transform:uppercase;color:#CDB9A4}
+#ag h2{font:500 34px/1.1 "Bodoni Moda","Bodoni 72",Didot,Georgia,serif;margin:14px 0 12px;color:#F6ECDF}
+#ag h2 em{color:#C9A25B}
+#ag p{font:400 15px/1.45 "Instrument Sans","Jost","Helvetica Neue",Arial,sans-serif;color:#CDB9A4;margin:0 0 24px}
+#ag button{cursor:pointer;font:600 13px/1 "Instrument Sans","Jost","Helvetica Neue",Arial,sans-serif;letter-spacing:.12em;text-transform:uppercase}
+#ag .ag-go{display:block;width:100%;padding:15px 24px;border:0;border-radius:99px;background:#C9A25B;color:#1a0f09}
+#ag .ag-no{margin-top:12px;padding:8px;border:0;background:none;color:#CDB9A4;font-size:12px;text-decoration:underline;text-underline-offset:4px}
+#ag button:focus-visible{outline:2px solid #F6ECDF;outline-offset:3px}
+</style>
+<script>
+(function(){
+  var root = document.documentElement, ok = false;
+  try {
+    if (new URLSearchParams(location.search).get("age") === "ok") localStorage.setItem("pb-18-ok", "1");
+    ok = localStorage.getItem("pb-18-ok") === "1" || sessionStorage.getItem("pb-start-seen") === "1";
+  } catch (e) {}
+  if (ok || root.classList.contains("ss-on")) return;
+  var body = document.body, d = document.createElement("div");
+  d.id = "ag"; d.setAttribute("role", "dialog"); d.setAttribute("aria-modal", "true");
+  d.setAttribute("aria-labelledby", "agT"); d.setAttribute("aria-describedby", "agP");
+  d.innerHTML = '<div class="ag-box"><div class="ag-k">Phillis Brown</div>'
+    + '<h2 id="agT">For adults <em>18+</em></h2>'
+    + '<p id="agP">These stories have explicit sexual content and mature themes.</p>'
+    + '<button type="button" class="ag-go">I’m 18 or older</button>'
+    + '<button type="button" class="ag-no">Leave</button></div>';
+  var behind = Array.prototype.filter.call(body.children, function(el){ return !el.inert && !/^(SCRIPT|STYLE|LINK|META|TITLE)$/.test(el.tagName); });
+  behind.forEach(function(el){ el.inert = true; });
+  body.appendChild(d);
+  var go = d.querySelector(".ag-go"), no = d.querySelector(".ag-no");
+  setTimeout(function(){ go.focus({focusVisible: false}); }, 0);
+  go.addEventListener("click", function(){
+    try { localStorage.setItem("pb-18-ok", "1"); } catch (e) {}
+    behind.forEach(function(el){ el.inert = false; });
+    d.remove();
+  });
+  no.addEventListener("click", function(){
+    if (document.referrer && history.length > 1) { history.back(); return; }
+    Array.prototype.forEach.call(document.querySelectorAll("audio,video"), function(m){ try { m.pause(); } catch (e) {} });
+    body.innerHTML = '<p style="margin:0;min-height:100vh;display:grid;place-items:center;padding:16px;box-sizing:border-box;background:#110A06;color:#CDB9A4;font:400 16px/1.4 Helvetica,Arial,sans-serif">Come back when you’re 18.</p>';
+  });
+  // Keys stay in the note: Tab moves between its two buttons, nothing reaches the page behind.
+  d.addEventListener("keydown", function(e){
+    e.stopPropagation();
+    if (e.key === "Tab") { e.preventDefault(); (document.activeElement === go ? no : go).focus(); }
+  });
 })();
 </script>
 </body>
