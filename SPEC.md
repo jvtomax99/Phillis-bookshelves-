@@ -64,7 +64,7 @@ Jose picked this, 2026-11-16. A link texted or posted shows a picture and a line
 
 ### 18+ note
 Jose picked this, 2026-11-16. A visitor who skips the start screen (a book link, a `book/` link or a reader link) sees "For adults 18+" once on that device, with "I'm 18 or older" and "Leave". Entering through the start screen counts as the answer. "Leave" goes back, or shows "Come back when you're 18." This is a courtesy note, not age verification.
-- Done when: a book or reader link on a new device shows the note once; after "I'm 18 or older" no page asks again; a visitor who came in through the start screen is never asked.
+- Done when: a book or reader link on a new device shows the note once; after "I'm 18 or older" no page asks again; a visitor who came in through the start screen is never asked (from phase 7 on: readers who entered before it went live are asked once).
 
 ### Access for everyone
 Keyboard use (arrow keys, Enter, Escape, visible focus), screen reader labels, and calmer motion under reduced motion.

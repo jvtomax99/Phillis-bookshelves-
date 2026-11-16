@@ -1,5 +1,5 @@
 {
- "build": "f3ffa87dcaa6",
+ "build": "9390df739197",
  "app": [
   "index.html",
   "manifest.webmanifest",
@@ -41,7 +41,7 @@
   "start/open-phone.webm"
  ],
  "sha1": {
-  "index.html": "677e40f4b27645f556efc5d6a017e8517133953f",
+  "index.html": "32533b42bc6c69a7405dae254de5f9bcef14dde6",
   "manifest.webmanifest": "b576aa68b4289f51b0d6c02f76d6a5951e31c621",
   "icons/apple-touch-icon.png": "5320f7822e080f53b2f5bd4d8f69d9c09e5dfd0f",
   "icons/favicon-16.png": "562ec24b200a5294748b272fc26653d7c0fc7221",
@@ -62,9 +62,9 @@
   "start/open-phone.webp": "f54fe364760505b5140508c59ad7669f15317e26",
   "video/trailer-poster.jpg": "61e1d00cdf912e275cc9aae335f36cd8d9ff8ef1",
   "read/ebony-the-club/cover.jpg": "52bf3a6ab34b699a0a73bce2f1bacf99ed9e7cb3",
-  "read/ebony-the-club/index.html": "d8fea18277e239206e0494c300c78a5de35f2852",
+  "read/ebony-the-club/index.html": "f3e57fa31da4ca2b960ff00f7fee74f4ab8d724f",
   "read/reign-is-mine/cover.jpg": "24d8f52327fd0c3eb915bc1a7a2f3fe8b9c92744",
-  "read/reign-is-mine/index.html": "334998c13503ca23f169d0f917a5164c2ea8be86",
+  "read/reign-is-mine/index.html": "4dc05dc21bd54ba3efb068bda544d1c2ee48d466",
   "book/ebony-the-club/index.html": "6a41d5d0b4d35bd2106ba2589747c33538a11f1b",
   "book/reign-is-mine/index.html": "c61d324fca1b1757cf2bd71b9f1b233941b2c2e3",
   "start/loop-desk.mp4": "ea6af1ac5998d22f4cd50ba5e7a6e3e11c5c766b",
