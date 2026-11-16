@@ -17,6 +17,8 @@ A static site: plain HTML, CSS and JS, no build step, no server code, no package
 - `start/`: start screen stills, loops, opening clips (phone and desk), music.
 - `video/`: the trailer and its poster.
 - `icons/`, `manifest.webmanifest`: app icon and install info (shelf only).
+- `book/<book>/index.html`: each book's share link. It holds that book's card tags (`og:` and `twitter:`), then sends the visitor straight on to `../../index.html#<book>`. It exists because link apps ignore the `#part` of an address.
+- `share/`: the 1200x630 share pictures (shelf and one per book), made by `tools/share-cards.cjs` from the covers. Rerun it when a cover or title changes. They're left out of the offline copy, since no page loads them.
 - `sw.js`: the offline worker (how it works is at its top). `tools/offline.cjs` writes `offline-files.json` (the kept files and each one's SHA-1) and `version.json` (a fingerprint of them all, plus the `"sw"` off switch). `.github/offline-check.cjs` tests it in a browser.
 - `SPEC.md`: what it does and the phases. `CLAUDE.md`: project facts and rules.
 - `docs/`: this file, plus Jose's working rules (`design-rules.md`, `assets.md`, `cleanup-audit.md`, `refactor.md`).
@@ -37,6 +39,7 @@ Nothing leaves the visitor's device. There is no account, database or server.
   3. The menu (18+ note): "Enter with sound" or "Enter quietly". Music (`start/music.m4a` or `.webm`) is fetched and played through Web Audio as a 58.182 s loop.
   4. "Tap to open" plays `start/open-*.mp4`, holds its last frame, then fades into the shelf; the music fades out and `pb-start-seen` is set. A second tap or Escape skips ahead.
   5. "Continue" (when listening is saved) goes straight to that reader.
-- **Links**: `#reign-is-mine`, `#ebony-the-club` and `#about` open those pages directly. Readers link back with `../../index.html#<book>`.
+- **Links**: `#reign-is-mine`, `#ebony-the-club` and `#about` open those pages directly. Readers link back with `../../index.html#<book>`. The links to share are `book/<book>/` (that book's card) and the site root (the shelf card). The readers carry their book's card too.
+- **18+ note**: a block at the end of `index.html` and of each reader (three copies, same code). It shows once per device when the start screen didn't run. The answer is saved as `pb-18-ok` in `localStorage`. Entering through the start screen sets it too (`markSeen`), and so does `?age=ok`. If storage is blocked it asks on each page and never locks anyone out.
 - **Offline copy**: the shelf's last script registers `sw.js` (reach: the whole site folder, so the readers too) and, 4 s after load, asks it to check `version.json`. A build it doesn't hold is fetched into the cache `pbb:/Phillis-bookshelves-/:build:<build>`, each file checked against its SHA-1, all or nothing. Every request goes to the internet first; the copy answers only when the internet fails or takes over 4 s. The narration (`.mp3`), the trailer (`video/*.mp4`), Google Fonts, `version.json`, `offline-files.json` and `sw.js` are never served from it. Nothing in `localStorage` is touched.
 - **Trailer**: `video/trailer.mp4` loads only when the player first opens.

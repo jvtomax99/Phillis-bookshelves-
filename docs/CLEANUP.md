@@ -17,6 +17,8 @@ CLEANUP.md items ...").
      book cheaper to add.
    - Risk: **medium**. It changes how both readers load. It needs the full
      site check and offline check, plus a phone test of both readers.
+     The 18+ note block (2026-11-16) is a third shared copy: it's in
+     `index.html` and both readers, so the merge should make it one file.
      Rules to keep: `KEY` per book, the readers not linking the manifest,
      and the offline file list (the shared script goes into
      `tools/offline.cjs`).
