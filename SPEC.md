@@ -58,6 +58,14 @@ Phillis said yes, 2026-11-15. After one visit with signal, the start screen, she
 - Done when: on a phone, after one visit with signal, airplane mode still opens the shelf, both book pages, About and both readers; the notes show; progress and "Continue" are unchanged after going back online.
 - Done when: other apps' offline copies on jvtomax99.github.io are untouched, and `"sw": false` in `version.json` or `?sw=off` removes the copy. (Checked by `.github/offline-check.cjs` on every pull request.)
 
+### Share cards
+Jose picked this, 2026-11-16. A link texted or posted shows a picture and a line instead of a bare address. The site root shows the shelf card (both covers). `book/reign-is-mine/` and `book/ebony-the-club/` show that book's card, and so do the readers. The book links send people straight on to the book page. The pictures are in `share/` and come from the covers (`tools/share-cards.cjs`).
+- Done when: each of the three links, texted to a phone, shows its own picture, title and line, and tapping it opens the right page.
+
+### 18+ note
+Jose picked this, 2026-11-16. A visitor who skips the start screen (a book link, a `book/` link or a reader link) sees "For adults 18+" once on that device, with "I'm 18 or older" and "Leave". Entering through the start screen counts as the answer. "Leave" goes back, or shows "Come back when you're 18." This is a courtesy note, not age verification.
+- Done when: a book or reader link on a new device shows the note once; after "I'm 18 or older" no page asks again; a visitor who came in through the start screen is never asked (from phase 7 on: readers who entered before it went live are asked once).
+
 ### Access for everyone
 Keyboard use (arrow keys, Enter, Escape, visible focus), screen reader labels, and calmer motion under reduced motion.
 - Done when: the whole site can be used with the keyboard alone, and nothing big moves under reduced motion.
@@ -65,7 +73,7 @@ Keyboard use (arrow keys, Enter, Escape, visible focus), screen reader labels, a
 ## Not in v1
 
 - "Buy on Amazon" links: the code is ready (`amazon:""` in `BOOKS`), waiting for the Kindle editions. TO FILL: the links, when live.
-- An age check on direct book links and on the readers: the 18+ note only shows on the start screen, which a `#book` link or a reader link skips. (drafted from code, Jose to confirm)
+- A Share button on the book page: copying the address bar gives the shelf card, not the book's.
 - Fonts offline: they come from Google Fonts, so offline the lettering falls back to Georgia and Helvetica. Hosting the free fonts in the site is a later change.
 - Style picker for visitors: five other looks exist in the code, but the site is fixed to walnut and the picker is hidden. (drafted from code, Jose to confirm)
 - TO FILL: Jose's own list.
@@ -88,4 +96,5 @@ Grouped from the git history (21 commits on `main`).
 - [x] Phase 4: trailer. Promo video on the shelf and each book page.
 - [x] Phase 5: start screen. Rendered nightstand, candle-flicker loop, opening clip, start menu with music.
 - [x] Phase 6: phone app. Opens as an app when installed, the iPhone install line, and the shelf, book pages and story text without internet (verified on Jose's phone, 2026-11-15).
+- [ ] Phase 7: share cards and the 18+ note (built 2026-11-16; waiting for Jose's phone test).
 - [ ] Phase next: to decide with Jose.

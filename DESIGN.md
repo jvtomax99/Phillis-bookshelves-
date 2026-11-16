@@ -77,5 +77,14 @@ must keep working.
   small-label style (label face, `0.66rem`, capitals, `.16em`, muted), centred.
   In the trailer, `.tr-off` over the video: a `14px` card on `rgba(10,6,7,.82)`
   with a gold hairline, `600 12px` capitals with `.12em`.
+- **18+ note** (`#ag`): over the whole page on `rgba(17,10,6,.86)` with a 6px
+  blur. A `14px` card in `--wall` with a gold hairline, a small-label "Phillis
+  Brown", the title in `500 34px` display face with "18+" in gold italic, a
+  `400 15px` line in `--muted`, a filled gold pill (`.buy` size), and "Leave" as
+  an underlined small label. Fixed walnut colours, so it looks the same in the
+  readers.
+- **Share pictures** (`share/`, 1200x630): the wall gradient, a gold hairline
+  inset 22px, the cover(s) on the left, kicker, title with the gold italic word,
+  the pull line, and the script signature. Made by `tools/share-cards.cjs`.
 - **Start screen** (`#start`): see `.claude/rules/start-screen.md`.
 - **Trailer** (`#trailer`): see `.claude/rules/trailer-and-icons.md`.

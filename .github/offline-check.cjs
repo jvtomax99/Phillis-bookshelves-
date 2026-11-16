@@ -47,7 +47,7 @@ const server = http.createServer(async (req, res) => {
   fs.createReadStream(p).pipe(res);
 });
 
-const SAVED = { 'book2-pos': '123.4', 'book-ebony-club-pos': '55.5', 'book2-pos-view': '0', 'book-ebony-club-pos-view': '0', 'pb-style': 'walnut' };
+const SAVED = { 'book2-pos': '123.4', 'book-ebony-club-pos': '55.5', 'book2-pos-view': '0', 'book-ebony-club-pos-view': '0', 'pb-style': 'walnut', 'pb-18-ok': '1' };
 const DECOYS = ['atl:/CPA-study-app/:build:test', 'pk:test', 'pbb:/someone-else/:build:x'];
 
 (async () => {

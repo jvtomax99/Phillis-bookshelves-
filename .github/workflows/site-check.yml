@@ -37,6 +37,6 @@ jobs:
         # or phones keep an older offline copy
         run: node tools/offline.cjs --check
       - name: Check the site
-        run: node .github/site-check.cjs "index.html?start=0" read/ebony-the-club/index.html read/reign-is-mine/index.html
+        run: node .github/site-check.cjs "index.html?start=0" read/ebony-the-club/index.html read/reign-is-mine/index.html book/ebony-the-club/index.html book/reign-is-mine/index.html
       - name: Check the site works without internet
         run: node .github/offline-check.cjs
